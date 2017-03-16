@@ -1,0 +1,304 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">CLIENTES</h1>
+</div>
+<div class="wrapper-md" ng-controller="CustomerController as vm">
+<div ng-if="!vm.customerDto">
+	<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+</div>
+
+	<div ng-if="!vm.customerDto">
+	<div class="panel panel-default">
+        <div class="panel-heading">
+	    	<button ng-click="vm.newCustomer()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO CLIENTE</button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i>ACTUALIZAR</button>
+            <p style="float: right;">B&Uacute;SQUEDA : <input type="search" ng-model="search" class="form-control input-sm w-sm inline m-r" placeholder="B&Uacute;SQUEDA GENERAL"></p> 
+        </div>
+
+		<div class="panel-body">
+			 <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true">
+                	<tr ng-repeat="customer in $data">
+						<td data-title="'RAZ&Oacute;N SOCIAL'">{{customer.comercialName}}</td>
+						<td data-title="'N&Uacute;MERO DE IDENTIFICACI&Oacute;N'">{{customer.identificationNumber}}</td>
+						<td data-title="'DIRECCI&Oacute;N'">{{customer.address}}</td>
+						<td data-title="'EMAIL'">{{customer.email}}</td>
+						<td data-title="'CARGA IVA'">{{customer.ivaLoader}}</td>
+						<td align="center" data-title="'ESTADO'">{{customer.status}}</td>
+						<td data-title="'ACCI&Oacute;N'" align="center">
+							<div class="text-center" style="width:100px">
+								<button  class="btn btn-info btn-xs" ng-click="vm.editCustomer(customer)"><i class="glyphicon glyphicon-edit"></i></button>
+								<button class="btn btn-success btn-xs" ng-click="vm.save(customer,true)"><i class="glyphicon glyphicon-ok-circle"></i></button>
+								<button class="btn btn-danger btn-xs" ng-click="vm.save(customer,false)"><i class="glyphicon glyphicon-trash"></i></button>
+							</div>
+						</td>
+					</tr>
+                </table>
+		</div>
+		</div>
+	</div>
+
+
+
+	<div ng-if="vm.customerDto" class="padder">
+		<form name="formPerson" class="form-validation">
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div>
+						<div class="panel-heading font-bold">INGRESE DATOS DEL
+							CLIENTE</div>
+						<div class="panel-body">
+
+						
+
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Nombres / Nombre Comercial:</label>
+								<div class="col-sm-9">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="ingrese los nombres de la persona o el nombre comercial del cliente"
+										ng-model="vm.customerDto.comercialName" name="manufacturer"
+										class="form-control" required />
+								</div>
+							</div>
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Apellidos	/Raz&oacute;n social: </label>
+								<div class="col-sm-10">
+									<input type="text" ng-model="vm.customerDto.razonSocial"
+										style="text-transform:uppercase" type="text"
+										class="form-control"
+										placeholder="ingrese los apellidos de la persona o la raz&oacute;n social del cliente"
+										required />
+								</div>
+							</div>
+
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Direcci&oacute;n:</label>
+								<div class="col-sm-10">
+									<input type="text" ng-model="vm.customerDto.address"
+										style="text-transform:uppercase" type="text"
+										class="form-control"
+										placeholder="ingrese la direcci&oacute;n del cliente" required />
+								</div>
+							</div>
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<ui-number-identification
+									tag-option ="2"
+									tag-number="vm.customerDto.person.identificationNumber"
+									tag-identification-type="vm.customerDto.person.catalogIdentificationType"
+									tag-validator="vm.numeroValidado"> </ui-number-identification>
+							</div>
+							<div ng-if="vm.customerDto.person.id ? (vm.numeroValidado = true):(vm.numeroValidado = false)" ></div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">T&eacute;lefono:</label>
+								<div class="col-sm-10">
+									<input type="text" ng-model="vm.customerDto.phone"
+										type="text"
+										class="form-control"
+										placeholder="ingrese el n&uacute;mero de tel&eacute;fono del cliente"
+										required />
+								</div>
+							</div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Email:</label>
+								<div class="col-sm-10">
+									<input type="email" ng-model="vm.customerDto.email"
+										class="form-control"
+										placeholder="ingrese el email"
+										required />
+								</div>
+							</div>
+							
+						<div class="line line-dashed b-b line-lg pull-in"></div>
+						<div class="form-group">
+						<label class="col-sm-2 control-label">Carga Iva:</label>
+						<div class="col-sm-10" ng-init= "vm.customerDto.ivaLoader==undefined ? (vm.customerDto.ivaLoader= true): (vm.customerDto.ivaLoader= vm.customerDto.ivaLoader)">
+							<label class="i-switch i-switch-md bg-info m-t-xs m-r"> 
+								<input ng-model="vm.customerDto.ivaLoader" type="checkbox" checked />
+								<i></i>
+							</label>	
+						</div>
+						</div>
+							
+
+						</div>
+					</div>
+					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label"> M&aacute;s informaci&oacute;n ?</label>
+						<div class="col-sm-2"
+							ng-init="vm.customerDto.opcion ==null?( vm.customerDto.opcion = false): (vm.customerDto.opcion== true)">
+							<label class="i-switch bg-primary m-t-md m-r"> <input
+								ng-model="vm.customerDto.opcion" type="checkbox" checked /> <i></i></label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="vm.customerDto.opcion"  class="animated fadeInRight m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div>
+						<div class="panel-heading font-bold">INGRESE DATOS DE LA PERSONA</div>
+						<div class="panel-body">
+							
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Primer nombre:</label>
+								<div class="col-sm-10">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="ingrese el primer nombre"
+										ng-model="vm.customerDto.person.firstName" name="manufacturer"
+										class="form-control" required />
+								</div>
+							</div>
+
+							
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Segundo nombre:</label>
+								<div class="col-sm-10">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="ingrese el segundo nombre"
+										ng-model="vm.customerDto.person.secondName" name="manufacturer"
+										class="form-control" required />
+								</div>
+							</div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Primer apellido:</label>
+								<div class="col-sm-10">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="ingrese el primer apellido"
+										ng-model="vm.customerDto.person.firstLastName" name="manufacturer"
+										class="form-control" required />
+								</div>
+							</div>
+							
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Segundo apellido:
+								</label>
+								<div class="col-sm-10">
+									<input type="text" ng-model="vm.customerDto.person.secondLastName"
+										style="text-transform:uppercase" type="text"
+										class="form-control"
+										placeholder="ingrese el segundo apellido" required />
+								</div>
+							</div>
+
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+				                    <div>
+				                        <label class="col-sm-2 control-label">Fecha de nacimiento:</label>
+				                    </div>
+				                    <div >
+				                        <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
+				                            <div class="input-group w-md">
+				                                <input type="text" class="form-control" ng-disabled="activeDirective" datepicker-popup="{{format}}" ng-model="vm.customerDto.person.birthDate" is-open="opened" datepicker-options="dateOptions" close-text="Close" required/> 
+				                                <span class="input-group-btn">
+													<button type="button" class="btn btn-default" ng-click="open($event)">
+														<i class="glyphicon glyphicon-calendar"></i>
+													</button>
+												</span>
+				                            </div>
+				                        </div>
+				                    </div>
+
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<div >
+									<div >
+										<label class="col-sm-2 control-label">Sexo:
+										</label> 
+									</div>
+									<div class="panel-body">
+		                        <div class="col-sm-10">
+		                            <div class="row-fluid" ng-init="catSex.id==vm.customerDto.person.catalogSex.id?(catSex=vm.customerDto.person.catalogSex):''" 
+		                            ng-repeat="catSex in vm.catalogSexList">
+		                                <label class="i-checks">
+		                                    <input type="radio" ng-model="vm.customerDto.person.catalogSex" ng-value="catSex"  required /> <i></i>
+		                                    {{catSex.name}}<br />
+		                                </label>
+		                            </div>
+		                        </div>
+                    			</div>
+								</div>
+							</div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<div >
+									<div >
+										<label class="col-sm-2 control-label" >Estado civil:
+										</label> 
+									</div>
+									<div class="panel-body">
+		                        <div class="col-sm-10">
+		                             <div class="row-fluid" ng-repeat="catMaritalStatus in vm.catalogMStatusList">
+                                <label class="i-checks">
+                                    <div ng-init="catMaritalStatus.id==vm.customerDto.person.catalogMaritalStatus.id?(catMaritalStatus=vm.customerDto.person.catalogMaritalStatus):''" />
+                                    <input type="radio" ng-model="vm.customerDto.person.catalogMaritalStatus" ng-value="catMaritalStatus" ng-disabled="activeDirective" required />
+                                    <i></i> {{catMaritalStatus.name}}<br />
+                                </label>
+                            </div>
+		                        </div>
+                    			</div>
+								</div>
+							</div>
+							
+
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<div >
+									<div >
+										<label class="col-sm-2 control-label">Tipo persona:
+										</label> 
+									</div>
+									<div class="panel-body">
+		                        <div class="col-sm-10">
+		                            <div class="row-fluid" ng-repeat="prnType in vm.catalogLstPrnType">
+		                            <div ng-init="prnType.id==vm.customerDto.person.catalogPersonType.id?(prnType=vm.customerDto.person.catalogPersonType):''" />
+		                                <label class="i-checks">
+		                                    <input type="radio" ng-model="vm.customerDto.person.catalogPersonType" ng-value="prnType"  required /> <i></i>
+		                                    {{prnType.name}}<br />
+		                                </label>
+		                            </div>
+		                        </div>
+                    			</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="m-b-sm">
+					<div class="row">
+						<button type="submit"
+							ng-click="formPerson.$valid ? (vm.save(vm.customerDto,true)):vm.alertRequiredFields()"
+							href class="btn btn-info col-sm-6">GUARDAR</button>
+						<button href class="btn btn-warning col-sm-6"
+							ng-click="vm.cancel();">CANCELAR</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,116 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">ADICIONALES</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="AdditionalController as vm">
+<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" >{{alert.msg}}</alert>
+	<div class="panel panel-default" ng-if="!vm.additionalObj">	
+	
+	    <div class="panel-heading">
+	    	<button ng-click="vm.newAdditional()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO ADICIONAL</button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i>ACTUALIZAR</button>
+            <p style="float: right;">B&Uacute;SQUEDA : <input type="search" ng-model="search" class="form-control input-sm w-sm inline m-r" placeholder="B&Uacute;SQUEDA GENERAL"></p> 
+        </div>
+
+			<div class="panel-body">
+				<table ng-table="vm.tableParams" class="table table-hover table-striped" show-filter="true">
+					<thead>
+						<tr>
+							<th class="text-right">ID</th>
+							<th class="text-right">NOMBRE</th>
+							<th class="text-right">PAR&Aacute;METRO</th>
+							<th class="align-right">SIGNO</th>
+							<th class="align-right">SUMA ANTES</th>
+							<th>ESTADO</th>
+							<th>ACCI&Oacute;N</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="additional in $data">
+						<td style="width:900px">{{additional.id}}</td>
+						<td style="width:900px">{{additional.name}}</td>
+						<td style="width:900px">{{additional.parameter}}</td>
+						<td style="width:900px">{{additional.sign}}</td>
+						<td style="width:700px">{{additional.addBefore}}</td>
+						<td class="text-center" style="width:700px">{{additional.status}}</td>
+
+						<td>
+							<div class="text-center" style="width:200px">
+								<button  class="btn btn-info btn-xs" ng-click="vm.editAdditional(additional)"><i class="glyphicon glyphicon-edit"></i></button>
+								<button class="btn btn-success btn-xs" ng-click="vm.saveAdditional(additional, true)"><i class="glyphicon glyphicon-ok-circle"></i></button>
+								<button class="btn btn-warning btn-xs" ng-click="vm.saveAdditional(additional, false)"><i class="glyphicon glyphicon-ban-circle"></i></button>
+							</div>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+
+
+
+	<form name="form" class="form-validation" ng-if="vm.additionalObj">
+		<div class="panel panel-default">
+
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">PARAMETROS DEL ADICIONAL</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">NOMBRE: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.additionalObj.name"
+								class="form-control" placeholder="ingrese el nombre deL adicional"
+								required />
+						</div>
+					</div>
+
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">PAR&Aacute;METRO: </label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="ingrese el valor del parametro"
+								ng-model="vm.additionalObj.parameter" name="parametro"
+								class="form-control" required />
+						</div>
+					</div>
+					
+					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">SIGNO: </label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="ingrese el signo del adicional"
+								ng-model="vm.additionalObj.sign" name="signo"
+								class="form-control" required />
+						</div>
+					</div>
+					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">SUMA ANTES: </label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="ingrese el signo del adicional"
+								ng-model="vm.additionalObj.addBefore" name="addBefore"
+								class="form-control" required />
+						</div>
+					</div>
+			
+				</div>
+
+			</div>
+	<div class="m-b-sm">
+        <div class="btn-group btn-group-justified">
+         <a ng-hide="form.$invalid"  href class="btn btn-success" ng-click="vm.additionalObj.id ==  undefined ?  (vm.saveAdditional(vm.additionalObj, true)) : (vm.saveAdditional(vm.additionalObj, vm.additionalObj.status))   " >GUARDAR</a>
+         <a ng-show="form.$invalid" href class="btn btn-default">GUARDAR</a>
+         <a href class="btn btn-warning" ng-click="vm.cancelAdditional();">CANCELAR</a>
+        </div>
+     </div>
+		</div>
+	
+	</form>
+	
+</div>

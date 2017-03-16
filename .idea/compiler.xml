@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pyxme-application" />
+        <module name="pyxme-core" />
+        <module name="pyxme-ear" />
+        <module name="pyxme-log" />
+        <module name="pyxme-report" />
+        <module name="pyxme-resources" />
+        <module name="pyxme-sri" />
+        <module name="pyxme-web" />
+        <module name="site" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pyxme" target="1.7" />
+      <module name="pyxme-application" target="1.7" />
+      <module name="pyxme-core" target="1.7" />
+      <module name="pyxme-ear" target="1.7" />
+      <module name="pyxme-log" target="1.7" />
+      <module name="pyxme-report" target="1.7" />
+      <module name="pyxme-resources" target="1.7" />
+      <module name="pyxme-sri" target="1.7" />
+      <module name="pyxme-web" target="1.7" />
+      <module name="site" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

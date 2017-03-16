@@ -1,0 +1,142 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">FACTURA</h1>
+</div>
+<div class="wrapper-md" ng-controller="BillController as vm">
+
+    <script type="text/ng-template" id="modal-select-customer">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Modal Customer list Content </h4>
+        </div>
+
+        <div class="modal-body">
+            <ui-customer current-customer="vm.customerDto" customer-list="vm.customerList"></ui-customer>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="vm.submit();">Aceptar</button>
+        </div>
+    </script>
+
+    <div >
+        <button class="btn m-b-xs btn-sm btn-primary btn-addon" ng-click="vm.newPersonEvent();"><i class="fa fa-plus"></i>Nuevo</button>
+        <button class="btn m-b-xs btn-sm btn-info btn-addon" ng-click="vm.findPersonEvent();"><i class="fa fa-search" ></i>Buscar</button>
+        <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="vm.saveBillEvent();"><i class="fa fa-save" ></i>Guardar</button>
+        
+    </div>
+
+    <form name="form" class="form-validation form-horizontal">
+        <div class="panel panel-primary">
+
+            <div class="panel-body" ng-if="!vm.customerDto">
+
+                <div class="input-group col-md-3">
+                    <div class="input-group-addon">Cliente</div>
+                    <input type="text" class="form-control" placeholder="Buscar por: N&uacute;mero de documento o Apellidos..." ng-model="vm.filter"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" ng-click="vm.findByFilter(vm.filter)"><i class="fa fa-search-plus"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="panel-body" ng-if="vm.customerDto">
+                <label class="col-md-2">Fecha de expedici&oacute;n</label>                
+                <div class="col-md-4" ng-controller="DatepickerDemoCtrl">
+							<div class="input-group w-md">
+								<input type="text" class="form-control"datepicker-popup="{{format}}" ng-model="vm.headerInvoiceDto.elaborationDate" is-open="opened"
+									datepicker-options="dateOptions" ng-required="true"	close-text="Close" /> <span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+
+                <label class="col-md-2">Fecha de vencimiento</label>
+                <input type="text" class="col-md-4" placeholder="">
+
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                <label class="col-md-2">Cliente</label>
+                <input type="text" class="col-md-4" placeholder="" ng-model="vm.headerInvoiceDto.customer.comercialName"/>
+                
+
+                <label class="col-md-2">Direcci&oacute;n</label>
+                <input type="text" class="col-md-4" placeholder="" ng-model="vm.headerInvoiceDto.customer.address">
+
+                <label class="col-md-2">Tel&eacute;fono</label>
+                <input type="text" class="col-md-4" placeholder="" >
+
+                <label class="col-md-2">Email</label>
+                <input type="text" class="col-md-4" placeholder="" ng-model="vm.headerInvoiceDto.customer.email">
+            </div>
+
+
+        </div>
+
+
+        <div class="input-group col-md-3">
+            <div class="input-group-addon">Art&iacute;culo</div>
+            <input type="text" class="form-control" placeholder="Buscar por: C&oacute;digo o descripci&oacute;n..." ng-model="vm.articlefilter"/>
+            <span class="input-group-btn">
+                <button class="btn btn-info" type="button" ng-click="vm.findByArticleFilter(vm.articlefilter)"><i class="fa fa-search-plus"></i></button>
+            </span>
+        </div>
+
+        <div class="panel panel-primary" >
+            <div class="panel-heading" style="height: 30px !important;">
+                <div class="col-md-1">Cantidad</div>
+                <div class="col-md-6">Descipci&oacute;n</div>
+                <div class="col-md-2">Vr. Unitario</div>
+                <div class="col-md-2">Vr. Total</div>
+                <div class="col-md-1">Acci&oacute;n</div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row row-fluid" ng-repeat="iterador in vm.headerInvoiceDto.lstInvoiceDetails">
+                    <input class="col-md-1 text-center " ng-change="vm.calculateItems(vm.headerInvoiceDto)" type="text" ng-model="iterador.quantity"/>
+                    <div class="col-md-6 " style="border: solid currentColor 1px; height: 26px;">{{iterador.article.name}}</div>
+                    <div class="col-md-2 text-right" style="border: solid currentColor 1px; height: 26px;">{{iterador.article.price}}</div>
+                    <div class="col-md-2 text-right" style="border: solid currentColor 1px; height: 26px;">{{iterador.article.price * iterador.quantity}}</div>
+                    <div class="col-md-1 text-center" style="border: solid currentColor 1px; height: 26px; cursor: pointer;" ng-click="vm.removeItem(iterador)">
+                        <i class=" glyphicon glyphicon-trash"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+            <div class="panel-body" >
+
+                <div class="col-md-8"></div>
+                <div class="col-md-2">Sub total 0%</div>
+                <div class="col-md-2" ng-bind="vm.totales.subTotal0"></div>
+				
+				<div class="col-md-8"></div>
+                <div class="col-md-2">Sub total 12%</div>
+                <div class="col-md-2" ng-bind="vm.totales.subTotal12"></div>
+                
+                <div class="col-md-8"></div>
+                <div class="col-md-2">Descuento</div>
+                <div class="col-md-2" ng-bind="vm.totales.descuento"></div>	
+                
+                
+                <div class="col-md-8"></div>
+                <div class="col-md-2">Sub total</div>
+                <div class="col-md-2" ng-bind="vm.totales.subTotal"></div>
+	
+				<div class="col-md-8"></div>
+                <div class="col-md-2">IVA 12%</div>
+                <div class="col-md-2" ng-bind="vm.totales.iva"></div>
+
+
+                <div class="col-md-8"></div>
+                <div class="col-md-2">Total a pagar</div>
+                <div class="col-md-2"ng-bind="vm.totales.total"></div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

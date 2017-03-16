@@ -1,0 +1,484 @@
+<tabset class="tab-container" ng-init="steps={percent:1, step1:true, step2:false, step3:false}">
+    <tab heading="DETALLE DE FACTURA" active="steps.step1" select="steps.percent=1">
+        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+
+            <div class="panel-body">
+				<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+					<i class="arrow right arrow-info"></i> PASO 1:</span>
+                <a href class="m-r-sm">PROGRESO DE FACTURA
+                    <p style="float: right;">N&Uacute;MERO DE FACTURA: {{vm.numeroFactura}}</p>
+                </a>
+                </br>
+                </br>
+
+                <div ng-if="vm.totales.total > 0 ? (step1.$invalid =false) : (step1.$invalid = true) ">
+                </div>
+
+                <div ng-if="step1.$invalid ? (steps.percent=1)  : (steps.percent=20)">
+
+                </div>
+
+
+                <progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                             type="info"></progressbar>
+
+                </br>
+                </br>
+
+                <a href class="m-r-sm">INSERTE EL DETALLE A LA FACTURA:</a>
+
+                <div class="input-group col-md-3">
+                    <div class="input-group-addon">Art&iacute;culo</div>
+                    <ui-select theme="bootstrap" ng-model="vm.selectedArticle" on-select="vm.submitModalArticle($item)">
+                        <ui-select-match placeholder="Buscar...">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices
+                                repeat="article in vm.articleList | filter: $select.search track by article.name"
+                                refresh="vm.searchArticle($select)" refresh-delay="300">
+                            <div ng-bind-html="article.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+							<button ng-disabled="vm.variablesFacturacion.sevicioProducto =='false' ? false:true"
+                                    class="btn btn-primary" type="button" ng-click="vm.abrirPanelProducto()"><i
+                                    class="fa fa-plus"></i></button>
+						</span>
+                </div>
+                </br>
+                <form name="step1" class="form-horizontal form-validation">
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="height: 30px !important;">
+                            <div class="col-md-1">Cantidad</div>
+                            <div class="col-md-6">Descipci&oacute;n</div>
+                            <div class="col-md-2">Vr. Unitario</div>
+                            <div class="col-md-2">Vr. Total</div>
+                            <div class="col-md-1">Acci&oacute;n</div>
+                        </div>
+
+
+                        <div class="panel-body">
+                            <div ng-init="step1.$invalid = true"/>
+                            <div class="row row-fluid" ng-repeat="iterador in vm.headerInvoiceDto.lstInvoiceDetails">
+                                <div class="col-md-1 text-center">
+                                    <input style="border: solid currentColor 1px; height: 26px;"
+                                           placeholder="1 valor minimo" ui-validate=" '$value >= 1' "
+                                           class="form-control" type="number"
+                                           ng-model="iterador.quantity" required/>
+                                </div>
+                                <div class="col-md-6 " style="border: solid currentColor 1px; height: 26px;">
+                                    {{iterador.article.name}}
+                                </div>
+                                <div class="col-md-2 text-right" style="border: solid currentColor 1px; height: 26px;">
+                                    {{iterador.article.price}}
+                                </div>
+                                <div class="col-md-2 text-right" style="border: solid currentColor 1px; height: 26px;">
+                                    {{iterador.article.price * iterador.quantity}}
+                                </div>
+                                <div class="col-md-1 text-center"
+                                     style="border: solid currentColor 1px; height: 26px; cursor: pointer;"
+                                     ng-click="vm.removeItem(iterador)">
+                                    <i class=" glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div ng-if="vm.totales.total>0">
+                                <div class="panel no-border">
+                                    <div class="panel-heading wrapper b-b b-light">
+						              <span class="text-xs text-muted pull-right">
+						                <i class="fa fa-circle text-primary m-r-xs"></i> PORCENTAGE
+						                <i class="fa fa-circle text-info m-r-xs m-l-sm"></i> VALOR
+						              </span>
+                                        <h4 class="font-thin m-t-none m-b-none text-muted">Adicionales</h4>
+                                    </div>
+
+                                    <ul class="list-group list-group-lg m-b-none">
+                                        <div ng-repeat="iterador in vm.lstAdicionales">
+                                            <div class="list-group-item">
+                                                <a href class="thumb-sm m-r">
+                                                </a>
+                                                <a href ng-click="vm.adicionalSeleccionado(iterador);">
+                                                    {{iterador.additional.name}}
+                                                </a>
+
+                                                <div ng-if="vm.totales.total<=0 ? iterador.value =0 :''"/>
+
+                                                <span class="text-xs text-muted pull-right">
+										        <i class="fa fa-circle text-primary m-r-xs"></i>{{iterador.quantity.toFixed(2)}}%
+										        <i class="fa fa-circle text-info m-r-xs m-l-sm"></i>{{iterador.value.toFixed(2)}}
+									        </span>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-16">
+                                    <div class="panel-body">
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">Sub total 0%:</div>
+                                        <div ng-init=" vm.totales.subTotal0 = 0"></div>
+                                        <div class="col-md-2">{{vm.totales.subTotal0.toFixed(2)}}</div>
+
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">Sub total: {{vm.porcentageAdicional}}%</div>
+                                        <div ng-init=" vm.totales.subTotal12 = 0"></div>
+                                        <div class="col-md-2">{{vm.totales.subTotal12.toFixed(2)}}</div>
+
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">Descuento:</div>
+                                        <div ng-init="vm.totales.descuento == undefined ? 0: vm.totales.descuento.toFixed(2)"></div>
+                                        <div class="col-md-2">{{vm.totales.descuento.toFixed(2)}}</div>
+
+
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">Sub total:</div>
+                                        <div ng-init=" vm.totales.subTotal = 0"></div>
+                                        <div class="col-md-2">{{vm.totales.subTotal.toFixed(2)}}</div>
+
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">IVA :{{vm.porcentageAdicional}}%</div>
+                                        <div ng-init=" vm.totales.iva = 0"></div>
+                                        <div class="col-md-2">{{vm.totales.iva}}</div>
+
+
+                                        <div class="col-md-8"></div>
+                                        <div class="col-md-2">Total a pagar:</div>
+                                        <div ng-init=" vm.totales.total = 0"></div>
+                                        <div class="col-md-2">{{vm.totales.total}}</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="m-b-sm">
+            <div class="btn-group btn-group-justified">
+                <a ng-hide="step1.$invalid" href class="btn btn-info" ng-click="steps.step2=true">SIGUIENTE</a>
+                <a ng-show="step1.$invalid" href class="btn btn-default">SIGUIENTE</a>
+                <a href class="btn btn-warning" ng-click="vm.cancelInvoice()">CANCELAR</a>
+            </div>
+        </div>
+
+    </tab>
+
+    <tab heading="DATOS DE CLIENTE" disabled="step1.$invalid" active="steps.step2" select="steps.percent=20">
+
+        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+            <div class="panel-body">
+                <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 2:</span>
+                <a href class="m-r-sm">PROGRESO DE FACTURA
+                    <p style="float: right;">N&Uacute;MERO DE FACTURA:{{vm.numeroFactura}}</p>
+                </a>
+                </br>
+                </br>
+
+                <div ng-if="!step2.$invalid && vm.numeroValidado && vm.customerDto.person ? (vm.habilitarBoton=true):(vm.habilitarBoton=false)">
+                </div>
+
+                <div ng-if="step2.$invalid   ? (steps.percent=30)  : (steps.percent=60)">
+
+                </div>
+
+                <progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                             type="info"></progressbar>
+                </br>
+                <alert ng-repeat="alert in vm.aletasValidaciones" type="{{alert.type}}">
+                    <strong>
+                        {{alert.msg}}
+                    </strong>
+                </alert>
+                <a href class="m-r-sm">B&Uacute;SQUEDA O REGISTRO DE CLIENTE:</a>
+                <div ng-if="vm.customerDto">
+                    </br>
+                    <button class="btn m-b-xs btn-sm btn-info btn-addon" ng-click="vm.findPersonEvent()">
+                        <i class="fa fa-search"></i>Buscar
+                    </button>
+                </div>
+                <div class="panel-body" ng-if="!vm.customerDto">
+                    <div class="input-group col-md-6">
+                        <div class="input-group-addon">Cliente</div>
+                        <ui-select ng-model="vm.selectedPerson" ng-theme="bootstrap"
+                                   on-select="vm.submitCustomerItem($item) ? (vm.numeroValidado=true):''">
+                            <ui-select-match placeholder="Buscar...">{{$select.selected.fullName}}</ui-select-match>
+                            <ui-select-choices
+                                    repeat="person in vm.personList | filter: $select.search track by person.id"
+                                    refresh="vm.searchPerson($select)" refresh-delay="300">
+                                <div ng-bind-html="person.fullName| highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <form name="step2" class="form-validation">
+
+                    <div class="panel-body" ng-if="vm.customerDto">
+                        <div class="panel-body" ng-if="vm.customerDto.person.id">
+                            <label class="col-md-2">CLIENTE:</label>
+                            <input type="text" name="razonsocial" class="col-md-4" placeholder=""
+                                   ng-model="vm.customerDto.comercialName" ng-disabled="true"
+                                   ng-change="step1.razonsocial.$valid ? (steps.percent=1) : (steps.percent=1)"/>
+                            <label class="col-md-2">N&Uacute;MERO DE. IDENTIFICACI&Oacute;N:</label>
+                            <input type="text" class="col-md-4" placeholder=""
+                                   ng-model="vm.customerDto.person.identificationNumber" ng-disabled="true"/>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <label class="col-md-2">DIRECCI&Oacute;N: </label>
+                            <input type="text" class="col-md-4" placeholder="" ng-model="vm.customerDto.address"
+                                   ng-disabled="true"/>
+                            <label class="col-md-2">EMAIL:</label>
+                            <input type="text" class="col-md-4" placeholder="" ng-model="vm.customerDto.email"
+                                   ng-disabled="true"/>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <label class="col-md-2">TEL&Eacute;FONO:</label>
+                            <div class="input-group col-md-4">
+                                <input type="text" class="form-control"
+                                       placeholder="Ingrese el numero o seleccione de la lista"
+                                       ng-model="vm.customerDto.phone" required/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button"
+                                            ng-disabled="vm.customerDto.person.lstPhones.length >1? false:true"
+                                            ng-click="vm.openPhoneModal()">
+                                        <i class="fa fa-check-circle-o"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="panel-body" ng-if="!vm.customerDto.person.id">
+                            <div class="col-md-8">
+                                <ui-number-identification tag-number="vm.customerDto.person.identificationNumber"
+                                                          tag-identification-type="vm.customerDto.person.catalogIdentificationType"
+                                                          tag-validator="vm.numeroValidado">
+                                </ui-number-identification>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <label class="col-md-2">NOMBRES:</label>
+                            <input type="text" name="razonsocial" class="col-md-4" placeholder=""
+                                   ng-model="vm.customerDto.person.firstName" required/>
+                            <label class="col-md-2">APELLIDOS:</label>
+                            <input type="text" class="col-md-4" placeholder=""
+                                   ng-model="vm.customerDto.person.firstLastName" required/>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <label class="col-md-2">DIRECCI&Oacute;N: </label>
+                            <input type="text" class="col-md-4" placeholder="" ng-model="vm.customerDto.person.address"
+                                   required/>
+                            <label class="col-md-2">TEL&Eacute;FONO:</label>
+                            <input type="text" class="col-md-4" placeholder="" ng-model="vm.customerDto.person.phone"
+                                   required/>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <label class="col-md-2">EMAIL:</label>
+                            <input type="email" class="col-md-4" placeholder="" ng-model="vm.customerDto.person.email"
+                                   required/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="m-b-sm">
+            <div class="btn-group btn-group-justified">
+                <a ng-click="steps.step1=true" href class="btn btn-primary"> ATRAS</a>
+                <a ng-hide="vm.habilitarBoton" href class="btn btn-defalt">SIGUIENTE </a>
+                <a ng-show="vm.habilitarBoton" href class="btn btn-info" ng-click="steps.step3=true">SIGUIENTE </a>
+                <a href class="btn btn-warning" ng-click="vm.cancelInvoice()">CANCELAR</a>
+            </div>
+        </div>
+    </tab>
+
+
+    <tab heading="FORMAS DE PAGO" disabled="!vm.habilitarBoton" active="steps.step3" select="steps.percent=60">
+        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+            <div class="panel-body">
+                <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 3:</span>
+                <a href class="m-r-sm">PROGRESO DE FACTURA
+                    <p style="float: right;">N&Uacute;MERO DE FACTURA: {{vm.numeroFactura}}</p>
+                </a>
+                </br>
+                </br>
+
+                <div ng-if="step3.$invalid ? (steps.percent=60)  : (steps.percent=90)">
+                </div>
+
+                <div>
+
+                </div>
+
+                <progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                             type="info"></progressbar>
+
+                </br>
+                </br>
+
+
+                <form name="step3" class="form-validation">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fecha de factura: </label>
+                        <div class="col-sm-4" ng-controller="DatepickerDemoCtrl">
+                            <div class="input-group w-md" ng-init="vm.fechaFactura = vm.currentDate ">
+                                <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                       ng-model="vm.fechaFactura" is-open="opened" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close"/>
+                                <span class="input-group-btn">
+			                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+			              </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Observaci&oacute;n: </label>
+                        <div class="col-sm-4">
+                            <input type="text" ng-model="vm.descripcionFactura" class="form-control"
+                                   placeholder="(OPCIONAL)"/>
+                        </div>
+                    </div>
+
+                    </br>
+                    </br>
+                    </br>
+
+                    <div>
+                        <div ng-init="vm.activarPanelA = false">
+                        </div>
+                        <div ng-if="vm.variablesFacturacion.opcionVariosTiposPago == 'false' ? true: false">
+                            <div ng-if="steps.step3 ? vm.establecerTipoPagoEfectivo('A'): '' ">
+                            </div>
+                            <div class="form-group" ng-init="vm.totalFormaPago = 0">
+                                <label class="col-sm-3 control-label">
+                                    <h1 class="m-n font-thin h3">TOTAL EN EFECTIVO: </h1>
+                                </label>
+                                <div class="col-sm-4">
+                                    <h1 class="m-n font-thin h3">{{vm.totalFormaPago}} USD</h1>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div ng-if="vm.variablesFacturacion.opcionVariosTiposPago == 'true' ? true:false">
+                            <div ng-if="vm.variablesFacturacion.opcionVariosTiposPago == 'true' ? vm.estableceTipoVariosPagos('B'):false">
+                                <
+                            </div>
+                            <div class="row" ng-init="vm.totalFormaPago = 0">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <accordion close-others="true">
+                                                <accordion-group heading="{{type.name}}" panel-class="panel-danger"
+                                                                 ng-repeat="type in vm.lstOpcionesPanel">
+                                                    <button class="btn btn-info btn-block"
+                                                            ng-click="vm.formaPagoSeleccionado(formaPago, (vm.totales.total - vm.totalFormaPago).toFixed(2))"
+                                                            ng-repeat="formaPago in type.lstWayPay">
+                                                        <i class="fa fa-plus-square pull-left"></i> {{formaPago.name}}
+                                                    </button>
+                                                </accordion-group>
+                                            </accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" style="height: 30px !important;">
+                                            <div class="col-md-6">FORMA DE PAGO</div>
+                                            <div class="col-md-3">VALOR</div>
+                                            <div class="col-md-1">ACCI&Oacute;N</div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row row-fluid" ng-repeat="iterador in vm.lstPagoFactura">
+                                                <div class="col-md-6 text-center">
+                                                    <input style="border: solid currentColor 1px; height: 26px;"
+                                                           ui-validate=" '$value >= 1' " class="form-control"
+                                                           ng-model="iterador.waypay.name"
+                                                           ng-disabled="true"/>
+                                                </div>
+                                                <div class="col-md-3 text-right"
+                                                     style="border: solid currentColor 1px; height: 26px;">
+                                                    {{iterador.valor}}
+                                                </div>
+                                                <div class="col-md-2 text-center"
+                                                     style="border: solid currentColor 1px; height: 26px; cursor: pointer;"
+                                                     ng-click="vm.removerFormaPago(iterador)">
+                                                    <i class=" glyphicon glyphicon-trash">
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-2">T. FACTURA:</div>
+                                            <div class="col-md-2" ng-bind="vm.totales.total"></div>
+
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-2">T. PAGOS:</div>
+                                            <div ng-init="vm.totalFormaPago = 0"></div>
+                                            <div class="col-md-2" ng-bind="vm.totalFormaPago.toFixed(2)"></div>
+
+
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-2">TOTAL:</div>
+                                            <div ng-init="vm.totalFormaPago = 0"></div>
+                                            <div class="col-md-2"
+                                                 ng-bind=" (vm.totales.total - vm.totalFormaPago).toFixed(2)"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div ng-if=" vm.totales.total > 0 && (vm.totales.total - vm.totalFormaPago).toFixed(2)== 0 ? (step3.$invalid = false):(step3.$invalid = true) ">
+        </div>
+
+        <div class="m-b-sm">
+            <div class="btn-group btn-group-justified">
+                <a ng-click="steps.step2=true" href class="btn btn-primary"> ATRAS</a>
+                <a ng-show="step3.$invalid" href class="btn btn-defalt">SIGUIENTE </a>
+                <a ng-hide="step3.$invalid" href class="btn btn-info"
+                   ng-click="vm.cargarFactura() ? (steps.step4 = true): (steps.step4 = true)">SIGUIENTE </a>
+                <a href class="btn btn-warning" ng-click="vm.cancelInvoice()">CANCELAR</a>
+            </div>
+        </div>
+    </tab>
+
+    <tab heading="OVERVIEW" disabled="true" active="steps.step4" select="steps.percent=100">
+        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+            <div class="panel-body">
+                <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 5:</span>
+                <a href class="m-r-sm">PROGRESO DE FACTURA</a>
+                </br>
+                </br>
+                <progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                             type="info"></progressbar>
+                </br>
+                <a href class="m-r-sm">IMPRESI&Oacute;N DE FACTURA:</a>
+
+                <div>
+                    <ui-reporte-factura tag-factura="vm.factura">
+                    </ui-reporte-factura>
+                </div>
+
+            </div>
+            <div class="m-b-sm">
+                <div class="btn-group btn-group-justified">
+                    <a ng-click="steps.step3=true" href class="btn btn-primary"> ATRAS</a>
+                    <a ng-show="true" href class="btn btn-success" ng-click="vm.abrirSaveInvoicePanel()">GUARDAR </a>
+                    <a href class="btn btn-warning" ng-click="vm.cancelInvoice()">CANCELAR</a>
+                </div>
+            </div>
+        </div>
+    </tab>
+</tabset>

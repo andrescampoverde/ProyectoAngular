@@ -1,0 +1,34 @@
+
+<div class="padder">
+
+
+	
+<form name="pago" class="form-validation">
+<div ng-if="pago.$invalid ?  (valorValidador.value = false ): (valorValidador.value = true)">
+</div>
+	
+  <div class="row">
+		<div class="form-group">
+		<label class="col-sm-2 control-label">VALOR:</label>
+			<div class="col-sm-6">
+				<input type="number" class="form-control" placeholder="ingrese el valor de pago (minimo 1 USD)" ng-model="valorPago.valor" ui-validate=" '$value >= 1' " required>
+			</div>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+		<label class="col-sm-2 control-label">BANCO:</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control"  placeholder="ingrese el nombre del banco" ng-model="valorPago.banco"  required>
+			</div>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+		<label class="col-sm-2 control-label">NUMERO:</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control"  placeholder="ingrese el numero de cheque" ng-model="valorPago.numero"  required>
+			</div>
+		</div>
+		
+    </div>
+  </form>
+</div>

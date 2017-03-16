@@ -1,0 +1,189 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">ADMINISTRACI&Oacute;N DE ART&Iacute;CULOS</h1>
+</div>
+<div class="wrapper-md" ng-controller="ArticleController as vm">
+
+    <div class="panel panel-default" ng-if="!vm.articleObj">
+
+        <button ng-click="vm.newArticle()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>Nuevo
+            Art&iacute;culo
+        </button>
+
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">Listado de art&iacute;culos</div>
+            <div class="panel-body">
+
+                <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped"
+                       show-filter="true">
+
+                    <tr ng-repeat="article in $data">
+                        <td data-title="'label.global.nombre' | translate" sortable="'name'" filter="{name:'text'}">{{article.name}}</td>
+                        <td data-title="'label.global.codigo' | translate" sortable="'auxiliarID'" filter="{auxiliarID:'text'}" class="text-center">{{article.auxiliarID}}</td>
+                        <td data-title="'label.modulo.facturacion.precio' | translate" sortable="'price'" class="text-center">{{article.price}}</td>
+                        <td data-title="'label.global.estado' | translate" class="text-center">
+                            <i class="glyphicon"
+                               ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[article.status]"></i>
+                        </td>
+                        <td data-title="'label.global.accion' | translate" class="text-center">
+
+                            <a ng-click="vm.editArticle(article)" class="glyphicon glyphicon-edit"></a>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <form name="form" class="form-validation" ng-if="vm.articleObj">
+        <div class="panel panel-default">
+
+            <div class="panel-heading font-bold">DATOS DEL ART&Iacute;CULO</div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">C&oacute;digo de barras: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.auxiliarID" class="form-control"
+                               placeholder="ingrese el numero de identificacion auxiliar del articulo (opcional)"
+                               required/>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Nombre: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.name" class="form-control"
+                               placeholder="ingrese el nombre del articulo" required/>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Precio: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.price" class="form-control"
+                               placeholder="$$$" required/>
+                    </div>
+                </div>
+
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Carga iva</label>
+                    <div class="col-sm-10"
+                         ng-init="vm.articleObj.ivaLoader == null ? (vm.articleObj.ivaLoader=true): vm.articleObj.ivaLoader">
+                        <label class="i-switch m-t-xs m-r"> <input ng-model="vm.articleObj.ivaLoader" type="checkbox"
+                                                                   checked/> <i></i></label>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in" ng-if="vm.articleObj.id != null"></div>
+                <div class="form-group" ng-if="vm.articleObj.id != null">
+                    <label class="col-sm-2 control-label">Estado</label>
+                    <div class="col-sm-10"
+                         ng-init="vm.articleObj.status == null ? ( vm.articleObj.status =true): vm.articleObj.status">
+                        <label class="i-switch i-switch-md bg-info m-t-xs m-r">
+                            <input ng-model="vm.articleObj.status" type="checkbox" checked/>
+                            <i></i>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Usa inventario</label>
+                    <div class="col-sm-10"
+                         ng-init="vm.articleObj.inventoryUsed ==null?( vm.articleObj.inventoryUsed = false): vm.articleObj.inventoryUsed">
+                        <label class="i-switch bg-danger m-t-xs m-r"> <input
+                                ng-model="vm.articleObj.inventoryUsed" type="checkbox" checked/> <i></i></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" ng-if="vm.articleObj.inventoryUsed">
+            <div class="panel-heading font-bold">INFORMACI&Oacute;N DE INVENTARIO</div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Fabricante</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="ingrese el nombre del fabricante"
+                               ng-model="vm.articleObj.manufacturer" name="manufacturer" class="form-control"/>
+                    </div>
+                </div>
+
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Dias en bodega: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.storageDays" class="form-control"
+                               placeholder="ingrese el numero de dias"/>
+                    </div>
+                </div>
+
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Stock M&iacute;nimo: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.stockMin" class="form-control"
+                               placeholder="ingrese el stock minimo en bodega"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Stock M&aacute;ximo: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.stockMax" class="form-control"
+                               placeholder="ingrese el stock maximo en bodega"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">INFORMACI&Oacute;N DE ADICIONAL</div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Precio oferta: </label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.articleObj.offerPrice" class="form-control"
+                               placeholder="$$$"/>
+                    </div>
+                </div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Permite Adicional</label>
+                    <div class="col-sm-10"
+                         ng-init="vm.articleObj.allowsAdditional ==null?(vm.articleObj.allowsAdditional = false): vm.articleObj.allowsAdditional">
+                        <label class="i-switch bg-primary m-t-xs m-r"> <input
+                                ng-model="vm.articleObj.allowsAdditional" type="checkbox" checked/> <i></i></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group row" >
+            <div class="col-sm-6 text-right" >
+                <button class="btn btn-sm" ng-click="vm.cancelArticle();">Cancelar</button>
+            </div>
+
+            <div class="col-sm-6 text-left">
+                <button ng-disabled="form.$invalid" ng-click="vm.saveArticle()"
+                        class="btn btn-sm btn-primary">Guardar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

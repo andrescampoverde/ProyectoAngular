@@ -1,0 +1,244 @@
+<div ng-controller="PuntoVentaController as vm" class="form-punto-venta">
+    <div class="bg-light lter b-b wrapper-md" style="height: 60px; padding: 10px;">
+        <div class="hbox text-center b-b b-light text-sm">
+            <a href="" type="submit" class="col text-muted b-r b-light " ng-click="vm.initController();">
+                <i class="icon-bag block m-b-xs fa-2x text-success"></i>
+                <span translate="label.modulo.facturacion.nueva_factura" class="text-success"/>
+            </a>
+
+            <a href=""  class="col text-muted" onclick="$('#btnSave').click()">
+                <i class="fa fa-save block m-b-xs fa-2x text-info"></i>
+                <span translate="label.global.guardar" class="text-info"/>
+            </a>
+
+            <a href="" class="col text-muted">
+                <i class="icon-printer block m-b-xs fa-2x"></i>
+                <span translate="label.global.imprimir"/>
+            </a>
+        </div>
+
+        <button type="submit" form="formInvoice" id="btnSave" style="visibility: hidden"/>
+    </div>
+
+    <div class="wrapper-md">
+        <div class="row">
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading font-bold">Factura</div>
+                <div class="panel-body">
+
+                    <!--BUSCAR PERSONA-->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Cedula/Ruc</label>
+                            <div class="col-lg-5">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" ng-model="vm.identificationNumber" ng-keyup="($event.keyCode == 13) ? vm.findPerson(vm.identificationNumber) : false"/>
+                                    <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"
+                                                    translate="label.global.buscar"
+                                                    ng-click="vm.findPerson(vm.identificationNumber)"/>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"/>
+
+                    <form class="bs-example form-horizontal ng-pristine ng-valid" id="formInvoice" ng-submit="vm.saveInvoice()">
+
+                        <div class="row" >
+                            <!--DATOS DEL CLIENTE-->
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="row punto-venta-header" >
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.global.fecha"/>
+                                            <div class="col-lg-10">
+                                                <input type="text" ng-model="vm.invoiceDate"
+                                                       class="form-control" placeholder="{{ 'label.global.fecha' | translate }}" ng-required="!vm.invoiceDate"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.modulo.facturacion.cliente"/>
+                                            <div class="col-lg-10" ng-if="vm.person.id">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.completeName"
+                                                       class="form-control" placeholder="{{ 'label.modulo.facturacion.cliente' | translate }}"/>
+                                            </div>
+
+                                            <div class="col-lg-5" ng-if="!vm.person.id">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.firstName" name="firstName"
+                                                       class="form-control" placeholder="{{ 'label.global.nombre' | translate }}" ng-required="!vm.invoiceHeader.customer.person.id && !vm.invoiceHeader.customer.person.firstName"/>
+                                            </div>
+
+                                            <div class="col-lg-5" ng-if="!vm.person.id">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.firstLastName"
+                                                       class="form-control" placeholder="{{ 'label.modulo.persona.apellido' | translate }}" ng-required="!vm.invoiceHeader.customer.person.id && !vm.invoiceHeader.customer.person.firstLastName"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.global.direccion"/>
+                                            <div class="col-lg-10">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.address"
+                                                       class="form-control" placeholder="{{ 'label.global.direccion' | translate }}" ng-required="!vm.invoiceHeader.customer.person.address"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6" >
+                                    <div class="punto-venta-header" >
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.modulo.facturacion.guia_remision"/>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" placeholder="{{ 'label.modulo.facturacion.guia_remision' | translate }}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.modulo.facturacion.cedula_ruc"/>
+                                            <div class="col-lg-10">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.identificationNumber"
+                                                       class="form-control" placeholder="{{ 'label.modulo.facturacion.cedula_ruc' | translate }}" ng-required="!vm.person.identificationNumber"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" translate="label.global.email"/>
+                                            <div class="col-lg-10">
+                                                <input type="text" ng-model="vm.invoiceHeader.customer.person.email"
+                                                       class="form-control" placeholder="{{ 'label.global.email' | translate }}"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="line line-dashed b-b line-lg pull-in"/>
+
+                            <!--DETALLE FACTURA-->
+                            <div class="col-md-12">
+                                <div class="panel panel-primary punto-venta-list-header">
+                                    <div class="panel-heading">
+                                        <div class="col-md-1 text-center">
+                                            <label translate="label.global.buscar"/>
+                                        </div>
+                                        <div class="col-md-1 text-center">
+                                            <label translate="label.modulo.facturacion.cantidad"/>
+                                        </div>
+                                        <div class="col-md-5 text-center">
+                                            <label translate="label.modulo.facturacion.descripcion"/>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <label translate="label.modulo.facturacion.valor_unitario"/>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <label translate="label.modulo.facturacion.valor_total"/>
+                                        </div>
+                                        <div class="col-md-1 text-center">
+                                            <label translate="label.global.remover"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                    <div class="panel-body punto-venta-list-detail">
+                        <div class="row row-fluid" ng-repeat="item in vm.invoiceHeader.lstInvoiceDetails">
+
+                            <form>
+                                <input type="text" class="col-md-1 text-center pv-col-detail" ng-model="item.filter"
+                                       ng-keyup="($event.keyCode == 13) ? vm.searchArticle(item.filter, $index): false" />
+                            </form>
+
+
+                            <div class="col-md-1 text-center pv-col-detail">
+                                <input ui-validate=" '$value >= 1' "
+                                       class="form-control text-center" type="text"
+                                       ng-model="item.quantity" ng-required="!item.quantity"/>
+                            </div>
+                            <div class="col-md-5 pv-col-detail">
+                                {{item.article.name}}
+                            </div>
+                            <div class="col-md-2 text-right pv-col-detail" >
+                                {{item.article.price}}
+                            </div>
+                            <div class="col-md-2 text-right pv-col-detail" >
+                                {{item.article.price * item.quantity}}
+                            </div>
+                            <div class="col-md-1 text-center pv-col-detail"
+                                 ng-click="vm.removeArticle(item)">
+                                <i class=" glyphicon glyphicon-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-5">
+                        <div class="panel panel-info">
+                            <div class="panel panel-heading">
+                                Adicionales
+                            </div>
+
+                            <div class="panel panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                Forma de pago
+                            </div>
+
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                Detalle pago
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="col-md-6 text-right">Sub total 0%:</div>
+                                <div class="col-md-6 text-left">{{vm.invoiceHeader.subTotalZero.toFixed(2)}}</div>
+
+                                <div class="col-md-6 text-right">Sub total: {{vm.invoiceHeader.porcentageAdicionalIva}}%</div>
+                                <div class="col-md-6 text-left">{{vm.invoiceHeader.subTotalDoce.toFixed(2)}}</div>
+
+                                <div class="col-md-6 text-right">Descuento:</div>
+                                <div class="col-md-6 text-left" ng-init="vm.totales.descuento == undefined ? 0: vm.invoiceHeader.descuento.toFixed(2)">{{vm.invoiceHeader.descuento.toFixed(2)}}0</div>
+
+                                <div class="col-md-6 text-right">Sub total:</div>
+                                <div class="col-md-6 text-left" ng-init=" vm.invoiceHeader.subTotal = 0">{{vm.invoiceHeader.subTotal.toFixed(2)}}</div>
+
+                                <div class="col-md-6 text-right">IVA :{{vm.porcentageAdicional}}%</div>
+                                <div class="col-md-6 text-left" ng-init=" vm.invoiceHeader.calculoIva = 0">{{vm.invoiceHeader.calculoIva}}</div>
+
+                                <div class="col-md-6 text-right">Total a pagar:</div>
+                                <div class="col-md-6 text-left" ng-init="vm.invoiceHeader.totalValue = 0">{{vm.invoiceHeader.totalValue.toFixed(2)}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

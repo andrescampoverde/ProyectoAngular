@@ -1,0 +1,126 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">ADMINISTRACION DE MODULOS DEL SISTEMA</h1>
+</div>
+<div class="wrapper-md" ng-controller="ModuleController as vm">
+
+	<div class="panel panel-default" ng-if="!vm.moduleObj">
+		<div class="panel-heading">
+			<button ng-click="vm.newModule()"
+				class="btn m-b-xs btn-sm btn-primary btn-addon">
+				<i class="fa fa-plus"></i>NUEVO MODULO
+			</button>
+			<button class="btn m-b-xs btn-sm btn-success btn-addon"
+				ng-click="refresh()">
+				<i class="fa fa-refresh"></i>ACTUALIZAR
+			</button>
+			<p style="float: right;">
+				B&Uacute;SQUEDA : <input type="search" ng-model="search"
+					class="form-control input-sm w-sm inline m-r"
+					placeholder="B&Uacute;SQUEDA GENERAL">
+			</p>
+		</div>
+		<div class="panel-body">
+			<table ng-table="vm.tableParams"
+				class="table table-condensed table-bordered table-striped"
+				show-filter="true">
+				<thead>
+					<tr>
+						<th ng-if="false">ID</th>
+						<th>Nombre del modulo</th>
+						<th>Codigo interno</th>
+						<th>Traduccion</th>
+						
+						<th>Estado</th>
+						<th class="text-center">Editar</th>
+					</tr>
+				</thead>
+				<tr ng-repeat="module in $data">
+					<td ng-if="false">{{module.id}}</td>
+					<td>{{module.name}}</td>
+					<td>{{module.moduleCode}}</td>
+					<td>{{module.keyTranslate}}</td>
+					<td class="text-center" data-title="'ESTADO'"><i
+						class="glyphicon"
+						ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[module.status]"></i>
+					</td>
+
+					<td class="text-center">
+						<button class="btn btn-info btn-xs"
+							ng-click="vm.editModule(module)">
+							<i class="glyphicon glyphicon-edit"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+	<form name="form" class="form-validation" ng-if="vm.moduleObj">
+		<div class="panel panel-default">
+
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">NUEVO M&Oacute;DULO</div>
+				<div class="panel-body">
+
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.moduleObj.name"
+								class="form-control" placeholder="ingrese el nombre del modulo"
+								required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Codigo Interno: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.moduleObj.moduleCode"
+								class="form-control" placeholder="ingrese el codigo del mnodulo"
+								required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Icono: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.moduleObj.icono"
+								class="form-control" placeholder="ingrese el codigo de icono" />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Traducci&oacute;n: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.moduleObj.keyTranslate" class="form-control"
+								placeholder="ingrese la traducci&oacute;n" />
+						</div>
+					</div>
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Estado</label>
+						<div class="col-sm-10">
+							<label class="i-switch i-switch-md bg-info m-t-xs m-r"> <input
+								ng-model="vm.moduleObj.status" type="checkbox" checked /> <i></i></label>
+						</div>
+					</div>
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+				</div>
+
+			</div>
+
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+			<div class="col-sm-4 col-sm-offset-2">
+				<button class="btn btn-sm" ng-click="vm.cancelModule();">Cancelar</button>
+
+				<button ng-disabled="form.$invalid" ng-click="vm.saveModule()"
+					class="btn btn-sm btn-primary">Guardar</button>
+			</div>
+		</div>
+	</form>
+</div>

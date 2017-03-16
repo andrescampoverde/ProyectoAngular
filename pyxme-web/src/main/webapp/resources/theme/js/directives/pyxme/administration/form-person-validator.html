@@ -1,0 +1,314 @@
+
+<div class="padder">
+
+    <script type="text/ng-template" id="modal-select-phone">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">TEL&Eacute;FONO</h4>
+            </div>
+
+            <div class="modal-body">
+                <ui-phone phone="phoneDto" valor-validador="vm.validador"></ui-phone>
+            </div>
+
+            <div class="modal-footer">
+                <div class="btn-group btn-group-justified">
+                    <a href class="btn btn-primary" ng-click="currentModal.close();"  >CANCELAR</a>
+                    <a href ng-hide="vm.validador" class="btn btn-default" >ACEPTAR</a>
+                    <a href ng-show="vm.validador"  class="btn btn-success" ng-click="submit(phoneDto)" >ACEPTAR</a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <form name="person_validator" class= "form-validation">
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+        <div ng-if="!person_validator.$invalid && vm.numeroValidado ? (valorValidador=true):(valorValidador=false)">
+        </div>
+
+        <div class="streamline b-l b-info m-l-lg m-b padder-v">
+        
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/person.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span>
+                        <span class="text-muted m-l-sm pull-right">
+						</span>
+                    </div>
+                    <div class="panel-body has-error">
+                        <label class="col-sm-2 control-label">PRIMER NOMBRE: </label>
+                        <input style="text-transform:uppercase" type="text" ng-model="personDirective.firstName" class="form-control" placeholder="ingrese el primer nombre" ng-disabled="activeDirective" required />
+
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                        <label class="col-sm-2 control-label">SEGUNDO NOMBRE: </label>
+                        <input style="text-transform:uppercase" type="text" ng-model="personDirective.secondName" class="form-control" placehol	der="ingrese el segundo nombre (opcional)" ng-disabled="activeDirective" />
+
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                        <label class="col-sm-2 control-label">PRIMER APELLIDO: </label>
+                        <input style="text-transform:uppercase" type="text" ng-model="personDirective.firstLastName" class="form-control" placeholder="ingrese el primer apellido" ng-disabled="activeDirective" required />
+
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                        <label class="col-sm-2 control-label">SEGUNDO APELLIDO: </label>
+                        <input style="text-transform:uppercase" type="text" ng-model="personDirective.secondLastName" class="form-control" placeholder="ingrese el segundo apellido (opcional)" ng-disabled="activeDirective" />
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/id-type2.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span>
+                        <label class="col-sm-2 control-label" style="color: red;">Tipo de identificaci&oacute;n:</label>
+                        <span class="text-muted m-l-sm pull-right"></span>
+                    </div>
+
+
+                    <div class="panel-body">
+                        <div class="col-sm-2">
+                            <div ng-repeat="catTId in catalogIdTypeList" class="row-fluid" >
+                                <div ng-init="catTId.id==personDirective.catalogIdentificationType.id?(catTId=personDirective.catalogIdentificationType):''" />
+                                <label class="i-checks">
+                                    <input  type="radio" ng-model="personDirective.catalogIdentificationType" value="catTId" ng-value="catTId" ng-disabled="activeDirective"/>
+                                    <i></i> {{catTId.name}}
+                                    <br/>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-10 has-error">
+                            <input type="text"
+                                   ng-disabled="activeDirective"
+                                   ng-model="personDirective.identificationNumber"
+                                   class="form-control" placeholder=""
+                                   required ng-maxlength="15" maxlength="15"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img src="img/sex-type.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span>
+                        <label class="col-sm-2 control-label" style="color: red;">SEXO: </label>
+                        <span class="text-muted m-l-sm pull-right">
+						</span>
+                    </div>
+                    <div class="panel-body has-error">
+                        <div class="col-sm-10">
+                            <div class="row-fluid" ng-repeat="catSex in catalogSexList">
+                                <label class="i-checks">
+                                    <div ng-init="catSex.id==personDirective.catalogSex.id?(catSex=personDirective.catalogSex):''" />
+                                    <input type="radio" ng-model="personDirective.catalogSex" ng-value="catSex" ng-disabled="activeDirective"/> 
+                                    <i></i>
+                                    {{catSex.name}}<br/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+           
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/marital-type.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span> <label
+                            class="col-sm-2 control-label" style="color: red;">Estado civil: </label>
+                        <span class="text-muted m-l-sm pull-right">
+							</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-10 has-error">
+                            <div class="row-fluid" ng-repeat="catMaritalStatus in catalogMStatusList">
+                                <label class="i-checks">
+                                    <div ng-init="catMaritalStatus.id==personDirective.catalogMaritalStatus.id?(catMaritalStatus=personDirective.catalogMaritalStatus):''" />
+                                    <input type="radio"
+                                           ng-model="personDirective.catalogMaritalStatus"
+                                           ng-value="catMaritalStatus" ng-disabled="activeDirective" />
+                                    <i></i> {{catMaritalStatus.name}}<br />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/icono-email.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span> <label
+                            class="col-sm-2 control-label">EMAIL: </label>
+                        <span class="text-muted m-l-sm pull-right">
+							</span>
+                    </div>
+                    <div class="panel-body has-error">
+                        <input type="email" ng-model="personDirective.email"
+                               class="form-control" placeholder="usuario@gmail.com (opcional)"
+                               ng-disabled="activeDirective" />
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/Icono-direccion.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt has-warning">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span> <label
+                            class="col-sm-2 control-label">Direcci&oacute;n: </label>
+                        <span class="text-muted m-l-sm pull-right">
+						</span>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+						<ui-select  ng-disabled="activeDirective" theme="bootstrap" ng-model="personDirective.lstAddress[personDirective.lstAddress.length-1].geographicLocation">
+	                       <ui-select-match placeholder="seleccione..">{{$select.selected.label}}</ui-select-match>
+		                        <ui-select-choices repeat="iterador in lstGeoLoc | filter: $select.search track by iterador.id"
+					                               refresh="searchType($select)" refresh-delay="300">
+		                        <div ng-bind-html="iterador.label | highlight: $select.search"></div>
+	                        </ui-select-choices>
+	                    </ui-select>		
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <input type="text" ng-model="personDirective.lstAddress[personDirective.lstAddress.length-1].mainStreet"
+                                   class="form-control" placeholder="ingrese la calle principal"
+                                   ng-disabled="activeDirective" required />
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <input type="text" ng-model="personDirective.lstAddress[personDirective.lstAddress.length-1].secondaryStreet"
+                                   class="form-control" placeholder="ingrese la calle secundaria"
+                                   ng-disabled="activeDirective" required />
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <input type="text" ng-model="personDirective.lstAddress[personDirective.lstAddress.length-1].homeNumber"
+                                   class="form-control" placeholder="ingrese el n&uacute;mero de casa"
+                                   ng-disabled="activeDirective" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/icon-bdate.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span> <label
+                            class="col-sm-2 control-label">Fecha de nacimiento:</label>
+                        <span class="text-muted m-l-sm pull-right">
+							</span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
+                            <div class="input-group w-md">
+                                <input type="text" class="form-control" ng-disabled="activeDirective" datepicker-popup="{{format}}" ng-model="personDirective.birthDate" is-open="opened" datepicker-options="dateOptions" close-text="Close" /> <span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <a class="pull-left thumb-sm avatar m-l-n-md"> <img
+                        src="img/icon-phone.jpg" alt="...">
+                </a>
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-heading pos-rlt b-light">
+                        <span class="arrow arrow-light left"></span>
+                        <label class="col-sm-2 control-label">Tel&eacute;fonos: </label>
+                    </div>
+                    <div class="panel-body">
+
+                        <p style="float: right;">
+                            <button ng-click="openPhoneModel()" ng-disabled="activeDirective"
+                                    class="btn m-b-xs btn-sm btn-info btn-addon">
+                                <i class="fa fa-plus"></i>AGREGAR TEL&Eacute;FONO
+                            </button>
+                        </p>
+                        <div class="col-sm-10">
+                            <div class="list-group margin-none">
+                                <div class="row-fluid" ng-repeat="phone in personDirective.lstPhones">
+                                    <div class="list-group-item">
+                                        <label class="col-sm-2 control-label">{{phone.typeLocation.name}}
+                                        </label>
+
+                                        <div class="media-right">
+                                            <div class="btn btn-white btn-flat">
+                                                <i class="fa fa-phone-square"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <h4 class="text-title media-heading btn btn-white btn-flat">
+                                                <a class="link-text-color">{{phone.number}}</a>
+                                            </h4>
+                                        </div>
+
+                                        <div class="media-right">
+                                            <a class="btn btn-white btn-flat" ng-hide="activeDirective" ng-click="vm.editPhone($index)">
+                                                <i class="fa fa-pencil fa-fw"></i> Editar
+                                            </a>
+
+                                            <span class="text-muted m-l-sm pull-right">
+											<a class="btn btn-white btn-flat" ng-hide="activeDirective" ng-click="vm.removeItem(phone)">
+												<i class="fa fa-trash fa-fw"></i> Eliminar
+											</a> 
+											</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+       
+        </div>
+		<div class="m-b-sm">
+        	<div class="row">
+                <button ng-click="person_validator.$valid ? savePerson(personDirective): alertRequiredFields()" type="submit" ng-disabled="activeDirective" class="btn m-b-xs btn-sm btn-primary btn-addon col-sm-6">GUARDAR</button>
+                <button ng-click="cancel()" type="reset" class="btn m-b-xs btn-sm btn-info btn-addon col-sm-6" >CANCELAR</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,25 @@
+<ul class="nav" ng-repeat="modulo in userSubsidiary.modulos" ng-if="true">
+
+    <li>
+        <a href class="auto">
+        <span class="pull-right text-muted">
+          <i class="fa fa-fw fa-angle-right text"></i>
+          <i class="fa fa-fw fa-angle-down text-active"></i>
+        </span>
+            <i class="icon text-primary-dker " ng-class="modulo.icono"></i>
+            <span class="font-bold" translate="{{modulo.keyTranslate}}">{{modulo.keyTranslate}}</span>
+        </a>
+
+        <ul class="nav nav-sub dk" >
+            <li ui-sref-active="active" ng-repeat="opcion in modulo.opciones">
+                <a ui-sref="{{opcion.ruta}}">
+                    <span translate="{{opcion.keyTranslate}}">{{opcion.keyTranslate}}</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<!-- list -->
+
+<!-- / list -->

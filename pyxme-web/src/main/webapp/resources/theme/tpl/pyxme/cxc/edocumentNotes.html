@@ -1,0 +1,275 @@
+<div class="wrapper-md" ng-controller="e-document-cred as vm" class="form-punto-venta">
+    
+      
+    <form name="form" >
+     
+       <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+        <div class="hbox text-left b-b b-light text-sm">
+    		 <button type="reset" ng-click="vm.nuevoDocumento(false)">
+ 				<i class="fa fa-file-text block m-b-xs fa-2x text-primary	"></i>
+                <span >Nuevo</span>
+			</button>
+            
+            <button ng-click="vm.visualizarGid(true)"  type="reset" ng-click="vm.validarDocumento(vm.noteHeaderDto)">
+ 				<i class="fa fa-server block m-b-xs fa-2x text-primary"></i>
+                <span >Grid</span>
+			</button>
+
+            <button  ng-disabled="vm.noteHeaderDto.id"  type="submit" ng-click="vm.validarDocumento(vm.noteHeaderDto)">
+ 				<i class="fa fa-save block m-b-xs fa-2x text-success"></i>
+                <span translate="label.global.guardar"/>
+			</button>
+			
+			<button type="submit" ng-click="form.$invalid ? vm.obtenerMensajeValidacion():vm.save(vm.noteHeaderDto);">
+ 				<i class="fa fa-print block m-b-xs fa-2x text-primary"></i>
+                <span>Imprimir</span>
+			</button>
+			
+			<button ng-disabled="!vm.noteHeaderDto.id" type="submit" ng-click="form.$invalid ? vm.obtenerMensajeValidacion():vm.save(vm.noteHeaderDto);">
+ 				<i class="fa fa-cloud-upload block m-b-xs fa-2x text-warning"></i>
+                <span>Procesar</span>
+			</button>
+			
+        </div>
+
+    </div>
+    
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+    <div ng-if="vm.alerts.length>0 ? false:true">
+    	</br>
+    </div>
+    
+  
+  <div ng-if="vm.gridView" class="animated fadeInDown delay">
+	<div class="panel panel-default">
+        <div class="panel-body">
+			 <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true">
+                	<tr ng-repeat="iterador in $data">
+						<td data-title="'TIPO DOCUMENTO'">{{iterador.taxInformationDetail.typeTrasaction.name}}</td>
+						<td data-title="'CLIENTE'">{{iterador.customer.comercialName}} {{iterador.customer.razonSocial}}</td>
+						<td data-title="'N&Uacute;MERO'">{{iterador.numberNote}}</td>
+						<td data-title="'FECHA'">{{iterador.dateNote}}</td>
+						<td align="center" data-title="'ESTADO'">{{iterador.status}}</td>
+						<td data-title="'ACCI&Oacute;N'" align="center">
+							<div class="text-center" style="width:100px">
+								<button class="btn btn-info btn-xs col-sm-4" ng-click="vm.viewEdocument(iterador)"><i class="glyphicon glyphicon-eye-open"></i></button>
+								<button class="btn btn-info btn-xs col-sm-4" ng-click="vm.viewReport(invoice,'descargar')"><i
+                                        class="glyphicon glyphicon-cloud-download" title="Descargar factura"></i></button>
+                                <button class="btn btn-primary btn-xs col-sm-4" ng-click="vm.processEInvoice(invoice)"><i
+                                        class="fa fa-cloud-upload" title="Procesar factura"></i></button>
+							</div>
+						</td>
+					</tr>
+                </table>
+		</div>
+		</div>
+	</div>
+  
+     
+     
+    <div ng-if="!vm.gridView"  class="animated fadeInDown delay form-validation form-horizontal">
+        <div class="panel panel-primary">
+        <div class="panel-heading" style="height: 30px !important;">
+               Nota de cr&eacute;dito/d&eacute;bito
+            </div>
+		</br>
+        <div class="row punto-venta-header" >
+        	<div class="col-md-12">
+            	<div class="col-md-6">
+                	<div class="row punto-venta-header" >
+                    
+                    	<div class="form-group">
+                        	<label class="col-lg-1 control-label"/>
+                        	<div class="col-lg-5">
+								<ui-select ng-disabled="vm.noteHeaderDto.id"  ng-model="vm.noteHeaderDto.taxInformationDetail"
+					                                       theme="bootstrap"
+					                                       reset-search-input="true"
+					                                       ng-required="true">
+					            	<ui-select-match placeholder=" seleccione el tipo de documento">
+					                                {{$select.selected.typeTrasaction.name}}
+					                </ui-select-match>
+					                <ui-select-choices repeat="iterador in vm.lstTaxInformation track by $index"
+					                                                   refresh-delay="0" >
+					                                    <div ng-bind-html="iterador.typeTrasaction.name | highlight: $select.search"></div>
+					                </ui-select-choices>
+					            </ui-select>                                            
+                            </div>
+											
+							<div class="col-lg-5">
+                           		<input ng-disabled="vm.noteHeaderDto.id" type="text" mask="999-999-999999999" ng-model="vm.noteHeaderDto.numberNote" class="form-control" placeholder="002-001-123456789" required/>
+                            </div>
+                        </div>
+                                    	
+                        <div class="form-group">
+							<label class="col-lg-1 control-label"/>
+                            	<div class="col-lg-5">
+									<ui-select ng-disabled="vm.noteHeaderDto.id" theme="bootstrap" ng-model="vm.noteHeaderDto.invoiceHeader" on-select="vm.seleccionarFactura($item)">
+							        	<ui-select-match mask="999-999-999999999" placeholder="seleccione la factura">{{$select.selected.number}}</ui-select-match>
+							            	<ui-select-choices
+							                                repeat="iterador in vm.lstFacturas | filter: $select.search track by iterador.number"
+							                                refresh="vm.findInvoiceByNumber($select)" refresh-delay="300">
+							                            <div mask="999-999-999999999" ng-bind-html="iterador.number + ' | ' + iterador.customer.comercialName | highlight: $select.search"></div>
+							                </ui-select-choices>
+							        </ui-select>
+                                </div>
+                                            
+                                            <div class="col-lg-5">
+				                               <div ng-controller="DatepickerDemoCtrl">
+												<div  class="input-group w-md" ng-init="vm.noteHeaderDto.dateNote = vm.currentDate ">
+													<input ng-disabled="vm.noteHeaderDto.id" type="text" placeholder="ingrese la fecha" class="col-lg-5 form-control" datepicker-popup="{{format}}" ng-model="vm.noteHeaderDto.dateNote" is-open="opened"
+														datepicker-options="dateOptions" ng-required="true"	close-text="Close" /> <span class="input-group-btn">
+														<button ng-disabled="vm.noteHeaderDto.id" type="button" class="btn btn-default" ng-click="open($event)">
+															<i class="glyphicon glyphicon-calendar"></i>
+														</button>
+													</span>
+												</div>
+											  </div>           
+                                            </div>
+                                            
+                                            
+                                        </div>
+                    
+                    </div>
+
+                                </div>
+
+                                <div class="col-md-6" >
+                                    <div class="punto-venta-header" >
+	                                        <div class="form-group">
+                                            <div class="col-lg-10">
+												 <ui-select ng-disabled="vm.noteHeaderDto.id" theme="bootstrap" ng-model="vm.noteHeaderDto.customer">
+							                        <ui-select-match placeholder="seleccione el cliente">{{$select.selected.person.fullName}}</ui-select-match>
+							                        <ui-select-choices
+							                                repeat="iterador in vm.lstCustomer | filter: $select.search track by iterador.person.fullName"
+							                                refresh="vm.findCustomersByFilter($select)" refresh-delay="300">
+							                            <div ng-bind-html="iterador.person.fullName | highlight: $select.search"></div>
+							                        </ui-select-choices>
+							                    </ui-select>
+                                            </div>
+                                        </div>
+									   
+                                        
+
+                                        <div class="form-group">
+                                            <div class="col-lg-10">
+                                                <input ng-disabled="vm.noteHeaderDto.id" type="text"  ng-model="vm.noteHeaderDto.descripton" descripton class="form-control" placeholder="ingrese una descripci&oacute;n"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+
+
+		<div class="form-punto-venta">	
+        <div class="panel panel-primary" >
+            <div class="panel-heading" style="height: 30px !important;">
+                <div class="col-md-2">MOTIVO</div>
+                <div class="col-md-3">ARTICULO</div>
+                <div class="col-md-1">CANTIDAD</div>
+                <div class="col-md-1">PRECIO</div>
+                <div class="col-md-1">VALOR</div>
+            	<div class="col-md-1">OBSERVACI&Oacute;N</div>
+            </div>
+                
+            <div class="panel-body punto-venta-list-detail">
+            	<div class="row row-fluid" ng-repeat="item in vm.noteHeaderDto.lstNoteDetail">
+                            <div>
+                            	<select ng-disabled="vm.noteHeaderDto.id" class="col-md-2 text-left pv-col-detail" ng-model="item.reasonNote" ng-options="y.name for (x, y) in vm.lstMotivos" required>
+								</select>
+                           </div>
+
+							<div>
+								<select ng-disabled="item.reasonNote.id==undefined ? true:false" class="col-md-3 text-left pv-col-detail" ng-change ="vm.newRow()"  ng-model="item.article" ng-options="y.name for (x, y) in vm.lstArticle">
+								</select>
+                           </div>
+							
+                            
+                            <form>
+                                <input ng-disabled="vm.noteHeaderDto.id" type="number" class="col-md-1 text-center pv-col-detail" ng-model="item.quantity"/>
+                            </form>
+                            
+                            <div class="col-md-1 text-right pv-col-detail" >
+                                {{item.article.price == undefined ? 0:item.article.price}}
+                            </div>
+                            
+                            <div class="col-md-1 text-right pv-col-detail" >
+                                {{(item.article.price == undefined ? 0:item.article.price ) * (item.quantity== undefined ? 0: item.quantity )}}
+                            </div>
+ 	
+                             <form>
+                                <input ng-disabled="vm.noteHeaderDto.id" type="text" class="col-md-3 text-center pv-col-detail" ng-model="item.description"/>
+                            </form>
+                            	
+                            <div class="col-md-1 text-center pv-col-detail"
+                                 ng-click="vm.removeItem(item)">
+                                <i class=" glyphicon glyphicon-trash"></i>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+   		</div>
+	
+		<div class="panel panel-info" ng-if="vm.noteHeaderDto.totales.subTotal > 0 ? true:false">
+		</br>
+	        <div class="row">
+    	        <div class="col-sm-6">
+			    	<div ng-repeat="item in vm.noteHeaderDto.lstNoteAditional">
+						<div class="col-md-2 text-right pv-col-detail" >
+                               IMPUESTO
+                        </div>
+
+						<div class="col-md-2 text-right pv-col-detail" >
+                                {{item.additionalHeader.name}}
+                        </div>
+							
+                        <div class="col-md-2 text-right pv-col-detail" >
+                                {{item.value}}
+                        </div>
+	                </div>
+                 </div>
+                 
+                 <div class="col-sm-6">
+			    	<div>
+						<div class="col-md-6 text-right pv-col-detail" >
+                                Iva {{vm.noteHeaderDto.totales.iva}}%:
+                        </div>
+							
+                        <div class="col-md-2 text-right pv-col-detail" >
+                                {{vm.noteHeaderDto.totales.subTotalConIp}}
+                        </div>
+	                </div>
+	                <div>
+						<div class="col-md-6 text-right pv-col-detail" >
+                               	Iva 0%:
+                        </div>
+							
+                        <div class="col-md-2 text-right pv-col-detail" >
+                                {{vm.noteHeaderDto.totales.subTotalSinImp}}
+                        </div>
+	                </div>
+	                <div>
+						<div class="col-md-6 text-right pv-col-detail" >
+                               Valor Total:
+                        </div>
+							
+                        <div class="col-md-2 text-right pv-col-detail" >
+                               {{vm.noteHeaderDto.totales.subTotal}}
+                        </div>
+	                </div>
+	                
+                 </div>
+                 </br>
+	        </div>
+		</div>
+	</div>
+	
+	<div >
+	
+	</div>
+	
+    
+    
+    </form>
+</div>

@@ -1,0 +1,34 @@
+<div ng-init="vm.typeLocation = phoneDinamic.typeLocation">
+	<div ng-init="vm.phoneNumber = phoneDinamic.number">
+	    <ul class="nav nav-pills nav-stacked">
+	    
+	    	<form  name="phone_validator"  class="form-validation">
+
+	    		<div ng-if="!phone_validator.$invalid ? (valorValidador=true):(valorValidador=false) " >
+	    		</div>
+	    	
+		    	<div class="form-group">
+			    	<label for="exp">Seleccione el tipo de tel&eacute;fono:</label><br/>
+			        <li role="presentation" class="active" ng-repeat="phone in vm.phoneList">
+			            <div class="radio">
+			                <label class="i-checks">
+			                	<div ng-init="phone.id==phoneDinamic.typeLocation.id?( phone = phoneDinamic.typeLocation):''" />
+			                    <input type="radio" name="a" ng-click="phoneLoader(phoneDinamic.typeLocation)" value="phone" ng-model="phoneDinamic.typeLocation" ng-value="phone" required/>
+			                    <i></i>
+			                    {{phone.name}} 
+			                </label>
+			            </div>
+			        </li>
+		        </div>
+		        
+		    	<div class="form-group form-control-material">
+					<label for="credit-card">N&uacute;mero de tel&eacute;fono.</label>
+				    <input ng-if="vm.typeLocation.codigoInterno == 'OFIC_PHONE' ? true:false" mask="(99) 9999-999" ng-disabled="!vm.typeLocation" type="text" class="form-control" placeholder="(XX) XXXX XXX"  ng-model="phoneDinamic.number" required>
+		   			<input ng-if="vm.typeLocation.codigoInterno == 'CELL_PHONE' ? true:false" mask="(99) 99999-999" ng-disabled="!vm.typeLocation" type="text" class="form-control" placeholder="(XX) XXXX XXX" ng-model="phoneDinamic.number" required>
+		   			<input ng-if="vm.typeLocation.codigoInterno == 'HOME_PHONE' ? true:false" mask="(99) 9999-999" ng-disabled="!vm.typeLocation" type="text" class="form-control" placeholder="(XX) XXXX XXX"  ng-model="phoneDinamic.number" required>
+		       </div>
+
+	    	</form>
+	    </ul>
+    </div>
+ </div>

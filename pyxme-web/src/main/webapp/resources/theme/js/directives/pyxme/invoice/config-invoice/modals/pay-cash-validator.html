@@ -1,0 +1,9 @@
+<form name="step1" class="form-validation">
+	<div >
+		<div ng-if="step1.$invalid ? (valorValidador.value= false): (valorValidador.value= true)"   >
+		</div>
+		<div ng-if="wayPay.name == undefined ? '':(vm.name = wayPay.name)"></div>
+		<label >Ingrese el nombre de la forma de pago </label>
+		<input type="text" ng-model="vm.name"  ng-change="vm.wayPayLoader()" class="form-control" placeholder="ingrese el nombre de la forma de pago" required />
+	</div>
+</form>

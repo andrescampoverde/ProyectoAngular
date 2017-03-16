@@ -1,0 +1,18 @@
+
+<div class="padder">
+	
+<form name="step1" class="form-validation">
+<div ng-if="step1.$invalid ? (valorValidador= true):(valorValidador= false)">
+</div>
+  <div class="row">
+		<div class="form-group">
+		<label class="col-sm-2 control-label">INGRESE EL VALOR:</label>
+			<div class="col-sm-10">
+				<input type="number" class="form-control"
+					   placeholder="valor minimo 1"
+					   ng-model="valorPago" ui-validate=" '$value >= 1' " required>
+			</div>
+		</div>
+    </div>
+  </form>
+</div>

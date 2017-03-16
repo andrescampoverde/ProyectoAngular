@@ -1,0 +1,30 @@
+<div>
+	<form name="user_validator" class= "form-validation">
+			<alert ng-repeat="alert in alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+			<div ng-if="!user_validator.$invalid  && vm.validate == true ? (validator=true):(validator=false)">
+			</div>
+			 <div class="list-group list-group-sm">
+	            <div class="list-group-item">
+	              <input type="text" ng-blur="vm.validacionUsuario(userDirective.comercialName)" placeholder="Correo electr&oacute;nico "  class="form-control no-border" ng-model="userDirective.comercialName" required>
+	            </div>
+	            <div class="list-group-item">
+				<input type="password" name="password" placeholder="Contrase&ntilde;a"  class="form-control no-border"   ng-model="userDirective.password" required>
+	            </div>
+	            <div class="list-group-item">
+ 				<input type="password" placeholder="Confirme contrase&ntilde;a" class="form-control no-border" name="confirm_password" 
+                                                                   ng-model="vm.confirm_password"
+                                                                   ui-validate="'$value== userDirective.password'"
+                                                                   ui-validate-watch="'password'" required>  	            
+	            </div>
+	            
+	          </div>
+	</form>
+	
+	<div ng-if="vm.validate == true ? true : false" class="alert alert-success">
+ 		<strong>&Eacute;xito!</strong> El email ingresado es v&aacute;lido.
+	</div>
+	
+	<div ng-if="vm.validate == false ? true : false" class="alert alert-danger">
+ 		<strong>Error!</strong> email inv&aacute;lido o ya se encuentra registrado.
+	</div>
+</div>

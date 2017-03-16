@@ -1,0 +1,78 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">
+        <span translate="aside.nav.modules.company.company"></span>
+    </h1>
+</div>
+<div class="wrapper-md" ng-controller="CompanyController as vm">
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+
+    <div ng-include src="'tpl/pyxme/administration/company-creation.html'"/>
+    <div ng-include src="'tpl/pyxme/administration/company-edition.html'"/>
+
+    <div class="panel panel-default" ng-if="!vm.blnEditCompany && !vm.blnNewCompany ? true:false">
+        <div>
+            <div class="panel-heading">
+                <button ng-click="vm.newCompany()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i
+                        class="fa fa-plus"></i>
+                    <span translate="label.global.nuevo"></span>
+                </button>
+                <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()" ng-if="false">
+                    <i class="fa fa-refresh"></i>
+                    <span translate="label.global.actualizar"></span>
+                </button>
+                <p style="float: right;" ng-if="false">
+                    <span translate="label.global.busqueda"></span>
+
+                    <input type="search" ng-model="search"
+                           class="form-control input-sm w-sm inline m-r"
+                           placeholder="B&Uacute;SQUEDA GENERAL">
+                </p>
+            </div>
+
+            <div class="panel-body">
+
+                <table ng-table="vm.tableParams"
+                       class="table table-condensed table-bordered table-striped"
+                       show-filter="true">
+
+                    <tr ng-repeat="company in $data">
+                        <td data-title="'label.global.codigo' | translate" >{{company.id}}</td>
+                        <td data-title="'label.modulo.compania.nombre_comercial' | translate" filter="{comercialName:'text'}"
+                            sortable="'comercialName'">{{company.comercialName}}</td>
+                        <td data-title="'label.modulo.compania.razon_social' | translate" filter="{socialRazon:'text'}"
+                            sortable="'socialRazon'">{{company.socialRazon}}</td>
+                        <td data-title="'label.modulo.compania.abreviacion' | translate" filter="{abbreviation:'text'}"
+                            sortable="'abbreviation'">{{company.abbreviation}}</td>
+                        <td data-title="'label.modulo.compania.moneda' | translate" filter="{catalogMoneyA.name:'text'}"
+                            sortable="'catalogMoneyA.name'" style="text-align: center;">{{company.catalogMoney.name}}</td>
+                        <td data-title="'label.global.tipo' | translate" filter="{catalogCompanyTypeA.name:'text'}"
+                            sortable="'catalogCompanyTypeA.name'">{{company.catalogCompanyType.name}}</td>
+                        <td data-title="'label.modulo.compania.actividad_comercial' | translate" filter="{catalogComercialActivityA.name:'text'}"
+                            sortable="'catalogComercialActivityA.name'">{{company.catalogComercialActivity.name}}</td>
+                        <td data-title="'label.global.ruc' | translate" filter="{ruc:'text'}"
+                            sortable="'ruc'" style="text-align: center;">{{company.ruc}}</td>
+                        <td data-title="'label.global.direccion' | translate"  filter="{address:'text'}"
+                            sortable="'address'">{{company.address}}</td>
+                        <td data-title="'label.global.estado' | translate"  style="text-align: center;">
+                            <i class="glyphicon"
+                               ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[company.status]"></i>
+                        </td>
+
+                        <td data-title="'label.global.accion' | translate" style="text-align: center;">
+                            <div class="text-center row" >
+                                <button class="btn btn-info btn-xs col-md-4" ng-click="vm.editCompany(company)"><i
+                                        class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-success btn-xs col-md-4" ng-click="vm.saveCompany(company,true)"><i
+                                        class="glyphicon glyphicon-ok-circle"></i></button>
+                                <button class="btn btn-warning btn-xs col-md-4" ng-click="vm.saveCompany(company,false)"><i
+                                        class="glyphicon glyphicon-ban-circle"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">Opciones</h1>
+</div>
+<div class="wrapper-md" ng-controller="OpcionController as vm">
+<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" >{{alert.msg}}</alert>
+	<div class="panel panel-default" ng-if="!vm.opcionObj">	
+	
+	    <div class="panel-heading">
+	    	<button ng-click="vm.newOpcion()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVA OPCION</button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i>ACTUALIZAR</button>
+            <p style="float: right;">B&Uacute;SQUEDA : <input type="search" ng-model="search" class="form-control input-sm w-sm inline m-r" placeholder="B&Uacute;SQUEDA GENERAL"></p> 
+        </div>
+
+			
+			<div class="panel-body">
+                <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true">
+                	<tr ng-repeat="opcion in $data">
+                		<td data-title="'ID'">{{opcion.id}}</td>
+                		
+                		<td data-title="'NOMBRE DEL M&Oacute;DULO'">{{opcion.modulo.name}}</td>
+                		
+						<td data-title="'NOMBRE DEL OPCI&Oacute;N'">{{opcion.nombre}}</td>
+						
+						<td data-title="'MENU VISUALIZACI&Oacute;N'">{{opcion.showInMenu}}</td>
+						
+						<td class="text-center" data-title="'ESTADO'">
+							<i class="glyphicon"
+							   ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[opcion.status]"></i>
+						</td>
+
+						<td data-title="'ACCI&Oacute;N'" align="center">
+							<div class="text-center" style="width:100px">
+								<button  class="btn btn-info btn-xs" ng-click="vm.editOpcion(opcion)"><i class="glyphicon glyphicon-edit"></i></button>
+							</div>
+						</td>
+					</tr>
+                </table>
+            </div>
+			
+			
+	
+	</div>
+
+
+
+	<form name="form" class="form-validation" ng-if="vm.opcionObj">
+		<div class="panel panel-default">
+
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">DATOS DE OPCION</div>
+				<div class="panel-body">
+					
+				<div class="form-group">
+				<label class="col-sm-2 control-label">M&oacute;dulo </label>
+				</br>
+					<div class="col-sm-10">
+						<div class="row-fluid" ng-repeat="iterador in vm.lstModules">
+							<label class="i-checks"> 
+								<div ng-init="iterador.id==vm.opcionObj.modulo.id?( iterador=vm.opcionObj.modulo ):''" />
+								<input type="radio" name="radio" ng-model="vm.opcionObj.modulo" ng-value="iterador" required /> 
+								<i>
+								</i>	
+								{{iterador.name}}
+								<br/>
+							</label>
+						</div>
+					</div>
+				</div>					
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre Opcion</label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="..."
+								ng-model="vm.opcionObj.nombre" name="nombreOpcion"
+								class="form-control" required />
+						</div>
+					</div>
+					
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Ruta Opcion</label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="..."
+								ng-model="vm.opcionObj.ruta" name="nombreRuta"
+								class="form-control" required />
+						</div>
+					</div>	
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Mostrar en menu</label>
+						<div class="col-sm-10">
+							<label class="i-switch i-switch-md bg-info m-t-xs m-r"> <input
+								ng-model="vm.opcionObj.showInMenu" type="checkbox" checked /> <i></i></label>
+						</div>
+					</div>
+					
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Estado</label>
+						<div class="col-sm-10">
+							<label class="i-switch i-switch-md bg-info m-t-xs m-r"> <input
+								ng-model="vm.opcionObj.status" type="checkbox" checked /> <i></i></label>
+						</div>
+					</div>	
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Traducci&oacute;n</label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="..."
+								ng-model="vm.opcionObj.keyTranslate" name="traduccion"
+								class="form-control" required />
+						</div>
+					</div>	
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+				</div>
+
+			</div>
+
+		</div>
+		     <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-sm" ng-click="vm.cancelOpcion();">Cancelar</button>
+
+                            <button ng-disabled="form.$invalid" ng-click="vm.saveOpcion()"  class="btn btn-sm btn-primary">Guardar</button>
+                        </div>
+                    </div>
+	</form>
+	
+</div>

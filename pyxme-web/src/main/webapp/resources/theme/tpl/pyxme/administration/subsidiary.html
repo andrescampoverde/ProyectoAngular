@@ -1,0 +1,113 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3" translate="aside.nav.modules.company.subsidiary">SUCURSAL</h1>
+</div>
+<div class="wrapper-md" ng-controller="SubsidiaryController as vm">
+
+	<div class="panel panel-default" ng-if="!vm.subsidiaryObj">
+
+		
+		
+		  <div class="panel-heading">
+	    	<button ng-click="vm.newSubsidiary()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i><span translate="label.modulo.sucursal.nueva_sucursal">NUEVA SUCURSAL</span></button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i><span translate="label.global.actualizar"></span></button>
+         
+        </div>
+
+		<div class="panel panel-default">
+			<div class="panel-body">
+
+				<table ng-table="vm.tableParams" class="table table-hover table-striped" show-filter="true">
+
+					<tr ng-repeat="subsidiary in $data">
+						<td data-title="'label.global.codigo' | translate"  
+                            >{{subsidiary.id}}</td>
+						<td data-title="'label.global.nombre' | translate"  filter="{name:'text'}"
+                            sortable="'name'">{{subsidiary.name}}</td>
+					
+						<td data-title="'label.global.telefono' | translate"  filter="{phone:'text'}"
+                            sortable="'phone'" >{{subsidiary.phone}}</td>
+						<td  data-title="'label.global.direccion' | translate"  filter="{address:'text'}"
+                            sortable="'address'">{{subsidiary.address}}</td>
+						<td  data-title="'label.global.estado' | translate" class="text-center">
+							<i class="glyphicon"
+							   ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[subsidiary.status]"></i>
+						</td>
+
+						<td data-title="'label.global.accion' | translate" class="text-center" >
+							<div class="text-center" >
+								<button  class="btn btn-info btn-xs" ng-click="vm.editSubsidiary(subsidiary)"><i class="glyphicon glyphicon-edit"></i></button>
+								<button class="btn btn-success btn-xs" ng-click="vm.saveSubsidiary(subsidiary)"><i class="glyphicon glyphicon-ok-circle"></i></button>
+								<button class="btn btn-warning btn-xs" ng-click="vm.saveInactiveSubsidiary(subsidiary)"><i class="glyphicon glyphicon-ban-circle"></i></button>
+								
+							</div>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<form name="form" class="form-validation" ng-if="vm.subsidiaryObj">
+		<div class="panel panel-default">
+
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">
+					<span>DATOS DE SUCURSAL </span>
+
+				</div>
+				<div class="panel-body">
+
+
+					<div class="form-group">
+						<label  class="col-sm-2 control-label" translate="label.global.nombre">Nombre: </label>
+						<div class="col-sm-10">
+							<input style="text-transform:uppercase" type="text" ng-model="vm.subsidiaryObj.name"
+								class="form-control" placeholder="ingrese el nombre de la sucursal"
+								required />
+						</div>
+					</div>
+
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" translate="label.global.direccion">{{label.global.direccion}}:</label>
+						<div class="col-sm-10">
+							<input type="text"
+								placeholder="ingrese la direccion de la sucursal"
+								ng-model="vm.subsidiaryObj.address" name="address"
+								class="form-control" required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" translate="label.global.telefono">Tel&eacute;fono:</label>
+						<div class="col-sm-10">
+							<input type="text" placeholder="ingrese el telefono de la sucursal"	ng-model="vm.subsidiaryObj.phone" name="phone"	class="form-control" required />
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		     <div class=" line line-dashed b-b line-lg pull-in"></div>
+		     	<div class="col-sm-12 col-sm-offset-" >
+                    <div class="form-group">
+                        <div class="col-sm-6 text-right">
+                            <button class="btn btn-dm" ng-click="vm.cancelSubsidiary();" translate="label.global.cancelar">
+                             Cancelar
+                            </button>
+                            
+						</div>
+                        <div class="col-sm-6">
+                            <button ng-disabled="form.$invalid" ng-click="vm.saveSubsidiary(vm.subsidiaryObj)" class="btn btn-dm btn-primary" translate="label.global.guardar">
+                            Guardar
+                            </button>
+                        </div>
+                    </div>
+                 </div> 
+	</form>
+</div>

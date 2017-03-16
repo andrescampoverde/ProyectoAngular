@@ -1,0 +1,126 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">COCHE</h1>
+</div>
+<div class="wrapper-md" ng-controller="CarController as vm">
+<div>
+	<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+</div>
+
+	<div ng-if="!vm.carDto">
+	<div class="panel panel-default">
+        <div class="panel-heading">
+	    	<button ng-click="vm.newCar()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO COCHE</button>
+        </div>
+		<div class="panel-body">
+			 <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true">
+                	<tr ng-repeat="iterator in $data">
+						<td data-title="'ID'">{{iterator.id}}</td>
+						<td data-title="'COLOR'">{{iterator.color}}</td>
+						<td data-title="'PLACA'">{{iterator.licensePlate}}</td>
+						<td data-title="'TIPO'">{{iterator.catalogTipoCoche.name}}</td>
+						<td data-title="'MARCA'">{{iterator.catalogMarca.name}}</td>
+						<td align="center" data-title="'ESTADO'">{{iterator.status}}</td>
+						<td data-title="'ACCI&Oacute;N'" align="center">
+							<div class="text-center" style="width:100px">
+								<button  class="btn btn-info btn-xs" ng-click="vm.editCar(iterator)"><i class="glyphicon glyphicon-edit"></i></button>
+								<button class="btn btn-success btn-xs" ng-click="vm.saveCar(iterator,true)"><i class="glyphicon glyphicon-ok-circle"></i></button>
+								<button class="btn btn-danger btn-xs"  ng-click="vm.saveCar(iterator,false)"><i class="glyphicon glyphicon-trash"></i></button>
+							</div>
+						</td>
+					</tr>
+                </table>
+		</div>
+		</div>
+	</div>
+
+
+
+	<div ng-if="vm.carDto" class="padder">
+		<form name="formcar" class="form-validation">
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div>
+						<div class="panel-heading font-bold">INGRESE DATOS DEL COCHE</div>
+						<div class="panel-body">
+							<label class="col-sm-2 control-label">Color:</label>
+								<div class="col-sm-10">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="campo obligatorio"
+										ng-model="vm.carDto.color" 
+										class="form-control" required />
+								</div>
+
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group has-error">
+								<label class="col-sm-2 control-label">Placa:</label>
+								<div class="col-sm-10">
+									<input type="text"
+										style="text-transform:uppercase" type="text"
+										placeholder="campo opcional"
+										ng-model="vm.carDto.licensePlate"
+										class="form-control"/>
+								</div>
+							</div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<div >
+									<div >
+										<label class="col-sm-2 control-label">Tipo Coche:
+										</label> 
+									</div>
+									<div class="panel-body">
+		                        <div class="col-sm-10">
+		                            <div class="row-fluid" ng-repeat="iterador in vm.lstCoche">
+		                            <div ng-init="iterador.id==vm.carDto.catalogTipoCoche.id?(iterador=vm.carDto.catalogTipoCoche):''" />
+		                                <label class="i-checks">
+		                                    <input type="radio" ng-model="vm.carDto.catalogTipoCoche" ng-value="iterador"  required /> <i></i>
+		                                    {{iterador.name}}<br />
+		                                </label>
+		                            </div>
+		                        </div>
+                    			</div>
+								</div>
+							</div>
+							
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+							<div class="form-group">
+								<div >
+									<div >
+										<label class="col-sm-2 control-label">Marca:
+										</label> 
+									</div>
+									<div class="panel-body">
+		                        <div class="col-sm-10">
+		                            <div class="row-fluid" ng-repeat="iterador in vm.lstTipoMarca">
+		                            <div ng-init="iterador.id==vm.carDto.catalogMarca.id?(iterador=vm.carDto.catalogMarca):''" />
+		                                <label class="i-checks">
+		                                    <input type="radio" ng-model="vm.carDto.catalogMarca" ng-value="iterador"  required /> <i></i>
+		                                    {{iterador.name}}<br />
+		                                </label>
+		                            </div>
+		                        </div>
+                    			</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div>
+				<div class="m-b-sm">
+					<div class="row">
+						<button type="submit"
+							ng-click="formcar.$valid ? vm.saveCar(vm.carDto,true):vm.alertRequiredFields()"
+							href class="btn btn-info col-sm-6">GUARDAR</button>
+						<button type="reset" href class="btn btn-warning col-sm-6"
+							ng-click="vm.cancel();">CANCELAR</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

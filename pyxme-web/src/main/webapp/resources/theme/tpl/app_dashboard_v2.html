@@ -1,0 +1,163 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm"
+	ng-init="app.settings.asideFolded = true; 
+    app.settings.asideDock = false;"
+	ng-controller="CarShared as vm">
+
+	<script type="text/ng-template" id="modal-confirmar-ruta">
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Seleccione el tipo de identificaci&oacute;n del cliente</h4>
+    </div>
+
+    <div class="modal-body">
+	 <li class="list-group-item">
+              	<div class="row">
+              		<div class="col-lg-1">
+	                <a href class="thumb-sm m-r">
+	                  <img src="img/visto.jpg" class="r r-2x">
+	                </a>
+	                </div>
+	                <div class="col-lg-5">
+	                <div class="clear">
+			            <div><a href>Desea unirse a esta ruta?</a></div>
+			            <small class="text-muted">El valor de esta ruta se distribuir&aacute;, entre los el n&uacutemero de 
+						personas dentro de la unidad, el mismo que sera caneclado antes de bajarse de la unidad</small>
+			        </div>
+			        </div>
+              	</div>
+       </li>    
+    </div>
+
+    <div class="modal-footer">
+        <div class="btn-group btn-group-justified">
+            <a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+            <a href class="btn btn-success"
+               ng-click="vm.guardarFactura()== undefined ? (steps.percent=100):'(steps.percent=100)'">ACEPTAR</a>
+        </div>
+    </div>
+</script>
+
+
+	<div class="col">
+
+
+		<div class="bg-light lter b-b wrapper-md">
+			<div class="row">
+				<div class="col-sm-6 col-xs-12">
+					<h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+					<small class="text-muted">Bienvenido: Santiago Yacelga</small>
+				</div>
+				<div class="col-sm-6 text-right hidden-xs">
+					<div class="inline m-r text-left">
+						<div class="m-b-xs">
+							1290 <span class="text-muted">Solicitudes</span>
+						</div>
+						<div
+							ng-init="datruta=[ 106,108,110,105,110,109,105,104,107,109,105,100,105,102,101,99,98 ]"
+							ui-jq="sparkline"
+							ui-options="{{datruta}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}"
+							class="sparkline inline">loading...</div>
+					</div>
+					<div class="inline text-left">
+						<div class="m-b-xs">
+							81 <span class="text-muted">Publicaciones</span>
+						</div>
+						<div
+							ng-init="datruta=[ 105,102,106,107,105,104,101,99,98,109,105,100,108,110,105,110,109 ]"
+							ui-jq="sparkline"
+							ui-options="{{datruta}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}"
+							class="sparkline inline">loading...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<div ng-if="vm.activarDashBoard"
+			class="animated fadeInDown delay wrapper-md">
+			</br>
+			<div>
+				<!-- Botones -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row row-sm text-center">
+							<div class="col-xs-6">
+								<a  ui-sref="app.form.sharedService"
+									class="block panel padder-v bg-warning item"> 
+									<span class="font-thin font-thin h1 block">
+									<i class="fa fa-taxi text-muted m-r-sm"></i>
+									</span> 
+									<span
+									class="text-muted text-xs">Solicitar un vehiculo</span> <span
+									class="bottom text-right w-full"> <i
+										class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+							<div class="col-xs-6">
+								<a ui-sref="app.form.sharedService"
+									class="block panel padder-v bg-primary item"> <span
+									class="text-white font-thin h1 block">217</span> <span
+									class="text-muted text-xs">Publicar solicitud</span> <span
+									class="bottom text-right w-full"> 
+									<i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+							<div class="col-xs-6">
+								<a ui-sref="app.form.spotRoute" class="block panel padder-v bg-primary item"> <span
+									class="text-white font-thin h1 block">32</span> <span
+									class="text-muted text-xs">Rutas Puntuales</span> <span
+									class="top text-left"> <i
+										class="fa fa-caret-up text-warning m-l-sm"></i>
+								</span>
+								</a>
+							</div>
+							<div class="col-xs-6">
+								<a ui-sref="app.form.frequentRoute"
+									class="block panel padder-v bg-default item"> <span
+									class="font-thin font-thin h1 block">110</span> <span
+									class="text-muted text-xs">Rutas Frecuentes</span> <span
+									class="bottom text-right w-full"> <i
+										class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+							<div class="col-xs-12 m-b-md">
+								<a href class="block panel padder-v bg-info item"> 
+									<span class="font-thin font-thin h1 block">110</span> 
+									<span class="text-muted text-xs">Viajes Interprovinciales</span> 
+									<span class="bottom text-right w-full"> 
+									<i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+
+							<div class="col-xs-12 m-b-md">
+								<a  class="block panel padder-v bg-primary item"> <span
+									class="font-thin font-thin h1 block">110</span> <span
+									class="text-muted text-xs">Sugerencias</span> <span
+									class="bottom text-right w-full"> 
+									<i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+							
+							<div class="col-xs-12 m-b-md">
+								<a ui-sref="app.form.adminRoute" class="block panel padder-v bg-danger item"> <span
+									class="font-thin font-thin h1 block">110</span> <span
+									class="text-muted text-xs">Administrar Rutas</span> <span
+									class="bottom text-right w-full"> 
+									<i class="fa fa-cloud-upload text-muted m-r-sm"></i>
+								</span>
+								</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

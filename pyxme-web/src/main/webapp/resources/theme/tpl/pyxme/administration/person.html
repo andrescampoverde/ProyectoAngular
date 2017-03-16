@@ -1,0 +1,105 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">PERSONA</h1>
+</div>
+<div class="wrapper-md" ng-controller="PersonController as vm">
+
+    <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+    <div class="animated fadeInDown delay">
+
+        <div class="panel panel-default" ng-if="!vm.personObjeto">
+
+            <div class="panel-heading">
+                <button ng-click="vm.newPerson()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+                    <i class="fa fa-plus"></i>NUEVA PERSONA
+                </button>
+            </div>
+            <div class="panel-body">
+                <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped"
+                       show-filter="true">
+                    <tr ng-repeat="person in $data">
+                    	<td>{{person.id}}</td>
+                        <td class="text-center" data-title="'label.modulo.persona.identificacion' | translate" filter="{identificationNumber:'text'}" sortable="'identificationNumber'">
+                            {{person.identificationNumber}}
+                        </td>
+                        <td data-title="'label.global.nombre' | translate" >{{person.firstName}}{{" "}}{{person.secondName}}</td>
+                        <td data-title="'label.modulo.persona.apellido' | translate" filter="{firstLastName:'text'}" sortable="'firstLastName'">{{person.firstLastName}}{{" "}}{{person.secondLastName}}</td>
+                        <td data-title="'label.global.direccion' | translate" filter="{address:'text'}" sortable="'address'">{{person.address}}</td>
+                        <td class="text-center" data-title="'label.global.estado' | translate">
+                            <i class="glyphicon"
+                               ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[person.status]"></i>
+                        </td>
+                        <td data-title="'label.global.accion' | translate" align="center">
+                            <div class="text-center">
+                                <button class="btn btn-info btn-xs" ng-click="vm.editPerson(person)">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </button>
+                                <button class="btn btn-success btn-xs" ng-click="vm.savePerson(person,true)">
+                                    <i class="glyphicon glyphicon-ok-circle"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-click="vm.savePerson(person,false)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+
+        <form name="formPerson" class="form-validation" ng-if="vm.personObjeto">
+            <div class="col">
+                <div class="bg-info dker">
+                    <div class="wrapper-lg ">
+                        <div class="row m-t">
+                            <div class="col-sm-7">
+                                <a href class="thumb-lg pull-left m-r">
+                                    <img src="img/person.jpg" class="img-circle">
+                                </a>
+                                <div class="clear m-b">
+                                    <div class="m-b m-t-sm">
+                                        <label class="h3 text-black col-md-12"
+                                               ng-bind="vm.personObjeto.firstName == undefined ? ('NUEVA PERSONA'): (vm.personObjeto.firstName +' '+ vm.personObjeto.firstLastName  )"></label>
+
+                                        <label class="col-md-12"
+                                               ng-bind="vm.personObjeto.address == undefined ? (''): (vm.personObjeto.address)"></label>
+
+                                    </div>
+                                    <p class="m-b">
+                                        <a href class="btn btn-lg btn-bg btn-rounded btn-default btn-icon"><i
+                                                class="fa fa-twitter"></i></a>
+                                        <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i
+                                                class="fa fa-facebook"></i></a>
+                                        <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i
+                                                class="fa fa-google-plus"></i></a>
+                                    </p>
+
+                                    <button class="btn btn-sm btn-warning btn-rounded" ng-click="vm.editPersonObj()">
+                                        EDITAR
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="pull-right pull-none-xs text-center">
+                                    <a href class="m-b-md inline m">
+                                        <span class="h3 block font-bold">esyacelga</span>
+                                        <small>Register by</small>
+                                    </a>
+                                    <a href class="m-b-md inline m">
+                                        <span class="h3 block font-bold">2016/01/01</span>
+                                        <small>Register date</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+            	<ui-persona person-directive="vm.personObjeto" tag-edition="vm.activeDirective" valor-validador="vm.validador" active-directive="vm.activeDirective"></ui-persona>
+            </div>
+        </form>
+    </div>
+</div>

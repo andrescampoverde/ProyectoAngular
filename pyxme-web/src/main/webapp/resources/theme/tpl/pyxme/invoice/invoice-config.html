@@ -1,0 +1,1438 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">CONFIGURACI&Oacute;N DE
+		FACTURACI&Oacute;N</h1>
+</div>
+<div class="wrapper-md" ng-controller="InvoiceConfigController as vm">
+
+	<script type="text/ng-template" id="modal-wayPayCounted">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+			<h3 class="m-t-none m-b font-thin">PAGO AL CONTADO</h3>
+        </div>
+
+        <div class="modal-body">
+            <ui-counted counted-form="vm.pagoContado" valor-validador= "vm.validador" >
+			</ui-counted>
+        </div>
+
+        <div class="modal-footer">
+		<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="vm.cancelarContado()"  >CANCELAR</a>
+				<a href class="btn btn-info" ng-if="vm.btnEdit"  ng-click="vm.eliminarOpcionCont()">ELIMINAR</a>
+        		<a href ng-hide="vm.validador.value" class="btn btn-default" >ACEPTAR</a>
+				<a href ng-show="vm.validador.value"  class="btn btn-success" ng-click="vm.cargarPagoContado(vm.pagoContado);" >ACEPTAR</a>
+        </div>
+        </div>
+</script>
+
+	<script type="text/ng-template" id="modal-wayPayCredit">
+	<div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+			<h3 class="m-t-none m-b font-thin">PAGO A CREDITO</h3>
+    </div>
+
+    <div class="modal-body">
+            <ui-credit credit-form="vm.pagoCredito" valor-validador= "vm.validador" ></ui-credit>
+    </div>
+
+    <div class="modal-footer">
+		<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="vm.cancelarContado()"  >CANCELAR</a>
+				<a href class="btn btn-info" ng-if="vm.btnEdit"  ng-click="vm.eliminarOpcionCred()">ELIMINAR</a>
+        		<a href ng-hide="vm.validador.value" class="btn btn-default" >ACEPTAR</a>
+				<a href ng-show="vm.validador.value"  class="btn btn-success" ng-click="vm.cargarPagoCredito(vm.pagoCredito)" >ACEPTAR.</a>
+        </div>
+    </div>
+</script>
+
+
+<div class="modal-over bg-black" ng-if="vm.invoiceVariable.usuarioDemo == 'true' ? true:false">
+  <div class="modal-center animated fadeInUp text-center" style="width:200px;margin:-100px 0 0 -100px;">
+    <div class="thumb-lg">
+      <img src="img/excl-ico.png" class="img-circle">
+    </div>
+    <p class="h4 m-t m-b">ACCESO NO PERMITIDO</p>
+       <small class="text-muted clear text-ellipsis">
+	    
+	    </small>
+	    <small class="text-muted clear text-ellipsis">
+	    Version de prueba
+	    </small>
+	    </br>
+	    
+	      <div class="list-group bg-info auto m-b-sm m-b-lg">
+		    <a href="#/" class="list-group-item">
+		      <i class="fa fa-chevron-right text-muted"></i>
+		      <i class="fa fa-fw fa-mail-forward m-r-xs"></i> Regresar al inicio
+		    </a>
+		    <a ui-sref="access.signin" class="list-group-item">
+		      <i class="fa fa-chevron-right text-muted"></i>
+		      <i class="fa fa-fw fa-sign-in m-r-xs"></i> Cambiar de usuario
+		    </a>
+		    <a ui-sref="access.signup" class="list-group-item">
+		      <i class="fa fa-chevron-right text-muted"></i>
+		      <i class="fa fa-fw fa-unlock-alt m-r-xs"></i> Salir de la aplicacion
+		    </a>
+  		</div>
+  </div>
+</div>
+
+	<div ng-if="vm.invoiceVariable.usuarioDemo == null ? true:false" class="animated fadeInDown delay">
+	
+		<div ng-if= "vm.invoiceVariable.configuracionFactura != undefined && vm.invoiceVariable.configuracionFactura == 'true' ? true : false">
+			<div class="well m-t bg-light lt">
+			<div class="list-group list-group-lg list-group-sp">
+			
+			    <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			    <div ng-if="vm.invoiceVariable.configuracionFactura == null ? true: false">
+			    <span class="pull-right label bg-warning inline m-t-sm">
+		          NO CONFIGURADA
+			    </span>
+			    </div>
+		        <div ng-if="vm.invoiceVariable.configuracionFactura != null ? true: false">
+		        <span class="pull-right label bg-primary inline m-t-sm">
+		           CONFIGURADA
+		         </span>
+			    </div>
+		        <span class="clear">
+		        <span>Variable: Estado configuracion</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica si en el sistema ya se han configurado las variables mediante le proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (configuracionFactura) 
+			                </small>
+			              </span>
+			</a>
+			
+			
+		    <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			    <div ng-if="vm.invoiceVariable.configuracionFactura == null ? true: false">
+			    <span class="pull-right label bg-warning inline m-t-sm">
+		          NO CONFIGURADA
+			    </span>
+			    </div>
+		        <div ng-if="vm.invoiceVariable.configuracionFactura != null ? true: false">
+		        <span class="pull-right label bg-primary inline m-t-sm">
+		           CONFIGURADA
+		         </span>
+			    </div>
+		        <span class="clear">
+		        <span>Variable: Estado configuracion</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica si en el sistema ya se han configurado las variables mediante le proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (configuracionFactura) 
+			                </small>
+			              </span>
+			</a>
+			          
+			          	
+			<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			    <div ng-if="vm.invoiceVariable.opcionVariosTiposPago == null ? true: false">
+				    <span class="pull-right label bg-warning inline m-t-sm">
+					                NO CONFIGURADA
+				    </span>
+				</div>
+				<div ng-if="vm.invoiceVariable.opcionVariosTiposPago != null ? true: false">
+					<span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					</span>
+				</div>
+			           
+			    <span class="clear">
+			    	<span>Variable: Varias formas de pago</span>
+			        <small class="text-muted clear text-ellipsis">
+			        Esta variable permite identificar al sistema si la empresa maneja varias formas de pago
+			        </small>
+			        <small class="text-muted clear text-ellipsis">
+			        (opcionVariosTiposPago) 
+			        </small>
+			    </span>
+			</a>
+			            
+			            
+			<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+				<div ng-if="vm.invoiceVariable.opcionPagoMixto == null ? true: false">
+					<span class="pull-right label bg-warning inline m-t-sm">
+					      NO CONFIGURADA
+					</span>
+				</div>
+				<div ng-if="vm.invoiceVariable.opcionPagoMixto != null ? true: false">
+					<span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					</span>
+				</div>
+			    <span class="clear">
+			    	<span>Variable: Formas de pago mixto</span>
+			        	<small class="text-muted clear text-ellipsis">
+			                Esta variable permite identificar al sistema si la empresa maneja a la vez formas de pago tanto a credito como efectivo
+			            </small>
+			            <small class="text-muted clear text-ellipsis">
+			                (opcionPagoMixto) 
+			            </small>
+			 	</span>
+		     </a>
+			            
+			           
+			<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			    <div ng-if="vm.invoiceVariable.formaPagoContado == null ? true: false">
+				    <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+				   	</span>
+				</div>
+				<div ng-if="vm.invoiceVariable.formaPagoContado != null ? true: false">
+				     <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+				   	</span>
+				</div>
+		        <span class="clear">
+			       <span>Variable interna: Opcion pago contado</span>
+			       <small class="text-muted clear text-ellipsis">
+			          Habilita pago en efectivo en la pantalla de facturacion
+			       </small>
+			    <small class="text-muted clear text-ellipsis">
+			        (formaPagoContado)
+			    </small>
+			    </span>
+			</a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.formaPagoCredito == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.formaPagoCredito != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable interna: Opcion pago credito</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Habilita pago a credito en la pantalla de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (formaPagoCredito)
+			                </small>
+			              </span>
+			            </a>
+			
+						<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.pagoEfectivo == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoEfectivo != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			
+			              <span class="clear">
+			                <span>Variable: Pago en efectivo</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago en efectivo para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoEfectivo)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			           <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.pagoTargeta == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoTargeta != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Pago en targeta</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago con targeta para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoTargeta)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              <div ng-if="vm.invoiceVariable.pagoCheque == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoCheque != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			               <span class="clear">
+			                <span>Variable: Pago con cheque</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago con cheque para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoCheque)
+			                </small>
+			              </span>
+			            </a>                        
+			          
+			          	<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.adicionaDescuento == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.adicionaDescuento != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Adcional descuento</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el adicional de factura con respecto al descuento que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (adicionaDescuento)
+			                </small>
+			              </span>
+			            </a>  
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.adicionalIva == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.adicionalIva != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Adicional Iva</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el adicional de factura con respecto al iva que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (adicionalIva)
+			                </small>
+			              </span>
+			            </a>  
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.documentoFactura == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.documentoFactura != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Tipo de documento factura</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el tipo de documento factura
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (documentoFactura)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.tipoDescuento == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.tipoDescuento != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Tipo de descuento</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el tipo de descuento que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (tipoDescuento)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.otrosPagosEfectivo == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.otrosPagosEfectivo != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Otros pagos en efectivo</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica las otras formas de pago en efectivo ingresado por el usuario
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (otrosPagosEfectivo)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.otrosPagosCredito == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.otrosPagosCredito != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Formas de pago a credito </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica las formas de pago a credito ingresado por el usuario
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (otrosPagosCredito)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			           
+			              <div ng-if="vm.invoiceVariable.manejaDescuentos == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.manejaDescuentos != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			            
+			            
+			            
+			              <span class="clear">
+			                <span>Variable: Manejo de descuentos </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica si la empresa o negocio maneja algun tipo de descuento
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (manejaDescuentos)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.estadoFacturado == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.estadoFacturado != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Estado facturado </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el estado facturado en el proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (estadoFacturado)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              <div ng-if="vm.invoiceVariable.estadoAnulado == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.estadoAnulado != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Estado anulado </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el estado anulado en el proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (estadoAnulado)
+			                </small>
+			              </span>
+			            </a>
+			            <button class="btn btn-success btn-lg btn-block" ng-click="vm.reconfigurarVariables()">
+							<i class="fa fa-refresh pull-right"></i> RECONFIGURAR VARIABLES
+						</button>
+				</div>
+			</div>	
+		</div>
+		
+		
+		<div ng-if= "vm.invoiceVariable.configuracionFactura == undefined || vm.invoiceVariable.configuracionFactura == 'false' ? true : false">
+			<tabset class="tab-container" ng-init="steps={percent:1, step1:true, step2:false, step3:false}">
+			<tab heading="OPCIONES DE PAGO" active="steps.step1" select="steps.percent=1">
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div ng-if="steps.step1 && !step1.$invalid ? (steps.percent=15) : (steps.percent=0)">
+					</div>
+		
+					<span class="label bg-info pos-rlt m-r inline wrapper-xs"> 
+					
+					<i class="arrow right arrow-info"></i> PASO 1:
+					</span> <a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a>
+					</br> <br />
+					<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+					<br /> <br />
+					<form name="step1" class="form-validation">
+					
+				   
+				<div >
+					<div class="panel b-light clearfix">
+				        <div class="panel-body">
+				          <a href class="thumb pull-left m-r">
+				            <img src="img/variable.jpg" class="img-circle">
+				          </a>
+				          <div class="clear" ng-init = "vm.manejaProductoServicio = false">
+				            
+				            <a href class="text-info">Facturaci&aacute;n por productos o servicios 
+				            <i class="fa fa-user-secret"></i></a>
+				            <small class="block text-muted">
+				            Al seleccionar este control, usted indicar&aacute; al sistema que tipo de facturaci&oacute;n maneja (por producto o por servicio)
+				            </small>
+				            <span class="pull-right label bg-primary inline m-t-sm">{{vm.manejaProductoServicio == true ? 'SERVICIOS':'PRODUCTOS'}}</span>
+							<label class="i-switch i-switch-md pull-right bg-info m-t-xs m-r"> 
+							<input ng-model="vm.manejaProductoServicio" type="checkbox" checked />
+							<i>
+							</i>
+				          </div>
+				        </div>
+				     </div>
+					
+					
+					<div class="panel b-light clearfix">
+				        <div class="panel-body">
+				          <a href class="thumb pull-left m-r">
+				            <img src="img/variable.jpg" class="img-circle">
+				          </a>
+				          <div class="clear" ng-init = "vm.variosPagos = false">
+				            
+				            <a href class="text-info">El cliente maneja varias formas de pago ? 
+				            <i class="fa fa-user-secret"></i></a>
+				            <small class="block text-muted">
+				            
+				            Este control indica si el sistema manejar&aacute; varias formas de pago
+				            
+				            </small>
+				            <span class="pull-right label bg-primary inline m-t-sm">{{vm.variosPagos ? 'SI':'NO' }}</span>
+									    <label class="i-switch i-switch-md pull-right bg-info m-t-xs m-r"> 
+									<input ng-model="vm.variosPagos" type="checkbox" checked />
+									<i>
+									</i>
+				          </div>
+				        </div>
+				     </div>
+				     
+				      
+				      <div ng-if="vm.variosPagos">
+						  <div class="panel b-light clearfix" ng-if="vm.variosPagos">
+		  				  	<div class="panel-body">
+							    <a href class="text-info">Seleccione de la lista las formas de pago a usar:
+				            				</a>
+											<small class="block text-muted">
+								    		Usted puede seleccionar las formas de pago por defecto que el sistema podr&aacute; utilizar dentro de esta configuraci&oacute;n inicial, en el siguiete paso
+								    		podr&aacute; crear otros si fuese necesario
+								             </small>
+										</br>
+										<div class="row-fluid" ng-repeat="opcioncontado in vm.lstPagosContado">
+											<label class="i-checks"> 
+											<input type="checkbox" data-checklist-model="vm.grupo.opcioncontado" data-checklist-value="opcioncontado"  /> <i></i>
+													{{opcioncontado.name}}<br />
+											</label>
+										</div>
+						
+								</div>
+							</div>
+				      </div>
+				      
+				     
+				     			
+					
+						<div class="panel b-light clearfix" ng-if="vm.variosPagos"> 
+					        <div class="panel-body">
+					          <a href class="thumb pull-left m-r">
+					            <img src="img/variable.jpg" class="img-circle">
+					          </a>
+						        <div class="clear" ng-init = "vm.pagoMixto = false">
+						            <a href class="text-info">El sistema manejar&aacute; varios tipos de cr&eacute;dito ? 
+						            <i class="fa fa-user-secret"></i></a>
+						            <small class="block text-muted">
+						            Al activar este control permite al sistema identificar, si se manejar&aacute; uno o varios tipos de cr&eacute;dito
+						            </small>
+						            <span class="pull-right label bg-primary inline m-t-sm">{{vm.pagoMixto ? 'SI':'NO'}}</span>
+									<label class="i-switch i-switch-md pull-right bg-info m-t-xs m-r"> 
+									<input ng-disabled="!vm.variosPagos" ng-model="vm.pagoMixto" type="checkbox" checked  />
+									<i>
+									</i>
+						        </div>
+					        </div>
+					     </div>
+				      </div>
+					</form>
+				</div>
+			</div>
+				<div class="btn-group btn-group-justified">
+					<a ng-show="!step1.$invalid" href class="btn btn-info" ng-click="!step1.$invalid && vm.submitTabGeneral() ? steps.step2=true : ''">SIGUIENTE</a> 
+					<a ng-hide="!step1.$invalid" href class="btn btn-default">SIGUIENTE</a>
+				</div>
+			</tab> 
+			
+			<tab heading="FORMAS DE PAGO" disabled="step1.$invalid" active="steps.step2" select="steps.percent=15">
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					
+					<div ng-if="!vm.pagoMixto" >
+					<div ng-if="vm.lstPagoContado.length>0 ? (step2.$invalid =false) : (step2.$invalid = true)">
+					
+					</div>
+					</div>
+					<div ng-if="vm.pagoMixto" >
+					<div ng-if="vm.lstPagoCredito.length>0 && vm.lstPagoContado.length>0 ? (step2.$invalid =false) : (step2.$invalid = true)">
+					</div>
+					</div>
+					
+				
+					<div ng-if="!step2.$invalid  ? (steps.percent=30) : (steps.percent=15)">
+					</div>
+		
+					<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+					<i class="arrow right arrow-info"></i> PASO 2:</span> 
+					<a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a> </br> <br />
+					<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+					<br/>
+		
+					<form name="step2" class="form-validation">
+						<div class="form-group" >
+							<div class="panel-body" >
+								<label class="col-sm-10 control-label">SELECCIONE LAS
+									FORMAS DE PAGO QUE CORRESPONDE A LA COMPANIA</label>
+							</div>
+						</div>
+
+						<div class="bg-light lter b-b wrapper-md" ng-if="!vm.variosPagos && vm.lstOpciones.length> 0 ? true : false"  >
+							<div ng-init="vm.defaultEfectivo()">
+								<h3 class=" m-n font-thin h4">FORMA DE PAGO: {{vm.lstPagoContado[0].name}}</h3>
+							</div>
+						</div>
+						
+						
+						<form name="step2" class="form-validation"  >
+							<div ng-if="vm.variosPagos" >
+								<accordion> 
+								<accordion-group ng-click="vm.habilitarOpcionContado()" heading="FORMA DE PAGO EFECTIVO">
+								<div class="form-group"></div>
+								<div class="list-group margin-none">
+									<button class="btn btn-info btn-lg btn-block" ng-click="vm.agregarOpcionCont()">
+										<i class="fa fa-plus pull-right"></i> AGREGAR
+									</button>
+									<div class="row-fluid" ng-repeat="contado in vm.lstPagoContado">
+										<button class="btn btn-primary btn-lg btn-block" ng-click="vm.editarOpcionContado($index)">
+											<i class="fa fa-bars pull-right"></i> 
+											{{contado.name}}
+										</button>
+									</div>
+								</div>
+								</accordion-group>
+								
+								<div ng-if="vm.pagoMixto"> 
+									<accordion-group ng-click="vm.habilitarOpcionCredito()" heading="FORMA DE PAGO CREDITO">
+									<div class="form-group">
+										<button class="btn btn-info btn-lg btn-block" ng-click="vm.agregarOpcionCred()">
+											<i class="fa fa-plus pull-right"></i> AGREGAR
+										</button>
+										<div class="row-fluid" ng-repeat="contado in vm.lstPagoCredito">
+											<button class="btn btn-primary btn-lg btn-block" ng-click="vm.editarOpcionCredito($index)">
+												<i class="fa fa-bars pull-right"></i> {{contado.name}}
+											</button>
+										</div>
+									</div>
+									</accordion-group>
+								</div> 
+								</accordion>
+							</div>
+						</form>
+				</div>
+			</div>
+			<div></div>
+			<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="steps.step1=true">ATRAS</a>
+				<a ng-show="!step2.$invalid" href class="btn btn-info" ng-click="steps.step4=true">SIGUIENTE</a> 
+				<a ng-hide="!step2.$invalid" href class="btn btn-default">SIGUIENTE</a> 
+			</div>
+			</tab> 
+			
+			<tab heading="DESCUENTO" ng-hide="true" disabled="true" active="steps.step3" select="steps.percent=30">
+			
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt" ng-init="step3.$invalid = true">
+				<div class="panel-body">
+					<div
+						ng-if="steps.step3 && !step3.$invalid  ? (steps.percent=45) : (steps.percent=30)">
+					</div>
+		
+					<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+					<i class="arrow right arrow-info"></i> PASO 3:</span> 
+					<a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a> </br> <br />
+					<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+					<br /> 
+		
+		
+					<form name="step3" class="form-validation">
+						<div class="panel b-light clearfix">
+					        <div class="panel-body">
+					          <a href class="thumb pull-left m-r">
+					            <img src="img/variable.jpg" class="img-circle">
+					          </a>
+					          <div class="clear" ng-init = "vm.manejaDescuentos = false">
+					            
+					            <a href class="text-info">El cliente maneja descuentos ?
+					            <i class="fa fa-user-secret"></i></a>
+					            <small class="block text-muted">
+						            Este control permite al sistema identificar si el cliente maneja algun tipo de descuento
+					            </small>
+					            <span class="pull-right label bg-primary inline m-t-sm">{{vm.manejaDescuentos ? 'SI':'NO'}}</span>
+										    <label class="i-switch i-switch-md pull-right bg-info m-t-xs m-r"> 
+											<input disabled="disabled" ng-model="vm.manejaDescuentos" type="checkbox" checked  />
+										<i>
+								</i>
+					          </div>
+					        </div>
+					     </div>
+					
+					
+					 <div ng-if="false">
+						  <div class="panel b-light clearfix">
+		  				  	<div class="panel-body">
+							    <a href class="text-info">Seleccione el tipo de descuento que el cliente maneja:
+				            				<i class="fa fa-user-secret"></i>
+				            	</a>
+											<small class="block text-muted">
+								          	 	Este control permite seleccionar un descuento para el proceso de facturacion, en donde el calculo de descuento varia por item seleccionado. 
+								            </small>
+										</br>
+										<div class="row-fluid" ng-repeat="tdescuento in vm.lstTipoDescuento">
+										<label class="i-checks"> 
+										<input type="radio" name="radioDescuento" ng-model="vm.tipoDescuento" ng-value="tdescuento" required /> <i></i>
+										{{tdescuento.name}}<br />
+										</label>
+										</div>
+						
+								</div>
+							</div>
+				      </div>
+					
+		  			  <div class="panel b-light clearfix" ng-if="vm.manejaDescuentos">
+		  			  	   <a href class="text-info">Ingrese la informacion del adicional de facturacion con respecto a descuentos :
+				            				<i class="fa fa-user-secret"></i>
+				           </a>
+				           
+				           </br>
+						   <div class="form-group">
+								<div class="panel-body">
+										<label class="col-sm-4 control-label">Nombre: </label>
+											<div class="col-sm-5" ng-init="vm.aditonalDesc.name = 'Descuento'">
+												<input type="text" ng-model="vm.aditonalDesc.name" class="form-control" placeholder="ingrese el nombre del descuento (DESCUENTO)" required />
+											</div>
+											</br>
+											</br>
+										<label class="col-sm-4 control-label">Par&aacute;metro: </label>
+											<div class="col-sm-5" ng-init="vm.aditonalDesc.parameter = '0'" >
+												<input type="text" placeholder="ingrese el valor del descuento (0.0)" ng-model="vm.aditonalDesc.parameter" name="parametro" class="form-control" required />
+											</div>
+										</label>
+								</div>
+							</div>
+						</div>			
+					</form>
+				</div>
+			</div>
+		
+				<div class="btn-group btn-group-justified">
+					<a href class="btn btn-primary" ng-click="steps.step2=true">ATRAS</a>
+					<a ng-show="!step3.$invalid" href class="btn btn-info" ng-click="steps.step4=true">SIGUIENTE</a> 
+					<a ng-hide="!step3.$invalid" href class="btn btn-default">SIGUIENTE</a> 
+					
+				</div>
+			</tab>
+			
+			
+			<tab heading="IVA" disabled="true" active="steps.step4" select="steps.percent=45">
+			
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div ng-if="steps.step4 && !step4.$invalid  ? (steps.percent=60) : (steps.percent=45)">
+					</div>
+		
+					<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+					<i class="arrow right arrow-info"></i> PASO 4:</span> 
+					<a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a> </br> <br />
+					<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+					<br /> 
+		
+					
+					<form name="step4" class="form-validation">
+						<div class="panel b-light clearfix">
+							</br>
+							<a href class="text-info">Ingrese la informaci&oacute;n del adicional de facturacion con respecto a descuentos :
+				            		<i class="fa fa-user-secret"></i>
+				    		</a>
+				    		
+				    		</br>
+				    		</br>
+					  		<div class="form-group">
+								
+								
+								<label class="col-sm-4 control-label">Nombre del impuesto: </label>
+								<div class="col-sm-5" ng-init="vm.aditonalIva.name = 'IVA'">
+									<input type="text" ng-model="vm.aditonalIva.name" class="form-control" placeholder="ingrese el nombre del iva (IVA)" required />
+								</div>
+								</br>
+								</br>
+								<label class="col-sm-4 control-label">Valor del impuesto: </label>
+									<div class="col-sm-5" ng-init="vm.aditonalIva.parameter = '0.0'">
+										<input type="number" placeholder="ingrese el valor del IVA (0.0)" ng-model="vm.aditonalIva.parameter" name="parametro" class="form-control" required />
+								</div>
+								</label>
+							</div>
+							
+							</br>
+				    		</br>
+							
+						</div>
+					</form>
+				</div>
+			</div>
+		
+			<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="steps.step3=true">ATRAS</a>
+				<a ng-show="!step4.$invalid  ? true: false" href class="btn btn-info" ng-click="steps.step5=true">SIGUIENTE</a> 
+				<a ng-hide="!step4.$invalid  ? true: false" href class="btn btn-default">SIGUIENTE</a> 
+			</div>
+			</tab>
+			
+			<tab heading="INFORMACION TRIBUTARIA"  disabled="true" active="steps.step5" select="steps.percent=60">
+			
+			<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+				<div class="panel-body">
+					<div
+						ng-if="steps.step5 && !step5.$invalid  ? (steps.percent=75) : (steps.percent=60)">
+					</div>
+		
+					<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+					<i class="arrow right arrow-info"></i> PASO 5:</span> 
+					<a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a> </br> <br />
+					<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+					<br /> 
+		
+					<form name="step5" class="form-validation">
+						
+					<div class="form-group">
+							<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label">FECHA DE AUTORIZACI&Oacute;N:</label> 
+							<div class="panel-body">
+								<div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
+									<div class="input-group w-md">
+										<input type="text" class="form-control" ng-disabled="activeDirective" datepicker-popup="{{format}}" ng-model="vm.taxInformationObj.expirationDate" is-open="opened" datepicker-options="dateOptions" ng-required="true"	close-text="Close" /> 
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-default" ng-click="open($event)">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+					
+					<label class="col-sm-2 control-label"># N&Uacute;MERO DE AUTORIZACI&Oacute;N: </label>
+					<div class="col-sm-10">
+						<input type="text" ui-validate=" '$value.length == 10' " ng-model="vm.taxInformationObj.authorizatioNumber" class="form-control" placeholder="ingrese el n&uacute;mero de autorizaci&oacute;n" required maxlength="10" />
+					</div>
+					</div>
+		 		
+		 			<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label"># N&Uacute;MERO ESTABLECIMIENTO: </label>
+					<div class="col-sm-10">
+					<input type="text" ui-validate=" '$value.length == 3' " ng-model="vm.taxInformationObj.numeroEstab" class="form-control" placeholder="ingrese el n&uacute;mero de establecimiento (tres d&iacute;gitos)" required maxlength="3"/>
+					</div>
+					</div>
+				
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label"># N&Uacute;MERO SECUENCIAL: </label>
+					<div class="col-sm-10">
+						<input type="text" ui-validate=" '$value.length == 3' " ng-model="vm.taxInformationObj.secuencialNumber" class="form-control" placeholder="ingrese el n&uacute;mero secuencial de la factura (tres d&iacute;gitos)" required maxlength="3" />
+					</div>
+					</div>
+					<div>
+			
+					</div>
+						
+					</form>
+				</div>
+			</div>
+		
+			<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="steps.step4=true">ATRAS</a>
+				<a ng-show="!step5.$invalid  ? true: false" href class="btn btn-info" ng-click="steps.step6=true">SIGUIENTE</a> 
+				<a ng-hide="!step5.$invalid  ? true: false" href class="btn btn-default">SIGUIENTE</a> 
+				<a href class="btn btn-warning" ng-click="vm.cancel();">CANCELAR</a>
+			</div>
+			
+			</tab>
+			
+			
+				<tab heading="OVERVIEW" disabled="step1.$invalid && step2.$invalid && step3.$invalid && step4.$invalid && step5.$invalid ? false:true"  active="steps.step6" select="steps.percent=90">
+				<div ng-if="vm.respConfiguracionFactura ?  vm.pararBloqueo():vm.pararBloqueo() ">
+				</div>
+				
+				<div class="m-l-lg m-b-lg panel b-a bg-light lt">
+					<div class="panel-body">
+						<div
+							ng-if="steps.step4 && !step4.$invalid  ? (steps.percent=40) : (steps.percent=50)">
+						</div>
+			
+						<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+						<i class="arrow right arrow-info"></i> PASO 6:</span> 
+						<a href class="m-r-sm">PROGRESO DE CONFIGURACI&Oacute;N DEL MODULO DE FACTURACI&Oacute;N</a> </br> <br />
+						<progressbar value="steps.percent" class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"></progressbar>
+						<br /> 
+			
+					<form name="step6" class="form-validation">
+					
+					
+			
+									
+			          <div class="list-group list-group-lg list-group-sp">
+			          
+			          <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.configuraciones == null ? true: false">
+			              <span class="pull-right label bg-warning inline m-t-sm">
+			                NO CONFIGURADA
+			              </span>
+			              </div>
+			              
+			              
+			              <div ng-if="vm.configuraciones != null ? true: false">
+				              <span class="pull-right label bg-primary inline m-t-sm">
+				              CONFIGURADA
+				              </span>
+			              </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Estado configuracion</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica si en el sistema ya se han configurado las variables mediante le proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (configuracionFactura) 
+			                </small>
+			              </span>
+			            </a>
+			          
+			          	
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+				             <div ng-if="vm.invoiceVariable.opcionVariosTiposPago == null ? true: false">
+					              <span class="pull-right label bg-warning inline m-t-sm">
+					                NO CONFIGURADA
+					              </span>
+				              </div>
+				              <div ng-if="vm.invoiceVariable.opcionVariosTiposPago != null ? true: false">
+					              <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					              </span>
+				              </div>
+			           
+			              <span class="clear">
+			                <span>Variable: Varias formas de pago</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Esta variable permite identificar al sistema si la empresa maneja varias formas de pago
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (opcionVariosTiposPago) 
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			                  <div ng-if="vm.invoiceVariable.opcionPagoMixto == null ? true: false">
+					              <span class="pull-right label bg-warning inline m-t-sm">
+					                NO CONFIGURADA
+					              </span>
+				              </div>
+				              <div ng-if="vm.invoiceVariable.opcionPagoMixto != null ? true: false">
+					              <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					              </span>
+				              </div>
+			              
+			              
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Formas de pago mixto</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Esta variable permite identificar al sistema si la empresa maneja a la vez formas de pago tanto a credito como efectivo
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (opcionPagoMixto) 
+			                </small>
+			              </span>
+			            </a>
+			            
+			           
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.formaPagoContado == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.formaPagoContado != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable interna: Opcion pago contado</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Habilita pago en efectivo en la pantalla de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (formaPagoContado)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.formaPagoCredito == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.formaPagoCredito != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable interna: Opcion pago credito</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Habilita pago a credito en la pantalla de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (formaPagoCredito)
+			                </small>
+			              </span>
+			            </a>
+			
+						<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.pagoEfectivo == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoEfectivo != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			
+			              <span class="clear">
+			                <span>Variable: Pago en efectivo</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago en efectivo para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoEfectivo)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			           <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.pagoTargeta == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoTargeta != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Pago en targeta</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago con targeta para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoTargeta)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              <div ng-if="vm.invoiceVariable.pagoCheque == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.pagoCheque != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			               <span class="clear">
+			                <span>Variable: Pago con cheque</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Especifica la forma de pago con cheque para el formulario de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (pagoCheque)
+			                </small>
+			              </span>
+			            </a>                        
+			          
+			          	<a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.adicionaDescuento == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          <div ng-if="vm.invoiceVariable.adicionaDescuento != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Adcional descuento</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el adicional de factura con respecto al descuento que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (adicionaDescuento)
+			                </small>
+			              </span>
+			            </a>  
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.adicionalIva == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.adicionalIva != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Adicional Iva</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el adicional de factura con respecto al iva que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (adicionalIva)
+			                </small>
+			              </span>
+			            </a>  
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.documentoFactura == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.documentoFactura != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Tipo de documento factura</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el tipo de documento factura
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (documentoFactura)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.tipoDescuento == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.tipoDescuento != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Tipo de descuento</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el tipo de descuento que maneja la empresa o negocio
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (tipoDescuento)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              
+			              <div ng-if="vm.invoiceVariable.otrosPagosEfectivo == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.otrosPagosEfectivo != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Otros pagos en efectivo</span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica las otras formas de pago en efectivo ingresado por el usuario
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (otrosPagosEfectivo)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.otrosPagosCredito == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.otrosPagosCredito != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              
+			              <span class="clear">
+			                <span>Variable: Formas de pago a credito </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica las formas de pago a credito ingresado por el usuario
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (otrosPagosCredito)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			           
+			              <div ng-if="vm.invoiceVariable.manejaDescuentos == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.manejaDescuentos != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			            
+			            
+			            
+			              <span class="clear">
+			                <span>Variable: Manejo de descuentos </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica si la empresa o negocio maneja algun tipo de descuento
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (manejaDescuentos)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			            
+			              <div ng-if="vm.invoiceVariable.estadoFacturado == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.estadoFacturado != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Estado facturado </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el estado facturado en el proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (estadoFacturado)
+			                </small>
+			              </span>
+			            </a>
+			            
+			            <a herf class="wrapper-lg  bg-white list-group-item  clearfix">
+			              <div ng-if="vm.invoiceVariable.estadoAnulado == null ? true: false">
+					        <span class="pull-right label bg-warning inline m-t-sm">
+					               NO CONFIGURADA
+					      	</span>
+				          </div>
+				          
+				          <div ng-if="vm.invoiceVariable.estadoAnulado != null ? true: false">
+					        <span class="pull-right label bg-primary inline m-t-sm">
+					              CONFIGURADA
+					      	</span>
+				          </div>
+			              
+			              <span class="clear">
+			                <span>Variable: Estado anulado </span>
+			                <small class="text-muted clear text-ellipsis">
+			                Identifica el estado anulado en el proceso de facturacion
+			                </small>
+			                <small class="text-muted clear text-ellipsis">
+			                (estadoAnulado)
+			                </small>
+			              </span>
+			            </a>
+			          
+			            
+			          </div>
+							
+						</form>
+					
+					
+					</div>
+				</div>
+			
+					<div class="btn-group btn-group-justified"  ng-if="vm.invoiceVariable.configuracionFactura== 'false' || vm.invoiceVariable.configuracionFactura== undefined ? true:false">
+						<a href class="btn btn-primary" ng-click="steps.step5=true">ATRAS</a>
+						<a href class="btn btn-success" ng-click="vm.guardarConfiguraciones()">GUARDAR</a>
+					</div>
+				
+				</tab>
+			
+			</tabset>
+			</div>
+	
+	</div>
+</div>

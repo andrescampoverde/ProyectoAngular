@@ -1,0 +1,25 @@
+<div >
+	<div >
+	    <ul class="nav nav-pills nav-stacked">
+	    	<form  name="catalog_validator"  class="form-validation">
+	    		<div ng-if="!catalog_validator.$invalid ? (valorValidador=true):(valorValidador=false) " >
+	    		</div>
+				
+				<div ng-if="vm.value ? vm.cargarValor():''">
+		
+				</div>
+	    		<div class="form-group">
+			        <li role="presentation" class="radio-inline" ng-repeat="catalog in vm.catalogIdTypeList">
+			            <div class="radio">
+			                <label class="i-checks">
+			                    <input type="radio" name="a" ng-model="vm.value" ng-value="catalog" value="catalog" required/>
+			                    <i></i>
+			                    {{catalog.name}} 
+			                </label>
+			            </div>
+			        </li>
+		        </div>
+		  	</form>
+	    </ul>
+    </div>
+ </div>

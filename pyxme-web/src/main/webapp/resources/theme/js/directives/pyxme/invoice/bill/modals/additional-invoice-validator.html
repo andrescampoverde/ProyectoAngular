@@ -1,0 +1,24 @@
+
+<div class="padder">
+	<form name="addicional" class="form-validation">
+		<div ng-if="addicional.$invalid ?  (validator.value = false ): (validator.value = true)">
+		</div>
+		  <div class="row">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">PORCENTAGE:</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control" placeholder="ingrese el porcentage de descuento" ng-model="additional.quantity" ui-validate=" '$value >= 1' " ng-change="calcularPorcentage(additional.quantity)"  required>
+					</div>
+	
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+	
+				<label class="col-sm-2 control-label">VALOR:</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control" placeholder="ingrese el valor de descuento" ng-model="additional.value" ui-validate=" '$value >= 1' " ng-change="calcularValor(additional.value)" required>
+					</div>
+				</div>
+				
+				
+		  </div>
+	  </form>
+</div>

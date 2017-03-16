@@ -1,0 +1,299 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">INFORMACI&Oacute;N TRIBUTARIA</h1>
+</div>
+
+
+<div class="wrapper-md" ng-controller="TaxInformationController as vm">
+	
+	<div class="panel panel-default" ng-if="!vm.taxInformationObj">
+		    <div class="panel-heading">
+	    	<button ng-click="vm.newTaxInformation()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO DOCUMENTO</button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i>ACTUALIZAR</button>
+            <p style="float: right;">B&Uacute;SQUEDA : <input type="search" ng-model="search" class="form-control input-sm w-sm inline m-r" placeholder="B&uacute;squeda general"></p> 
+    </div>
+		
+
+		<div class="panel panel-default" ng-if="!vm.detInfTributariaObj">			
+			<div class="panel-body">
+				<table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped" show-filter="true">
+					<thead>
+						<tr>
+							<th>C&Oacute;DIGO</th>
+							<th>TRANSACCI&Oacute;N</th>
+							<th>FECHA VENCIMIENTO</th>
+							<th>N&Uacute;MERO DE AUTORIZACI&Oacute;N</th>
+							<th>N&Uacute;MERO ESTABLECIMIENTO</th>
+							<th>N&Uacute;MERO SECUENCIAL</th>
+							<th>ESTADO</th>
+							<th>ACCI&Oacute;N</th>
+						</tr>
+					</thead>
+				
+					<tr ng-repeat="taxInformation in $data">
+						<td>{{taxInformation.id}}</td>
+						<td>{{taxInformation.typeTrasaction.name}}</td>
+						<td>{{taxInformation.expirationDate}}</td>
+						<td>{{taxInformation.authorizatioNumber}}</td>
+						<td>{{taxInformation.numeroEstab}}</td>
+						<td>{{taxInformation.secuencialNumber}}</td>
+						<td>{{taxInformation.status}}</td>
+						<td>{{taxInformation.expirationDate	}}</td>
+						<td data-title="'ACCI&Oacute;N'" align="center">
+							<div class="text-center" style="width:100px">
+								<button  class="btn btn-info btn-xs" ng-click="vm.editTaxInformation(taxInformation)"><i class="glyphicon glyphicon-edit"></i></button>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div ng-if="vm.taxInformationObj">
+	<tabset class="tab-container" ng-init="steps={percent:1, step1:true, step2:false, step3:false}">
+    <tab heading="TIPO DE DOCUMENTO" active="steps.step1" select="steps.percent=1">
+    <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+	<div class="panel-body">
+	</br>
+	<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+	<i class="arrow right arrow-info">
+	</i> PASO 1:</span> 
+		<a href class="m-r-sm">PROGRESO DE CREACI&Oacute;N DE DOCUMENTOS</a>
+	</br>
+	</br>
+	
+	<div ng-if="steps.step1  && !step1.$invalid ?  (steps.percent=25):(steps.percent=1) ">
+	</div>
+	
+    <progressbar value="steps.percent"  class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"  ></progressbar>
+    </br>
+      <form name="step1" class="form-validation">
+      <div class="form-group">
+      </br>
+		</div>
+		<div class="form-group">
+		<label class="col-sm-3 control-label">SELECCIONE EL TIPO DE DOCUENTO: </label>
+		</br>
+		</br>
+		<div class="col-sm-6">
+			<div class="row-fluid" ng-repeat="catObj in vm.lstTransacciones">
+				<label class="i-checks">
+					<div ng-init="catObj.id == vm.taxInformationObj.typeTrasaction.id ? ( catObj = vm.taxInformationObj.typeTrasaction):''" />
+					<input type="radio" ng-model="vm.taxInformationObj.typeTrasaction" value ="catObj" ng-value="catObj" required/> 
+					<i></i> {{catObj.name}}<br />								
+				</label>
+			</div>
+		</div>
+		</div> 
+		</br>
+      </form>
+      </div>
+      </br>
+      </br>
+      </div>
+        
+      <div class="m-b-sm">
+        <div class="btn-group btn-group-justified">
+         <a ng-if="!step1.$invalid" href class="btn btn-info" ng-click="steps.step2=true" >SIGUIENTE</a>
+         <a ng-if="step1.$invalid" href class="btn btn-default">SIGUIENTE</a>
+         <a href class="btn btn-warning" ng-click="vm.cancelTaxInformation()">CANCELAR</a>
+        </div>
+     </div>
+    </tab>
+    
+    
+    <tab heading="SUCURSAL" disabled="step1.$invalid" active="steps.step2" select="steps.percent=25">
+     <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+	<div class="panel-body">
+	</br>
+	<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+	<i class="arrow right arrow-info">
+	</i> PASO 2:</span> 
+		<a href class="m-r-sm">PROGRESO DE CREACI&Oacute;N DE DOCUMENTOS</a>
+	</br>
+	</br>
+	
+	<div ng-if="steps.step2  && !step2.$invalid ?  (steps.percent=50):(steps.percent=25) ">
+	</div>
+    <progressbar value="steps.percent"  class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"  ></progressbar>
+    </br>
+    </br>
+    <form name="step2" class="form-validation">
+      <div class="form-group">
+      </br>
+		</div>
+		<div class="form-group">
+		<label class="col-sm-3 control-label">SELECCIONE LA SUCURSAL: </label>
+			<div class="col-sm-6" ng-init="step2.$invalid = true">
+				<div class="row-fluid" ng-repeat="subsidiary in vm.lstSubsidiaries">
+					<label class="i-checks">
+					<div ng-init="subsidiary.id == vm.taxInformationObj.subsidiary.id ? (subsidiary = vm.taxInformationObj.subsidiary):'' "/>
+					<input type="radio" ng-model="vm.taxInformationObj.subsidiary" ng-change="steps.percent=50" ng-value="subsidiary" required/> 
+					<i></i> {{subsidiary.name}}<br/>								
+					</label>
+				</div>
+			</div>
+		</div> 
+		</br>
+      </form>
+      </div>
+      </br>
+      </br>
+      </div>
+    <div class="m-b-sm">
+        <div class="btn-group btn-group-justified">
+         <a href class="btn btn-primary" ng-click="steps.step1=true">ATRAS</a>
+         <a ng-if="!step2.$invalid"  href class="btn btn-info" ng-click="steps.step3=true" >SIGUIENTE</a>
+         <a ng-if="step2.$invalid" href class="btn btn-default">SIGUIENTE</a>
+         <a href class="btn btn-warning" ng-click="vm.cancelTaxInformation();">CANCELAR</a>
+        </div>
+     </div>
+    </tab>
+    
+    
+    <tab heading="INFORMACI&Oacute;N DE DOCUMENTO" disabled="step2.$invalid" active="steps.step3" select="steps.percent=50">
+      <form name="step3" class="form-validation">
+        <div class="m-l-lg m-b-lg panel b-a bg-light lt">	
+		<div class="panel-body">
+		</br>
+		<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+		<i class="arrow right arrow-info">
+		</i> PASO 3:</span> 
+			<a href class="m-r-sm">PROGRESO DE CREACI&Oacute;N DE DOCUMENTOS</a>
+		</br>
+		</br>
+		<div ng-if="steps.step3  && !step3.$invalid ?  (steps.percent=75):(steps.percent=50) ">
+		</div>
+	    <progressbar value="steps.percent"  class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"  ></progressbar>
+	    </br>
+	    </br>
+ 
+
+
+    	<form name="step3" class="form-validation">
+		<div class="form-group">
+		<label class="col-sm-2 control-label"># N&Uacute;MERO DE AUTORIZACI&Oacute;N: </label>
+		<div class="col-sm-10">
+			<input type="text" ng-model="vm.taxInformationObj.authorizatioNumber" class="form-control" placeholder="ingrese el numero de establecimiento" required />
+		</div>
+		</div>
+ 		
+ 		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+		<label class="col-sm-2 control-label"># N&Uacute;MERO ESTABLECIMIENTO: </label>
+		<div class="col-sm-10">
+			<input type="text" ng-model="vm.taxInformationObj.numeroEstab" class="form-control" placeholder="ingrese el numero de establecimiento" required />
+		</div>
+		</div>
+		
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+		<label class="col-sm-2 control-label"># N&Uacute;MERO SECUENCIAL: </label>
+		<div class="col-sm-10">
+			<input type="text" ng-model="vm.taxInformationObj.secuencialNumber" class="form-control" placeholder="ingrese el secuencial de la factura" required />
+		</div>
+		</div>
+		<div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+		<label class="col-sm-2 control-label">FECHA DE AUTORIZACI&Oacute;N:</label> 
+				<div class="panel-body">
+					<div class="col-sm-10" ng-controller="DatepickerDemoCtrl">
+						<div class="input-group w-md">
+							<input type="text" class="form-control"
+								ng-disabled="activeDirective" datepicker-popup="{{format}}"
+								ng-model="vm.taxInformationObj.expirationDate" is-open="opened"
+								datepicker-options="dateOptions" ng-required="true"
+								close-text="Close" /> <span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="open($event)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+		</div>
+		</div>
+		
+        
+      </form>
+      <div class="btn-group btn-group-justified">
+         <a href class="btn btn-primary" ng-click="steps.step2=true">ATRAS</a>
+         <a ng-if="!step3.$invalid"  href class="btn btn-info" ng-click="steps.step4=true" >SIGUIENTE</a>
+         <a ng-if="step3.$invalid" href class="btn btn-default">SIGUIENTE</a>
+         <a href class="btn btn-warning" ng-click="vm.cancelTaxInformation();">CANCELAR</a>
+        </div>
+    </tab>
+    
+    <tab heading="OVERVIEW" disabled="step3.$invalid" active="steps.step4" select="steps.percent=75">
+    <div class="m-l-lg m-b-lg panel b-a bg-light lt" ng-init="vm.procesoGuardado = false">
+	<div class="panel-body">
+	</br>
+		<span class="label bg-info pos-rlt m-r inline wrapper-xs">
+		<i class="arrow right arrow-info">
+		</i> PASO 4:</span> 
+			<a href class="m-r-sm">PROGRESO DE CREACI&Oacute;N DE DOCUMENTOS</a>
+		</br>
+		</br>
+		<div ng-if="steps.step4 ?  (steps.percent=75):'' ">
+		</div>
+		
+		<div ng-if="vm.procesoGuardado== true && steps.step4 ?  (steps.percent=100) : (steps.percent=75) ">
+		</div>
+		
+	    <progressbar value="steps.percent"  class="progress progress-sm progress-striped active m-t-xs m-b-none" type="info"  ></progressbar>
+	    </br>
+	    </br>	
+    <form name="step4" class="form-validation">
+      <div class="form-group">
+      </br>
+		</div>
+
+	
+		<div class="form-group">
+			<label class="col-sm-2 control-label">TIPO DOCUMENTO: </label>
+			<label class="col-sm-10 control-label">{{vm.taxInformationObj.typeTrasaction.name}} </label>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">SUCURSAL: </label>
+			<label class="col-sm-10 control-label">{{vm.taxInformationObj.subsidiary.name}} </label>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">N&Uacute;MERO AUTORIZACION: </label>
+			<label class="col-sm-10 control-label">{{vm.taxInformationObj.authorizatioNumber}} </label>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">N&Uacute;MERO ESTABLECIMIENTO: </label>
+			<label class="col-sm-10 control-label">{{vm.taxInformationObj.numeroEstab}} </label>
+		</div>
+		<div class="line line-dashed b-b line-lg pull-in"></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">N&Uacute;MERO SECUENCIAL: </label>
+			<label class="col-sm-10 control-label">{{vm.taxInformationObj.secuencialNumber}} </label>
+		</div>
+		</br>
+      </form>
+      </div>
+      </br>
+      </br>
+      </div>
+     <div class="m-b-sm">
+        <div class="btn-group btn-group-justified">
+         <a href class="btn btn-primary" ng-click="steps.step3=true">ATRAS</a>
+         <a href class="btn btn-success" ng-click="vm.saveDetTaxInformation(vm.taxInformationObj,true) ?  (vm.procesoGuardado= true):(vm.procesoGuardado= false)">GUARDAR</a>
+         <a href class="btn btn-warning" ng-click="vm.cancelTaxInformation()" >CANCELAR</a>
+        </div>
+     </div>
+    </tab>
+  </tabset>
+</div>
+</div>

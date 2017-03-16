@@ -1,0 +1,254 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">CREAR UNA RUTA</h1>
+</div>
+<div class="wrapper-md" ng-controller="RutaPuntual as vm">
+
+	<script type="text/ng-template" id="modal-advertencia">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Compartir ubicaci&oacute;n</h4>
+    </div>
+
+    <div class="modal-body">
+	 <li class="list-group-item">
+     	<div class="row">
+	                <div class="col-lg-10">
+			            <div><a href>Advertencia</a></div>
+			            <small class="text-muted">
+							Estimado usuari@ antes de compartir su ubicaci&oacute;n, verifique que se encuentre 
+							 encendido su dispositivo GPS. 
+						</small>
+						<div>
+						</div>
+			        </div>
+        </div>
+       </li>    
+    </div>
+
+    <div class="modal-footer">
+        <div class="btn-group btn-group-justified">
+            <a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+            <a href class="btn btn-success"
+               ng-click="vm.obtenerPosision()">ACEPTAR</a>
+        </div>
+    </div>
+	</script>
+
+
+
+	<script type="text/ng-template" id="modal-confirmar-solicitud">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Confirmaci&oacute;n de solicitud</h4>
+    </div>
+
+    <div class="modal-body">
+	 <li class="list-group-item">
+              	<div class="row">
+              		<div class="col-lg-1">
+	                <a href class="thumb-sm m-r">
+	                  <img src="img/visto.jpg" class="r r-2x">
+	                </a>
+	                </div>
+	                <div class="col-lg-10">
+	                <div class="clear">
+			            <div><a href>Desea realmente guardar esta solictud?</a></div>
+			            <small class="text-muted">Recuede que esta solicitud ser&aacute; procesada por nuestras centralistas
+						y su aprobaci&oacute;n ser&aacute; dada al momento que esta se asigne una unidad en turno.</small>
+						
+						<div>
+						<small class="text-muted">
+						Ruta: {{vm.serviceDto.routeName}}
+						</small>
+						</div>
+
+						<div>
+						<small class="text-muted">
+						Hora: {{vm.serviceDto.hour}}:{{vm.serviceDto.minutes}} 						
+						</small>
+						</div>
+			        </div>
+			        </div>
+              	</div>
+       </li>    
+    </div>
+
+    <div class="modal-footer">
+        <div class="btn-group btn-group-justified">
+            <a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+            <a href class="btn btn-success"
+               ng-click="vm.guardarObjeto(vm.serviceDto)">ACEPTAR</a>
+        </div>
+    </div>
+	</script>
+
+
+	
+	
+	<div>
+		<form name="formPerson" class="form-validation">
+			<div class="panel b-a bg-light lt">
+			<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" >{{alert.msg}}</alert>
+				<div class="panel-heading font-bold">
+				INGRESE LOS DATOS DE SU SOLICITUD
+					<div class="text-right">
+						<button ng-click="vm.cancelar()" type="reset" class="btn btn-default">CANCELAR</button>
+						<button type="submit" ng-click="!formPerson.$valid || vm.serviceDto.latitude == undefined  ? vm.validarCampos() : vm.abrirConfirmacion()" class="btn btn-primary">GUARDAR</button>
+					</div>				
+				</div>
+			
+				</br>
+				<label class="col-lg-2 control-label">Mi ubicaci&oacute;n</label>
+				<div class="col-lg-4">
+					<button type="submit" ng-click="vm.openModal('modal-advertencia', 'lg')" class="btn m-b-xs btn-sm btn-danger btn-addon">
+						<i class="fa fa-map-marker"></i>Obtener Posici&oacute;n
+					</button>
+				</div>
+				<div class="col-lg-5">
+				<ng-map ng-if="vm.activarMapa == true ? true:false" zoom="16" center="[{{vm.serviceDto.latitude}},{{vm.serviceDto.longitude}}]">
+					<div  ng-repeat="iterador in vm.lstCoordenadas">
+						<marker animation="Animation.BOUNCE" position="[{{iterador.latitude}},{{iterador.longitude}}]" title="{{iterador.familia}}"></marker>
+					</div>
+				</ng-map>
+				</div>
+	
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<label class="col-sm-2 control-label">Mi destino:</label>
+				<div class="col-lg-4 has-error">
+					<div class="col-sm-10">
+						<input ng-disabled="vm.serviceDto.latitude == undefined ? true: false" type="text" ng-model="vm.serviceDto.finalRoute" class="form-control" required>
+					</div>
+				</div>
+				
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<label class="col-sm-2 control-label">El auto partira dentro de:</label>
+				<div class="col-lg-10" ng-if="!vm.serviceDto.isFrequent">
+    				<rzslider
+					    rz-slider-model="slider.min"
+					    rz-slider-options="slider.options">
+    				</rzslider>
+    				<span >({{slider.min}} minutos a partir de las {{vm.time}})</span>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<label class="col-sm-2 control-label">Num. Personas:</label>
+				<div class="col-lg-10">
+    				<rzslider
+					    rz-slider-model="sliderPersonas.min"
+					    rz-slider-options="sliderPersonas.options">
+    				</rzslider>
+				</div>
+
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Se permiten fumadores ?</label>
+					<div ng-init="vm.serviceDto.isAllowSmokers =true" class="col-sm-10">
+						<label  class="i-switch i-switch-md bg-info m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isAllowSmokers"
+							type="checkbox" checked> <i></i>
+						</label>
+					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+			</div>
+		</form>
+
+			
+				
+			<div class="panel b-a bg-light lt">
+            
+            <div ng-init="vm.serviceDto.isFrequent=false" class="panel-heading font-bold">
+			Es un recorrido frecuente ? 
+            <div class="col-sm-10">
+						<label class="i-switch i-switch-md bg-info m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isFrequent"
+							type="checkbox" checked> <i></i>
+						</label>
+					</div>
+            </div>
+            
+            <div class="panel-body" ng-if="vm.serviceDto.isFrequent">
+				<label class="col-sm-2 control-label">Selccione la hora:</label>
+				<div class="col-lg-10">
+    				<rzslider
+					    rz-slider-model="sliderHr.min"
+					    rz-slider-options="sliderHr.options">
+    				</rzslider>
+				</div>
+				
+				<label class="col-sm-2 control-label">Selccione los minutos:</label>
+				<div class="col-lg-10">
+    				<rzslider
+					    rz-slider-model="sliderMn.min"
+					    rz-slider-options="sliderMn.options">
+    				</rzslider>
+				</div>			
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				Hora seleccionada: {{" "}}{{sliderHr.min}}h:{{sliderMn.min}}mm
+				
+            </div>
+        </div>
+			
+			<div class="panel b-a bg-light lt">
+            <div class="panel-heading font-bold">
+			Solicitud privada del coche ?
+            <div ng-init="vm.serviceDto.isPrivate=false" class="col-sm-10">
+						<label class="i-switch i-switch-md bg-info m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isPrivate"
+							type="checkbox" checked> <i></i>
+						</label>
+			</div>
+            </div>
+            <div class="panel-body" ng-if="vm.serviceDto.isPrivate">
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+				<div ng-init="vm.serviceDto.isformalDriver=false" class="form-group">
+					<label class="col-sm-3 control-label">El chofer debera usar ropa formal ?</label>
+					<div class="col-sm-5">
+						<label class="i-switch i-switch-md bg-warning m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isformalDriver"
+							type="checkbox" checked> <i></i>
+						</label>
+					</div>
+				</div>
+
+                <div class="line line-dashed b-b line-lg pull-in"></div>
+				<div ng-init="vm.serviceDto.isOpenClose=false" class="form-group">
+					<label class="col-sm-3 control-label">El chofer debera abrir y cerrar las puertas?</label>
+					<div class="col-sm-5">
+						<label class="i-switch i-switch-md bg-warning m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isOpenClose"
+							type="checkbox" checked> <i></i>
+						</label>
+					</div>
+				</div>
+			
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div ng-init="vm.serviceDto.isAllowAir=false" class="form-group">
+					<label class="col-sm-3 control-label">Deseo usar el aire acondicionado?</label>
+					<div class="col-sm-5">
+						<label class="i-switch i-switch-md bg-warning m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isAllowAir"	
+							type="checkbox" checked> <i></i>
+						</label>
+					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div ng-init="vm.serviceDto.isAllowAirFresheners=false" class="form-group">
+					<label class="col-sm-3 control-label">Uso de ambientadores dentro del auto?</label>
+					<div class="col-sm-5">
+						<label class="i-switch i-switch-md bg-warning m-t-xs m-r"> 
+						<input ng-model="vm.serviceDto.isAllowAirFresheners"
+								type="checkbox" checked> <i></i>
+						</label>
+					</div>
+				</div>
+				
+            </div>
+        </div>
+		</div>
+</div>

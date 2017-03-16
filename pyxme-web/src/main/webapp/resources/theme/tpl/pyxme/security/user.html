@@ -1,0 +1,558 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">USUARIO</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="UserController as vm">
+    <div ng-if="!vm.blnNewUser">
+        <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+    </div>
+
+    <div ng-if="!vm.blnNewUser">
+
+        <div class="panel panel-default" ng-if="!vm.blnEditUser">
+            <div class="panel-heading">
+                <button ng-click="vm.newUser()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i
+                        class="fa fa-plus"></i>
+                    <span translate="label.global.nuevo"></span>
+                </button>
+            </div>
+
+
+            <div class="panel-body">
+                <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped"
+                       show-filter="true">
+
+                    <tr ng-repeat="user in $data">
+
+
+                        <td data-title="'label.global.usuario' | translate" filter="{userName:'text'}"
+                            sortable="'userName'">{{user.userName}}
+                        </td>
+
+                        <td data-title="'label.modulo.persona.identificacion' | translate"
+                            filter="{personA.identificationNumber:'text'}" sortable="'personA.identificationNumber'"
+                            class="text-center">{{user.personIdentificationNumber}}
+                        </td>
+
+                        <td data-title="'label.global.nombre' | translate">{{user.personFirstName}}</td>
+
+                        <td data-title="'label.modulo.persona.apellido' | translate"
+                            filter="{personA.firstLastName:'text'}" sortable="'personA.firstLastName'">
+                            {{user.personFirstLastName}}
+                        </td>
+
+                        <td data-title="'label.global.email' | translate">{{user.personEmail}}</td>
+
+                        <td data-title="'label.global.estado' | translate" class="text-center">
+                            <i class="glyphicon"
+                               ng-class="{true: 'glyphicon-ok-circle', false: 'glyphicon-ban-circle'}[user.status]"></i>
+                        </td>
+
+                        <td data-title="'label.global.accion' | translate" class="text-center">
+                            <div class="text-center">
+                                <button class="btn btn-info btn-xs" ng-click="vm.editUser(user)"><i
+                                        class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-success btn-xs" ng-click="vm.saveTabObject(user,true)"><i
+                                        class="glyphicon glyphicon-ok-circle"></i></button>
+                                <button class="btn btn-danger btn-xs" ng-click="vm.saveTabObject(user,false)"><i
+                                        class="glyphicon glyphicon-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <form name="form" ng-if="vm.blnEditUser">
+        <div class="col">
+            <div class="bg-success dker">
+                <div class="wrapper-lg ">
+                    <div class="row m-t">
+                        <div class="col-sm-7">
+                            <a href class="thumb-lg pull-left m-r">
+                                <img src="img/person.jpg" class="img-circle">
+                            </a>
+                            <div class="clear m-b">
+                                <div class="m-b m-t-sm">
+                                    <label class="h3 text-black" translate="label.global.editar"></label>
+
+                                    <label class="m-l"
+                                           ng-bind="vm.userDto.person.address == undefined ? (''): (vm.userDto.person.address)"></label>
+                                </div>
+
+                                <button class="btn btn-sm btn-warning btn-rounded" ng-click="vm.editPersonObj()"
+                                        ng-if="false"
+                                        translate="label.global.editar">EDITAR
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="pull-right pull-none-xs text-center">
+                                <a href class="m-b-md inline m">
+                                    <span class="h3 block font-bold">esyacelga</span>
+                                    <small>Register by</small>
+                                </a>
+                                <a href class="m-b-md inline m">
+                                    <span class="h3 block font-bold">2016/01/01</span>
+                                    <small>Register date</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="padder">
+            <div class="streamline b-l b-info m-l-lg m-b padder-v">
+                <div>
+                    <a class="pull-left thumb-sm avatar m-l-n-md">
+                        <img src="img/icono-usuario.jpg" alt="...">
+                    </a>
+                    <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label ng-if="vm.personNames" class="col-sm-2 control-label" translate="label.global.detalle"> Nombre
+                                    completo: </label>
+                                <div class="col-sm-10" ng-if="vm.personNames">
+                                    <label>{{vm.personNames}}</label>
+                                </div>
+
+                                <div class="line line-dashed b-b line-lg pull-in" ng-if="vm.personNames"></div>
+                                <label class="col-sm-2 control-label" translate="label.global.usuario">Usuario: </label>
+
+                                <input style=" text-transform:lowercase;" type="text" class="col-sm-10"
+                                       ng-model="vm.userDto.userName"
+                                       ng-disabled="true" placeholder="Ingrese el usuario"/>
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <label class="col-sm-2 control-label" translate="label.global.email">Email: </label>
+                                <input class="col-sm-10" type="text" ng-model="vm.userDto.email"
+                                       placeholder="Ingrese el mail"/>
+
+
+                                <div class="line line-dashed b-b   pull-in"></div>
+
+                                <label class="col-sm-2 control-label">Modificar clave: </label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" ng-model="vm.allowChangePassword" />
+                                </div>
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <label class="col-sm-2 control-label" translate="label.global.clave" ng-if="vm.allowChangePassword">Ingrese
+                                    contrase&ntilde;a</label>
+                                <input ng-if="vm.allowChangePassword" 
+                                	   class="col-sm-10" 
+                                	   type="password" 
+                                	   class="form-control" 
+                                	   name="password"
+                                       ng-model="vm.userDto.password" required>
+
+                                <div class="line line-dashed b-b   pull-in" ng-if="vm.allowChangePassword"></div>
+                                <label class="col-sm-2 control-label" translate="label.global.confirmarClave" ng-if="vm.allowChangePassword">Confirma
+                                    contrase&ntilde;a</label>
+
+                                <input ng-if="vm.allowChangePassword" 
+                                	   type="password" 
+                                	   class="col-md-10" name="confirm_password"
+                                       ng-model="vm.confirm_password" ui-validate=" '$value==vm.userDto.password ' "
+                                       ui-validate-watch=" 'password' " required>
+                                <span class="col-md-12" ng-show='form.confirm_password.$error.validator'>Las contrasenias no coinciden!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div>
+                    <a class="pull-left thumb-sm avatar m-l-n-md">
+                        <img src="img/icono_companies.jpg" alt="...">
+                    </a>
+
+                    <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+
+                        <div class="panel-heading pos-rlt b-light">
+                            <span class="arrow arrow-light left"></span>
+                            <label class="col-sm-2 control-label">SUCURSAL:</label>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="col-sm-10">
+                                <div class="row-fluid"
+                                     ng-repeat="subsidiary in vm.userDto.lstUserSubsidiary">
+                                    <label class="i-checks">
+                                        <input type="checkbox"
+                                               ng-model="subsidiary.selected"
+                                               ng-true-value="true" ng-false-value="false"
+                                        />
+                                        <i></i> {{subsidiary.subsidiaryName}}<br/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <button class="btn m-b-xs btn-sm btn-success btn-addon col-md-6"
+                        ng-click="vm.saveEdition()"
+                        translate="label.global.guardar">GUARDAR
+                </button>
+                <button class="btn m-b-xs btn-sm btn-info btn-addon col-md-6" ng-click="vm.cancel();"
+                        translate="label.global.cancelar">CANCELAR
+                </button>
+            </div>
+        </div>
+
+
+    </form>
+
+    <div ng-if="vm.userDto == undefined ? (steps.step1=true):''">
+    </div>
+
+    <div ng-show="vm.blnNewUser">
+        <tabset class="tab-container" ng-init="steps={percent:1, step1:true, step2:false, step3:false}">
+            <tab heading="Usuario" active="steps.step1" select="steps.percent=1">
+
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-body">
+
+                        <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 1:</span>
+                        <a href class="m-r-sm">PROGRESO DE CREACION DE USUARIO</a>
+                        </br>
+
+                        <div ng-if="step1.$invalid && steps.step1 ? true : false">
+                            <div ng-show="vm.company.subsidiary.length == 0 && step1.$invalid && steps.step1 ? (steps.percent=1) : (steps.percent=40)">
+                            </div>
+                        </div>
+
+                        <div ng-if="!step1.$invalid && steps.step1 ? true : false">
+                            <div ng-show="vm.company.subsidiary.length > 0 && !step1.$invalid && steps.step1  ? (steps.percent=40)	: (steps.percent=1)">
+                            </div>
+                        </div>
+                        </br>
+
+                        <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">
+                            {{alert.msg}}
+
+                        </alert>
+                        <progressbar value="steps.percent"
+                                     class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                                     type="info"></progressbar>
+                        </br>
+
+                        <alert ng-repeat="alert in vm.aletasValidaciones" type="{{alert.type}}">
+                            <strong>
+                                {{alert.msg}}
+                            </strong>
+                        </alert>
+
+
+                        <form name="step1" class="form-validation">
+                            <div class="padder">
+                                <div class="streamline b-l b-info m-l-lg m-b padder-v">
+                                    <div>
+                                        <a class="pull-left thumb-sm avatar m-l-n-md">
+                                            <img src="img/icono-busqueda.jpg" alt="...">
+                                        </a>
+                                        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                                            <div class="panel-body">
+                                                <form action="#" class="m-b-md">
+                                                    <label class="col-sm-2 control-label">Buscar Persona: </label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control input-sm"
+                                                               ng-model="vm.filter"
+                                                               placeholder="ingrese nombres, apellidos u numero de cedula para comenzar la busqueda">
+                                                        <span class="input-group-btn">
+								        			<button class="btn btn-sm btn-default"
+                                                            ng-click="vm.findByFilter(vm.filter)"
+                                                            type="button">Search</button>
+								      			</span>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <a class="pull-left thumb-sm avatar m-l-n-md">
+                                            <img src="img/icono-usuario.jpg" alt="...">
+                                        </a>
+                                        <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                                            <div class="panel-body">
+
+                                                <div class="fo	rm-group">
+                                                    <label class="col-sm-2 control-label">PERSONA: </label>
+                                                    <div class="col-sm-10">
+                                                        <label class="col-sm-10 control-label"
+                                                               ng-bind="vm.personNames"></label>
+                                                    </div>
+
+
+                                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">NOMBRE DE
+                                                            USUARIO: </label>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" ng-model="vm.userDto.userName"
+                                                                   class="form-control"
+                                                                   placeholder="Ingrese el nombre de usuario"
+                                                                   ng-disabled="!vm.userDto"
+                                                                   ng-blur="vm.validarUsuarioRegistrado(vm.userDto.userName)"
+                                                                   required/>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" ng-model="vm.currentCompany.abbreviation"
+                                                                   class="form-control" ng-disabled="true" required/>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">EMAIL: </label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" ng-model="vm.userDto.email"
+                                                                   class="form-control"
+                                                                   placeholder="ingrese el mail de persona"
+                                                                   ng-disabled="!vm.userDto" required/>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                    <label class="col-sm-2 control-label">INGRESE CONTRASENIA</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control" name="password"
+                                                               ng-model="vm.userDto.password" ng-disabled="!vm.userDto"
+                                                               required>
+                                                    </div>
+
+                                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                    <label class="col-sm-2 control-label">REINGRESE CONTRASENIA</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control"
+                                                               name="confirm_password" ng-model="vm.confirm_password"
+                                                               ui-validate=" '$value==vm.userDto.password ' "
+                                                               ui-validate-watch=" 'password' "
+                                                               ng-disabled="!vm.userDto" required>
+                                                        <span ng-show='form.confirm_password.$error.validator'>Passwords do not match!</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <div ng-if="vm.lstSubsidiaries.length > 1">
+                                            <a class="pull-left thumb-sm avatar m-l-n-md">
+                                                <img src="img/icono_companies.jpg" alt="...">
+                                            </a>
+
+                                            <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+
+                                                <div class="panel-heading pos-rlt b-light">
+                                                    <span class="arrow arrow-light left"></span>
+                                                    <label class="col-sm-2 control-label">SUCURSAL:</label>
+                                                </div>
+
+
+                                                <div class="panel-body">
+                                                    <div class="col-sm-10">
+                                                        <div class="row-fluid"
+                                                             ng-repeat="subsidiary in vm.lstSubsidiaries">
+                                                            <label class="i-checks">
+                                                                <input type="checkbox"
+                                                                       data-checklist-model="vm.company.subsidiary"
+                                                                       data-checklist-value="subsidiary"/>
+                                                                <i></i> {{subsidiary.name}}<br/>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div ng-if="vm.validacionNombreUsuario && !step1.$invalid ? (step1.$invalid=false):(step1.$invalid=true)">
+
+                </div>
+
+
+                <div ng-if="vm.lstSubsidiaries.length ==1 && vm.company.subsidiary.length == 0 ? vm.cargarUnicaSucursal() : ''">
+                </div>
+
+                <div ng-if="vm.lstSubsidiaries.length >1 ? true :false">
+                    <div ng-if="vm.company.subsidiary.length >= 1 && !step1.$invalid  ? (step1.$invalid=false) :(step1.$invalid = true )">
+                    </div>
+                </div>
+
+
+                <div class="m-b-sm">
+                    <div class="btn-group btn-group-justified">
+                        <a ng-hide="!step1.$invalid ? false  : true" href class="btn btn-info"
+                           ng-click="steps.step2=true">SIGUIENTE</a>
+                        <a ng-show="!step1.$invalid ? false  : true" href class="btn btn-default">SIGUIENTE</a>
+                        <a href class="btn btn-warning" ng-click="vm.cancel();">CANCELAR</a>
+                    </div>
+                </div>
+
+            </tab>
+
+
+            <tab heading="Persona" disabled="step1.$invalid" active="steps.step2" select="steps.percent=20">
+
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-body">
+
+                        <div ng-if="steps.step2 && step2.$invalid ? true : false">
+                            <div ng-show="steps.step2 && step2.$invalid ? (steps.percent=40) : (steps.percent=80)">
+                            </div>
+                        </div>
+
+                        <div ng-if="steps.step2 && !step2.$invalid ? true : false">
+                            <div ng-show="steps.step2 && !step2.$invalid  ? (steps.percent=80)	: (steps.percent=40)">
+                            </div>
+                        </div>
+
+
+                        <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 2:</span>
+                        <a href class="m-r-sm">PROGRESO DE CREACION DE USUARIO</a>
+                        </br>
+                        <br/>
+                        <progressbar value="steps.percent"
+                                     class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                                     type="info"></progressbar>
+                        <br/>
+                        <br/>
+                        <form name="step2" class="form-validation">
+                            <div ng-if="vm.validador ?  (step2.$invalid=false):(step2.$invalid=true)"/>
+                            <div ng-if="steps.step2">
+                                <ui-simple-persona person-directive="vm.userDto.person" valor-validador="vm.validador"
+                                                   active-directive="false" tag-edition="true"></ui-simple-persona>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="btn-group btn-group-justified">
+                    <a href class="btn btn-primary" ng-click="steps.step1=true">ATRAS</a>
+                    <a href class="btn btn-info" ng-click="steps.step3=true">SIGUIENTE</a>
+
+                    <a href class="btn btn-warning" ng-click="vm.cancel();">CANCELAR</a>
+                </div>
+            </tab>
+
+
+            <tab heading="Overview" disabled="step2.$invalid" active="steps.step3" select="steps.percent=60">
+                <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                    <div class="panel-body">
+
+                        <div ng-if="steps.step3 && !step1.$invalid &&  !step2.$invalid  ? true : false">
+                            <div ng-show="steps.step3 ? (steps.percent=80) : (steps.percent=40)">
+                            </div>
+                        </div>
+
+
+                        <span class="label bg-info pos-rlt m-r inline wrapper-xs"><i class="arrow right arrow-info"></i> PASO 3:</span>
+                        <a href class="m-r-sm">Progreso de creaci&oacute;n de usuario</a>
+                        <br/>
+                        <br/>
+                        <progressbar value="steps.percent"
+                                     class="progress progress-sm progress-striped active m-t-xs m-b-none"
+                                     type="info"></progressbar>
+                        <br/>
+                        <br/>
+
+                        <div class="padder">
+                            <div class="streamline b-l b-info m-l-lg m-b padder-v">
+                                <div>
+                                    <a class="pull-left thumb-sm avatar m-l-n-md">
+                                        <img src="img/icono-usuario.jpg" alt="...">
+                                    </a>
+                                    <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                                        <div class="panel-heading pos-rlt b-light">
+                                            <span class="arrow arrow-light left"></span>
+
+                                        </div>
+                                        <div class="panel-body">
+                                            <label class="col-sm-3 control-label">Nombre Usuario:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.userName}}{{vm.currentCompany.abbreviation}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Email:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.email}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Numero de identificacion:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.identificationNumber}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <a class="pull-left thumb-sm avatar m-l-n-md">
+                                        <img src="img/person.jpg" alt="...">
+                                    </a>
+                                    <div class="m-l-lg m-b-lg panel b-a bg-light lt">
+                                        <div class="panel-heading pos-rlt b-light">
+                                            <span class="arrow arrow-light left"></span>
+
+                                        </div>
+                                        <div class="panel-body">
+                                            <label class="col-sm-3 control-label">Nombres:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.firstName}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Apellidos:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.firstLastName}}{{vm.userDto.person.secondLastName}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Sexo:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.catalogSex.name}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Estado civil:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.catalogMaritalStatus.name}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Tipo de identificacion:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.catalogIdentificationType.name}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Email:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.email}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Direccion:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.address}}</label>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <label class="col-sm-3 control-label">Fecha Nacimiento:</label>
+                                            <label class="col-sm-3 control-label">{{vm.userDto.person.birthDate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>PRESIONE PARA GUARDAR EL REGISTRO</p>
+
+                    </div>
+                </div>
+                <div class="m-b-sm">
+                    <div class="btn-group btn-group-justified">
+                        <a ng-click="steps.step2=true" href class="btn btn-primary"> ATRAS</a>
+                        <a ng-show="true" href class="btn btn-success" ng-click="vm.saveUser()">GUARDAR </a>
+                        <a href class="btn btn-warning" ng-click="vm.cancel()">CANCELAR</a>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+
+
+</div>

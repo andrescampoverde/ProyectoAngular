@@ -1,0 +1,114 @@
+    <div class="container w-xxl w-auto-md" ng-controller="SignupFormController as vm" ng-init="app.settings.container = false;">
+
+       <script type="text/ng-template" id="modal-userDto-information">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Ingrese informaci&oacute;n de su usurio</h4>
+        </div>
+
+        <div class="modal-body">
+            <ui-simple-userDto tag-userDto="vm.usuarioCreado" tag-validator= "vm.targetaValidador" >
+			</ui-simple-userDto>
+        </div>
+        <div class="modal-footer">
+		<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+				<a ng-disabled= "!vm.targetaValidador" href class="btn btn-success" 
+								 ng-click="vm.setUser(vm.usuarioCreado)" >ACEPTAR</a>
+        </div>
+        </div>
+ 		</script>
+
+
+       <script type="text/ng-template" id="modal-person-information">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Ingrese su informaci&oacute;n personal</h4>
+        </div>
+
+        <div class="modal-body">
+            <ui-sign-up tag-person-directive="vm.personaCreada" tag-validador= "vm.targetaValidador" ></ui-sign-up>
+        </div>
+        <div class="modal-footer">
+		<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+				<a ng-disabled= "!vm.targetaValidador" href class="btn btn-success" 
+								 ng-click="vm.setPerson(vm.personaCreada)" >ACEPTAR</a>
+        </div>
+        </div>
+ 		</script>
+        
+        <script type="text/ng-template" id="modal-company-information">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="currentModal.close();" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Ingrese la informaci&oacute;n de su negocio o empresa</h4>
+        </div>
+
+        <div class="modal-body ">
+            <ui-simple-company tag-company="vm.companiaCreada" tag-validator= "vm.validaRuc" ></ui-simple-company>
+        </div>
+        <div class="modal-footer">
+		<div class="btn-group btn-group-justified">
+				<a href class="btn btn-primary" ng-click="currentModal.close();">CANCELAR</a>
+				<a ng-disabled= "!vm.validaRuc" href class="btn btn-success" 
+								 ng-click="vm.setCompany(vm.companiaCreada)" >ACEPTAR</a>
+        </div>
+        </div>
+ 		</script>
+      
+      <a href class="navbar-brand block m-t">{{app.name}}</a>
+      <div class="m-b-lg">
+        <div class="wrapper text-center">
+          <strong>Registrese y obtenga una cuenta gratuita</strong>
+        </div>
+        <form name="form" class="form-validation">
+          <alert ng-repeat="alert in vm.alerts" type="{{alert.type}}">{{alert.msg}}</alert>
+	       <div class="list-group list-group-sm has-success">
+            
+            <div class="list-group-item">
+	       		<input type="text"  placeholder="ingrese su primer nombre" class="form-control no-border" ng-model="userDto.person.firstName" required>
+            </div>
+            <div class="list-group-item">
+              <input type="text"  placeholder="ingrese su segundo nombre" class="form-control no-border" ng-model="userDto.person.secondName">
+            </div>
+            
+            <div class="list-group-item">
+              <input type="text" placeholder="ingrese su primer apellido"  class="form-control no-border"  ng-model="userDto.person.firstLastName" required>
+            </div>
+			
+			<div class="list-group-item">
+              <input type="text" placeholder="ingrese su segundo apellido" class="form-control no-border" ng-model="userDto.person.secondLastName" required>
+            </div>
+			
+			<div class="list-group-item">
+              <input type="text" ng-blur="validarCedula(userDto.person.identificationNumber)" placeholder="ingrese su n&uacute;mero de c&eacute;dula" class="form-control no-border" ng-model="userDto.person.identificationNumber" required>
+            </div>
+            <div class="list-group-item">
+              <input type="email" ng-blur="comprobarUserName(userDto.person.email)" placeholder="ingrese su correo electr&oacute;nico" class="form-control no-border" ng-model="userDto.person.email" required>
+            </div>
+            <div class="list-group-item">
+            	<input type="password" placeholder="ingrese su contrase&ntilde;a" ng-blur="validatePassword(userDto.password,confirmPass)" class="form-control no-border" name="password" ng-model="userDto.password" required>
+            </div>
+           
+            <div class="list-group-item">
+            	<input type="password" placeholder="reingrese su contrase&ntilde;a" ng-blur="validatePassword(userDto.password,confirmPass)" class="form-control no-border" name="password" ng-model="confirmPass" required>
+            </div>
+            
+          </div>
+          
+          	<div class="list-group list-group-sm has-success">
+          	
+          	</div>
+          <div class="checkbox m-b-md m-t-none">
+            <label class="i-checks">
+              <input type="checkbox" ng-model="agree" required><i></i> Aceptar <a href>terminos y condiciones</a>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="varlidarUserName==true && idValidate==true && form.$invalid==false ? cargarUsuario(userDto):mensajeError()">Registrarse</button>
+          <div class="line line-dashed"></div>
+          <p class="text-center"><small>Ya posee una cuenta?</small></p>
+          <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">Logearse</a>
+        </form>
+      </div>
+      <div class="text-center" ng-include="'tpl/blocks/page_footer.html'"></div>
+    </div>
