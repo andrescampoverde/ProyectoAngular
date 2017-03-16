@@ -164,6 +164,19 @@ angular.module('app')
                   }
               })
               
+              
+             .state('app.form.estructOrg', {
+                  url: '/estructOrg',
+                  templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/estructOrg.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/sucursales_oficinas/estructOrg.js']);
+                          }]
+                  }
+              })
+              
              
               .state('app.form.sucursalesIsspol', {
                   url: '/sucursalesIsspol',
