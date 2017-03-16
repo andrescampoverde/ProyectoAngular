@@ -10,11 +10,15 @@
  * Created by esyacelga
  */
 
-app.controller("SucursalesIsspol",["$scope", 'ngTableParams', function($scope, ngTableParams) {
+app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams', 
+						  function( ngNotify,  $scope , ngTableParams) {
 	 
 	  controller = this;
 	  controller.lstSuc= [];
 	  
+	  controller.editarSucursal = function (sucursal){
+		  controller.sucursal= sucursal;
+	  }
 	  
 	  
 	  controller.guardar = function (sucursal){
@@ -24,7 +28,7 @@ app.controller("SucursalesIsspol",["$scope", 'ngTableParams', function($scope, n
 				  direccion:sucursal.direccion
 		  };
 		  controller.lstSuc.push(suc	);
-		  
+		  ngNotify.set('Exito registro creado correctamente', 'success');
 	  };
 	  
  
