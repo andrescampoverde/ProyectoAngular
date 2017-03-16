@@ -190,7 +190,17 @@ angular.module('app')
                   }
               })
               
-              
+              .state('app.form.oficinasIsspol', {
+                  url: '/oficinasIsspol',
+                  templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/oficinasIsspol.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/sucursales_oficinas/oficinasIsspol.js']);
+                          }]
+                  }
+              })
               
               .state('app.form.profile', {
                   url: '/profile',
