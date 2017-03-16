@@ -16,10 +16,27 @@ app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  controller = this;
 	  controller.lstSuc= [];
 	  
+	  
+	  controller.nuevaSucursal = function (){
+		  controller.sucursal = {
+				  
+		  }
+	  };
+	  
 	  controller.editarSucursal = function (sucursal){
 		  controller.sucursal= sucursal;
-	  }
+	  };
 	  
+	  
+	  controller.elimiarSucursal = function ($index){
+		  controller.lstSuc.splice($index, 1);
+		  ngNotify.set('Exito registro eliminado correctamente', 'success');
+	  };
+	  
+	  
+	  controller.cancelar = function (){
+		  controller.sucursal = undefined;
+	  };
 	  
 	  controller.guardar = function (sucursal){
 		  var suc = {
@@ -29,9 +46,14 @@ app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
 		  };
 		  controller.lstSuc.push(suc	);
 		  ngNotify.set('Exito registro creado correctamente', 'success');
+		  iniciarFormulario ();
 	  };
 	  
  
-
-
+	  function iniciarFormulario (){
+		  controller.sucursal = undefined;
+	  };
+	  
+	  iniciarFormulario ();
+	  
 }]);
