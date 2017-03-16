@@ -166,7 +166,7 @@ angular.module('app')
               
              
               .state('app.form.sucursalesIsspol', {
-                  url: '/usuarioIsspol',
+                  url: '/sucursalesIsspol',
                   templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/sucursalesIsspol.html',
                   resolve: {
                       deps: ['$ocLazyLoad',

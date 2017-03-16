@@ -1,10 +1,114 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-   Soy las sucursales
-</body>
-</html>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">SUCURSALES</h1>
+</div>
+<div class="wrapper-md" ng-controller="SucursalesIsspol as vm">
+
+	<div class="panel panel-default" ng-if="!vm.storageObj">	
+	
+	    <div class="panel-heading">
+	    	<button ng-click="vm.newStorage()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVA BODEGA</button>
+            <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="refresh()"><i class="fa fa-refresh"></i>ACTUALIZAR</button>
+            <p style="float: right;">B&Uacute;SQUEDA : <input type="search" ng-model="search" class="form-control input-sm w-sm inline m-r" placeholder="B&Uacute;SQUEDA GENERAL"></p> 
+        </div>
+
+			<div class="panel-body">
+				<table ng-table="vm.tableParams" class="table table-striped" show-filter="true">
+					<thead>
+						<tr>
+							<th class="text-right">NOMBRE</th>
+							<th class="align-right">DIRECCI&Oacute;N</th>
+							<th>ESTADO</th>
+							<th>ACCI&Oacute;N</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="storage in $data">
+						<td style="width:900px">{{storage.name}}</td>
+						<td style="width:700px">{{storage.address}}</td>
+						<td class="text-center" style="width:700px">{{storage.status}}</td>
+
+						<td>
+							<div class="text-center" style="width:200px">
+							<button  class="btn btn-info btn-xs" ng-click="vm.editStorage(storage)"><i class="glyphicon glyphicon-edit"></i></button>
+							<button class="btn btn-danger btn-xs" ng-click="vm.removeStorage(storage)"><i class="glyphicon glyphicon-trash"></i></button>
+							</div>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+			</div>
+	
+	</div>
+
+
+
+	<form name="form" class="form-validation">
+		<div class="panel panel-default">
+
+			<div class="panel panel-default">
+				<div class="panel-heading font-bold">DATOS DE SUCUSAL</div>
+				<div class="panel-body has-success">
+
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">ID: </label>
+						<div class="col-sm-3">
+							<input type="number" ng-model="vm.sucursal.id"
+								class="form-control" placeholder="ingrese el nombre de la sucursal"
+								required />
+						</div>
+					</div>
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nombre: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.sucursal.nombre"
+								class="form-control" placeholder="ingrese el nombre de la sucursal"
+								required />
+						</div>
+					</div>
+					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Direcci&oacute;n: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.sucursal.direccion"
+								class="form-control" placeholder="ingrese la direccion"
+								required />
+						</div>
+					</div>
+					
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Usuario Creaci&oacute;n: </label>
+						<div class="col-sm-10">
+							<input ng-disabled="true" type="text" ng-model="vm.sucursal.usuarioCrea"
+								class="form-control" placeholder="ingrese el nombre de la bodega"
+								 />
+						</div>
+					</div>
+
+
+
+	
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+				</div>
+
+			</div>
+
+		</div>
+		
+		{{vm.lstSucusales}}
+		     <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-sm" ng-click="vm.cancelStorage();">Cancelar</button>
+
+                            <button ng-disabled="form.$invalid" ng-click="vm.guardar(vm.sucursal)"  class="btn btn-sm btn-primary">Guardar</button>
+                        </div>
+                    </div>
+	</form>
+	<alert ng-repeat="alert in vm.alerts" type="{{alert.type}}" >{{alert.msg}}</alert>
+</div>
