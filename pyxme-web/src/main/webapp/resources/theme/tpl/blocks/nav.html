@@ -1,5 +1,8 @@
 <ul class="nav">
 
+	
+
+    
     <li>
         <a href class="auto">
         <span class="pull-right text-muted">
@@ -7,12 +10,12 @@
           <i class="fa fa-fw fa-angle-down text-active"></i>
         </span>
             <i class="icon text-primary-dker " ng-class="modulo.icono"></i>
-            <span class="font-bold">Seguridad</span>
+            <span class="font-bold">Sucursales y Oficinas</span>
         </a>
 
         <ul class="nav nav-sub dk" >
             <li ui-sref-active="active" >
-                <a ui-sref="{{opcion.ruta}}">
+                <a ui-sref="app.form.usuarioIsspol">
                     <span >Sucursales</span>
                 </a>
             </li>
@@ -21,11 +24,22 @@
                     <span >Oficinas</span>
                 </a>
             </li>
+            <li ui-sref-active="active" >
+                <a ui-sref="{{opcion.ruta}}">
+                    <span >Nivel, Estruc.</span>
+                </a>
+            </li>
+            
+            <li ui-sref-active="active" >
+                <a ui-sref="{{opcion.ruta}}">
+                    <span >Estruc. Org.</span>
+                </a>
+            </li>
  
         </ul>
     </li>
 
-	
+
 	<li>
         <a href class="auto">
         <span class="pull-right text-muted">
@@ -38,7 +52,7 @@
 
         <ul class="nav nav-sub dk" >
             <li ui-sref-active="active" >
-                <a ui-sref="{{opcion.ruta}}">
+                <a ui-sref="app.form.usuarioIsspol">
                     <span >Perfil</span>
                 </a>
             </li>
@@ -50,7 +64,6 @@
  
         </ul>
     </li>
-
 
 </ul>
 
