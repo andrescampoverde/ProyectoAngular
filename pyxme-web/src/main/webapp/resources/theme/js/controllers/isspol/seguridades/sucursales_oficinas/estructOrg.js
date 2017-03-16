@@ -45,6 +45,13 @@ app.controller("EstructOrg",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  
+	  
+	  controller.guardarPerfil = function (perfil){
+		  controller.lstPerfiles.push(perfil);
+		  ngNotify.set('Exito registro guardado correctamente', 'success');
+		  controller.perfil = undefined;
+	  }
+	  
 	  function cargarPerfiles (){
 		  
 		  var  perfil = {
