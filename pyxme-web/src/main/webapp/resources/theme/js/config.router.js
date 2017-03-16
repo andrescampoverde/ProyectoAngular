@@ -35,8 +35,8 @@ angular.module('app')
               })
 
               .state('app.form.carshared', {
-                  url: '/dashboard-v3',
-                  templateUrl: 'tpl/app_dashboard_v2.html',
+                  url: '/dashboard-v1',
+                  templateUrl: 'tpl/app_dashboard_v1.html',
                   resolve: {
                       deps: ['uiLoad',
                           function (uiLoad) {
