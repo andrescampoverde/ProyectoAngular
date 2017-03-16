@@ -13,14 +13,19 @@
 app.controller("SucursalesIsspol",["$scope", 'ngTableParams', function($scope, ngTableParams) {
 	 
 	  controller = this;
-	  controller.lstSucusales = [];
+	  controller.lstSuc= [];
 	  
 	  
 	  
 	  controller.guardar = function (sucursal){
-		  controller.lstSucusales.push(sucursal);
+		  var suc = {
+				  nombre:sucursal.nombre,
+				  id:sucursal.id,
+				  direccion:sucursal.direccion
+		  };
+		  controller.lstSuc.push(suc	);
 		  
-	  }
+	  };
 	  
  
 
