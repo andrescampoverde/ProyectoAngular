@@ -24,32 +24,16 @@ app.factory('SessionData', ['$state','$q','$cookies', '$http',
         loaderServerSession: function () {
         	var defered = $q.defer();
 	      	var promise = defered.promise;
-
-	      	var response = $http.get('getUserSubsidiary/');
-            response.success(function (data, status) {
-            	defered.resolve(data);
-            });
-
-            response.error(function (data, status, headers, booconfig) {
-            	defered.reject(data);
-            });
+	      	
+	      	defered.resolve(undefined);
 
             return promise;
         },
         loaderSession: function () {
         	var defered = $q.defer();
 	      	var promise = defered.promise;
-	      	if ($cookies.logedUser==null)
-	      		$state.go('access.signin');
-	      		
-        	var response = $http.get('restoreSession/' +$cookies.logedUser);
-            response.success(function (data, status) {
-            	defered.resolve(data);
-            });
-
-            response.error(function (data, status, headers, booconfig) {
-            	defered.reject(data);
-            });
+	      	
+	      	defered.resolve(undefined);
 
             return promise;
         },

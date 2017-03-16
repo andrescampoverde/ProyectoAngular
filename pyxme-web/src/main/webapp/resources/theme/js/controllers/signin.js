@@ -37,31 +37,34 @@ app.controller('SigninFormController', ['utilStringService','restUserService','s
         };
         
         $scope.login = function (user){
-        	if (user== undefined) {
-        		$scope.loginDemo();
-        	}else {
-        		blockUI.start();
-            	var respuesta = restUserService.verificarUsuario(user);
-            	respuesta.then(function(data){
-            		if (data) {
-            			$cookies.userUpdated = data.updated;
-            			var respSubsidiaries = restUserService.retrieveSubsidiaries(data.id);
-            			respSubsidiaries.then(function(userSub){
-                          loadUserSubsidiaries(userSub);
-                          blockUI.stop();
-            			},function(error){
-            				utilStringService.crearMensaje($scope, 3, "Hubo un error al validar el usuario");
-            			});
-            			
-                    } else {
-                		utilStringService.crearMensaje($scope, 3, "Error: Usuario o contraseña inválida");
-                        blockUI.stop();
-                    }
-            	
-            	},function(data){
-            		utilStringService.crearMensaje($scope, 3, "Hubo un error al validar el usuario");
-            	});
-        	}
+        	$state.go('app.form.carshared');
+        	
+        	
+//        	if (user== undefined) {
+//        		$scope.loginDemo();
+//        	}else {
+//        		blockUI.start();
+//            	var respuesta = restUserService.verificarUsuario(user);
+//            	respuesta.then(function(data){
+//            		if (data) {
+//            			$cookies.userUpdated = data.updated;
+//            			var respSubsidiaries = restUserService.retrieveSubsidiaries(data.id);
+//            			respSubsidiaries.then(function(userSub){
+//                          loadUserSubsidiaries(userSub);
+//                          blockUI.stop();
+//            			},function(error){
+//            				utilStringService.crearMensaje($scope, 3, "Hubo un error al validar el usuario");
+//            			});
+//            			
+//                    } else {
+//                		utilStringService.crearMensaje($scope, 3, "Error: Usuario o contraseña inválida");
+//                        blockUI.stop();
+//                    }
+//            	
+//            	},function(data){
+//            		utilStringService.crearMensaje($scope, 3, "Hubo un error al validar el usuario");
+//            	});
+//        	}
         };
         
         

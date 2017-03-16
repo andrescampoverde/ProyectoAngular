@@ -1,9 +1,9 @@
 <div class="container w-xxl w-auto-xs" ng-controller="SigninFormController as vm"
      ng-init="app.settings.container = false;">
-    <a href class="navbar-brand block m-t" style="color: black; font-size: 48px;">{{app.name}}</a>
+    <a href class="navbar-brand block m-t" style="color: black; font-size: 48px;">ISSPOL WEB</a>
     <div class="m-b-lg" ng-if="!lstUserSubsidiaries">
         <div  class="wrapper text-center" style="color: black; font-size: 24px;">
-            <strong ng-if="false">Ingrese sus credenciales</strong>
+            <strong ng-if="true">Ingrese sus credenciales</strong>
         </div>
         <form name="formLogin" class="form-validation" ng-submit="login(vm.user)">
             <div class="list-group list-group-sm">
@@ -30,53 +30,14 @@
                 Ingresar
             </button>
         	
-            <button ng-if="false" id="btn" type="submit" class="btn btn-lg btn-info btn-block">
-                Ingresar
-            </button>
+
             
         
         </form>
     </div>
 
-    <div class="m-b-lg" ng-if="lstUserSubsidiaries">
-        <div class="wrapper text-center">
-            <strong>Seleccione la sucursal</strong>
-        </div>
-        <form name="formSucursal" class="form-validation" ng-submit="vm.redireccionar(subsidiaryObj.userSubsidiary);">
-            <div class="list-group list-group-sm">
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <div ng-repeat="iterador in lstUserSubsidiaries" class="row-fluid">
-                            <label class="i-checks">
-                                <input type="radio" ng-model="subsidiaryObj.userSubsidiary" ng-value="iterador"
-                                       required/>
-                                <i></i> {{iterador.subsidiary.name}}<br/>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div>
-                <button type="reset" class="btn btn-lg btn-primary btn-block" ng-click="redireccionar(subsidiaryObj.userSubsidiary)"
-                        ng-disabled='formSucursal.$invalid'>INGRESAR
-                </button>
-                <a ng-click="cancel()" class="btn btn-lg btn-default btn-block">CANCELAR</a>
-            </div>
 
-        </form>
-    </div>
-    
-		<div ng-if="!lstUserSubsidiaries">
-		        <div ng-if="false" class="text-center"><a style="color: #428bca !important; font-size: 24px;" ng-click="vm.loginDemo()"> Inicio Demostrativo </a></div>
-		        <div class="line line-dashed"></div>
-		        <div class="text-center m-t m-b" ng-if="false"><a ui-sref="access.forgotpwd">Olvide mi clave?</a></div>
-		        <div class="line line-dashed"></div>
-		        <p class="text-center" ng-if="true">
-		            <small>A&uacute;n no tiene una cuenta?</small>
-		        </p>
-		        <a ui-sref="access.signup" class="btn btn-lg btn-default btn-block" ng-if="true">Registrarse</a>
-		</div>
     <br/>
     <div class="line line-dashed"></div>
 </div>

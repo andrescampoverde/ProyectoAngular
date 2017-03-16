@@ -221,25 +221,6 @@ app.controller('TypeaheadDemoCtrl', ['SessionData', '$cookies', '$scope', '$http
     $scope.selected = undefined;
     // Any function returning a promise object can be used to load values asynchronously
     
-    $scope.loadUserCompany = function(){
-
-    SessionData.getSession().then(function(data){
-    	$scope.userSubsidiary = data;	
-    },function(error){
-    	
-    });
-
-    if(!$scope.userSubsidiary){
-        var response = $http.get('restoreSession/' +$cookies.logedUser);
-        response.success(function (data, status) {
-          $scope.userSubsidiary = data;
-        });
-
-        response.error(function (data, status, headers, booconfig) {
-          console.log('Ocurrio un error al cargar las sucursales del usuario!');
-        });
-      }
-	 };
 
 	$scope.logout = function(){
        SessionData.updateSession(null, true);
@@ -255,7 +236,7 @@ app.controller('TypeaheadDemoCtrl', ['SessionData', '$cookies', '$scope', '$http
 	       });
      };
 
-    $scope.loadUserCompany ();
+  //  $scope.loadUserCompany ();
     
     $scope.getLocation = function(val) {
       return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {

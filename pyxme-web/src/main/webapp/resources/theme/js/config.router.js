@@ -150,7 +150,23 @@ angular.module('app')
                           }]
                   }
               })
-             
+            
+              
+             .state('app.form.usuarioIsspol', {
+                  url: '/usuarioIsspol',
+                  templateUrl: 'tpl/pyxme/administration/usuarioIsspol.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/pyxme/administration/usuarioIsspol.js']);
+                          }]
+                  }
+              })
+              
+              
+              
+              
               .state('app.form.profile', {
                   url: '/profile',
                   templateUrl: 'tpl/pyxme/administration/profile.html',
