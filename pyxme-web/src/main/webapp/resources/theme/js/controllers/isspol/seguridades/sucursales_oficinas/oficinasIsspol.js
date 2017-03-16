@@ -14,7 +14,7 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 						function( ngNotify,  $scope , ngTableParams) {
 	 
 	  controller = this;
-	  controller.lstOficina= [];
+	  controller.lstOficinas= [];
 	  
 	  controller.nuevaOficina = function(){
 		  controller.oficina = {}
@@ -25,7 +25,7 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.eliminarOficina = function($index){
-		  controller.lstOficina.splice($index, 1);
+		  controller.lstOficinas.splice($index, 1);
 		  ngNotify.set('Exito, registro eliminado correctamente', 'success');
 	  };
 	  
@@ -42,7 +42,7 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 				  direccion:oficina.direccion,
 				  telefono: oficina.telefono
 		  };
-		  controller.lstOficina.push(of);
+		  controller.lstOficinas.push(of);
 		  ngNotify.set('Exito, registro creado correctamente', 'success');
 		  iniciarFormulario();
 	  };

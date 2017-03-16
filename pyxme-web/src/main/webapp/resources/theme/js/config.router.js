@@ -202,6 +202,30 @@ angular.module('app')
                   }
               })
               
+              .state('app.form.perfilesIsspol', {
+                  url: '/perfilesIsspol',
+                  templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/perfilesIsspol.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/usuarios_perfiles/perfilesIsspol.js']);
+                          }]
+                  }
+              })
+              
+              .state('app.form.cargosIsspol', {
+                  url: '/perfilesIsspol',
+                  templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/cargosIsspol.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/usuarios_perfiles/cargosIsspol.js']);
+                          }]
+                  }
+              })
+              
               .state('app.form.profile', {
                   url: '/profile',
                   templateUrl: 'tpl/pyxme/administration/profile.html',

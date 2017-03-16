@@ -7,7 +7,8 @@
 
 		 <div>
 	    
-	     <button ng-click="vm.nuevaSucursal()" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVA SUCURSAL</button>
+	     <button ng-click="vm.nuevaSucursal()" class="btn m-b-xs btn-sm btn-primary btn-addon">
+	     <i class="fa fa-plus"></i>NUEVA SUCURSAL</button>
         
 		
 		<table  class="table table-condensed table-bordered table-striped" show-filter="true">
@@ -111,7 +112,8 @@
 				<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
 
 				<button type="submit"
-						ng-click="form.$valid ? vm.guardar(vm.sucursal): ''" class="btn btn-sm btn-primary">Guardar</button>
+						ng-click="form.$valid ? vm.guardar(vm.sucursal): ''" 
+						class="btn btn-sm btn-primary">Guardar</button>
 			</div>
 		</div>
 	</form>
