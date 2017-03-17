@@ -5,74 +5,75 @@
 <div class="wrapper-md" ng-controller="OficinasIsspol as vm">
 
 	<div ng-if="!vm.oficina" class="panel panel-defaul panel-body">
-	
-	<div>
-		<button ng-click="vm.nuevaOficina()" class="btn m-b-xs btn-sm btn-primary btn-addon">
-	     <i class="fa fa-plus"></i>Nueva Oficina</button>
-		 
-		<table  class="table table-condensed table-bordered table-striped" show-filter="true">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>TIPO</th>
-					<th>NOMBRE</th>
-					<th>CIUDAD</th>
-					<th>DIRECCI&Oacute;N</th>
-					<th>TEL&Eacute;FONO</th>
-					<th>OPCIONES</th>
+
+		<div>
+			<button ng-click="vm.nuevaOficina()"
+				class="btn m-b-xs btn-sm btn-primary btn-addon">
+				<i class="fa fa-plus"></i>Nueva Oficina
+			</button>
+
+			<table class="table table-condensed table-bordered table-striped"
+				show-filter="true">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>TIPO</th>
+						<th>NOMBRE</th>
+						<th>CIUDAD</th>
+						<th>DIRECCI&Oacute;N</th>
+						<th>TEL&Eacute;FONO</th>
+						<th>OPCIONES</th>
+					</tr>
+				</thead>
+
+				<tr ng-repeat="iterador in vm.lstOficinas">
+					<td>{{iterador.id}}</td>
+					<td>{{iterador.tipo.nombre}}</td>
+					<td>{{iterador.nombre}}</td>
+					<td>{{iterador.ciudad.nombre}}</td>
+					<td>{{iterador.direccion}}</td>
+					<td>{{iterador.telefono}}</td>
+					<td>
+						<div class="text-center" style="width: 200px">
+							<button class="btn btn-info btn-xs"
+								ng-click="vm.editarOficina(iterador)">
+								<i class="glyphicon glyphicon-edit"></i>
+							</button>
+							<button class="btn btn-danger btn-xs"
+								ng-click="vm.eliminarOficina(iterador)">
+								<i class="glyphicon glyphicon-trash"></i>
+							</button>
+						</div>
+					</td>
 				</tr>
-			</thead>
-			
-			<tr ng-repeat="iterador in vm.lstOficinas">
-				<td>{{iterador.id}}</td>
-				<td>{{iterador.tipo}}</td>
-				<td>{{iterador.nombre}}</td>
-				<td>{{iterador.ciudad}}</td>
-				<td>{{iterador.direccion}}</td>
-				<td>{{iterador.telefono}}</td>
-				<td>
-					<div class="text-center" style="width: 200px">
-						<button class="btn btn-info btn-xs"
-							ng-click="vm.editarOficina(iterador)">
-							<i class="glyphicon glyphicon-edit"></i>
-						</button>
-						<button class="btn btn-danger btn-xs"
-							ng-click="vm.eliminarOficina(iterador)">
-							<i class="glyphicon glyphicon-trash"></i>
-						</button>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
+			</table>
 		</div>
+	</div>
 
 	<form ng-if="vm.oficina" name="form" class="form-validation">
 		<div class="panel panel-default">
 
-		<div class="panel panel-default">
+			<div class="panel panel-default">
 				<div class="panel-heading font-bold">DATOS DE OFICINA</div>
 				<div class="panel-body has-success">
-				
+
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Id: </label>
 						<div class="col-sm-3">
 							<input type="number" ng-model="vm.oficina.id"
-								class="form-control"
-								placeholder="Ingrese el Id" required />
+								class="form-control" placeholder="Ingrese el Id" required />
 						</div>
 					</div>
 
 					<div class="line line-dashed b-b line-lg pull-in"></div>
-					<div class="form-group">
 						<label class="col-sm-2 control-label">Tipo: </label>
-						<div class="col-sm-5">
-							<input type="text" ng-model="vm.oficina.tipo"
-								class="form-control"
-								placeholder="Ingrese el tipo de Oficina" required />
+						<div class="col-lg-3 has-success">
+							<select class="form-control" name="mySelect" id="mySelect"
+								ng-options="option.nombre for option in vm.lstTipos track by option.id"
+								ng-model="vm.oficina.tipo" required>
+							</select>
 						</div>
-					</div>
-					
+
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>
@@ -82,15 +83,14 @@
 								placeholder="Ingrese el nombre de la Oficina" required />
 						</div>
 					</div>
-					
+
 					<div class="line line-dashed b-b line-lg pull-in"></div>
-					<div class="form-group">
-						<label class="col-sm-2 control-label">Ciudad: </label>
-						<div class="col-sm-6">
-							<input type="text" ng-model="vm.oficina.ciudad"
-								class="form-control"
-								placeholder="Ingrese la ciudad" required />
-						</div>
+					<label class="col-sm-2 control-label">Ciudad: </label>
+					<div class="col-lg-3 has-success">
+						<select class="form-control" name="mySelect" id="mySelect"
+							ng-options="option.nombre for option in vm.lstCiudades track by option.id"
+							ng-model="vm.oficina.ciudad" required>
+						</select>
 					</div>
 
 					<div class="line line-dashed b-b line-lg pull-in"></div>
@@ -98,7 +98,8 @@
 						<label class="col-sm-2 control-label">Direcci&oacute;n: </label>
 						<div class="col-sm-10">
 							<input type="text" ng-model="vm.oficina.direccion"
-								class="form-control" placeholder="Ingrese la direcci&oacute;n" required />
+								class="form-control" placeholder="Ingrese la direcci&oacute;n"
+								required />
 						</div>
 					</div>
 
@@ -107,7 +108,8 @@
 						<label class="col-sm-2 control-label">Tel&eacute;fono: </label>
 						<div class="col-sm-6">
 							<input type="text" ng-model="vm.oficina.telefono"
-								class="form-control" placeholder="Ingrese el tel&eacute;fono" required />
+								class="form-control" placeholder="Ingrese el tel&eacute;fono"
+								required />
 						</div>
 					</div>
 
@@ -120,12 +122,12 @@
 		<div class="line line-dashed b-b line-lg pull-in"></div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Opciones</label>
-				<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
-				<button type="submit"
-						ng-click="form.$valid ? vm.guardar(vm.oficina): ''" 
-						class="btn btn-sm btn-primary">Guardar</button>
-			</div>
+			<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
+			<button type="submit"
+				ng-click="form.$valid ? vm.guardar(vm.oficina): ''"
+				class="btn btn-sm btn-primary">Guardar</button>
 		</div>
-	</form>
+</div>
+</form>
 
 </div>

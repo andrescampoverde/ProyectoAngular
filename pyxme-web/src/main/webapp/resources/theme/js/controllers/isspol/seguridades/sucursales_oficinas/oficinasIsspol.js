@@ -15,6 +15,8 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 	 
 	  controller = this;
 	  controller.lstOficinas= [];
+	  controller.lstTipos= [];
+	  controller.lstCiudades= [];
 	  
 	  controller.nuevaOficina = function(){
 		  controller.oficina = {}
@@ -51,5 +53,32 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 		  controller.oficina = undefined;
 	  };
 	  
+	  cargarTipos();
+	  cargarCiudades();
 	  iniciarFormulario();
+	  
+	  function cargarTipos(){
+		  var 
+		  tipo = {id:1, nombre: "Matriz"};
+		  controller.lstTipos.push(tipo);
+		  
+		  tipo = {id:2, nombre: "Agencia"};
+		  controller.lstTipos.push(tipo);
+		  
+		  tipo = {id:3, nombre: "Ventanilla de Extension"};
+		  controller.lstTipos.push(tipo);
+	  };
+	  
+	  function cargarCiudades(){
+		  var 
+		  ciudad = {id:1, nombre: "Quito"};
+		  controller.lstCiudades.push(ciudad);
+		  
+		  ciudad = {id:2, nombre: "Guayaquil"};
+		  controller.lstCiudades.push(ciudad);
+		  
+		  ciudad = {id:3, nombre: "Cuenca"};
+		  controller.lstCiudades.push(ciudad);
+	  };
+
 }]);
