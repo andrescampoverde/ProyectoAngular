@@ -11,7 +11,6 @@
         <module name="pyxme-ear" />
         <module name="pyxme-log" />
         <module name="pyxme-report" />
-        <module name="pyxme-resources" />
         <module name="pyxme-sri" />
         <module name="pyxme-web" />
         <module name="site" />

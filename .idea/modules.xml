@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/pyxme-ear/pyxme-ear.iml" filepath="$PROJECT_DIR$/pyxme-ear/pyxme-ear.iml" />
       <module fileurl="file://$PROJECT_DIR$/pyxme-log/pyxme-log.iml" filepath="$PROJECT_DIR$/pyxme-log/pyxme-log.iml" />
       <module fileurl="file://$PROJECT_DIR$/pyxme-report/pyxme-report.iml" filepath="$PROJECT_DIR$/pyxme-report/pyxme-report.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pyxme-resources/pyxme-resources.iml" filepath="$PROJECT_DIR$/pyxme-resources/pyxme-resources.iml" />
       <module fileurl="file://$PROJECT_DIR$/pyxme-sri/pyxme-sri.iml" filepath="$PROJECT_DIR$/pyxme-sri/pyxme-sri.iml" />
       <module fileurl="file://$PROJECT_DIR$/pyxme-web/pyxme-web.iml" filepath="$PROJECT_DIR$/pyxme-web/pyxme-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/welcome-pyxme/site.iml" filepath="$PROJECT_DIR$/welcome-pyxme/site.iml" />

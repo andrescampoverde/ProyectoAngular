@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="pyxme:war exploded">
+    <output-path>$PROJECT_DIR$/pyxme-web/target/pyxme-web-0.0.1-SNAPSHOT/artifacts/pyxme_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="pyxme/web/Web" />
+      <element id="javaee-facet-resources" facet="pyxme/javaeeApplication/javaEEApplication3" />
+      <element id="javaee-facet-resources" facet="pyxme/javaeeApplication/javaEEApplication" />
+      <element id="javaee-facet-resources" facet="pyxme/javaeeApplication/javaEEApplication2" />
+    </root>
+  </artifact>
+</component>

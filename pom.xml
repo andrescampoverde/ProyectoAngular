@@ -8,15 +8,8 @@
 	<packaging>pom</packaging>
     
 	<modules>
-		<module>pyxme-core</module>
 		<module>pyxme-web</module>
 		<module>pyxme-ear</module>
-		<module>pyxme-application</module>
-        <module>pyxme-report</module>
-        <module>pyxme-log</module>
-        <module>pyxme-resources</module>
-        <module>pyxme-sri</module>
-        <module>welcome-pyxme</module>
     </modules>
 
 	<dependencyManagement>
