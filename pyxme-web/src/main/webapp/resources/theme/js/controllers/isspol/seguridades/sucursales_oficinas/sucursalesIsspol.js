@@ -16,15 +16,16 @@ app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  controller = this;
 	  controller.lstSuc= [];
 	  
-	  
+
 	  controller.nuevaSucursal = function (){
 		  controller.sucursal = {
 				  
 		  }
 	  };
 	  
-	  controller.editarSucursal = function (sucursal){
+	  controller.editarSucursal = function (sucursal, opcion){
 		  controller.sucursal= sucursal;
+		  controller.habilitarCampos = opcion;
 	  };
 	  
 	  
