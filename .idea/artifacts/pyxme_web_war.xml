@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pyxme-web:war">
+    <output-path>$PROJECT_DIR$/pyxme-web/target</output-path>
+    <root id="archive" name="pyxme-web-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="pyxme-web:war exploded" />
+    </root>
+  </artifact>
+</component>
