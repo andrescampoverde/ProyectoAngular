@@ -236,8 +236,8 @@ angular.module('app')
                           }]
                   }
               })
-.state('app.form.usuarioPerfiles', {
-                  url: '/nivelOrg',
+        .state('app.form.usuarioPerfiles', {
+                  url: '/usuarioPerfiles',
                   templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/usuarioPerfil.html',
                   resolve: {
                       deps: ['$ocLazyLoad',
