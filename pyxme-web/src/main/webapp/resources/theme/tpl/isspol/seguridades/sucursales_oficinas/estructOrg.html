@@ -5,7 +5,8 @@
 <div class="wrapper-md" ng-controller="EstructOrg as vm">
 	<div class="panel b-a bg-light lt">
 	
-		<button ng-click="vm.newStorage()" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO</button>
+		<button type="reset" ng-click="vm.nevaEstructura()" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO</button>
+
 		<div class="row" >
 	    	<div class="col-sm-6">
 	    	<div class="line b-b line-lg"></div>
@@ -32,7 +33,9 @@
 	        </div>
 	        
 	        <div class="col-sm-6">
-	        
+
+				<form ng-if="vm.perfil" name="form" class="form-validation">
+
 				<div class="line b-b line-lg"></div>
 
 				<label class="col-sm-3 control-label">C&Oacute;DIGO:</label>
@@ -80,9 +83,12 @@
 				</div>
 
 				<div class="line b-b line-lg"></div>
-				<button ng-click="vm.guardarPerfil(vm.perfil)" class="pull-left btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-floppy-o"></i>GUARDAR</button>
-	        </div>
-	        
+				<button ng-click="form.$valid ? vm.guardarPerfil(vm.perfil):''" class="pull-left btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-floppy-o"></i>GUARDAR</button>
+
+				</form>
+			</div>
+
+
 		</div>
 	</div>
 </div>

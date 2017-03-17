@@ -6,11 +6,14 @@ app.controller("EstructOrg",['ngNotify',"$scope", 'ngTableParams',
 	  controller.lstPerfiles= [];
 	  controller.lstNiveles = [];
 	  controller.perfil = undefined;
-	  
+
+	  controller.nevaEstructura = function () {
+          controller.perfil= {};
+      };
 	  
 	  controller.editarPerfil = function (perfil){
 		  controller.perfil= perfil;
-	  }
+	  };
 	  
 	  function cargarNiveles ( ) {
 		  var nivel = {
