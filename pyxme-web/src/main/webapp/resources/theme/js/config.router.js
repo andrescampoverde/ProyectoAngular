@@ -189,6 +189,18 @@ angular.module('app')
                           }]
                   }
               })
+                
+              .state('app.form.ciudadesIsspol', {
+                  url: '/ciudadesIsspol',
+                  templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/ciudadesIsspol.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/sucursales_oficinas/ciudadesIsspol.js']);
+                          }]
+                  }
+              })
               
               .state('app.form.oficinasIsspol', {
                   url: '/oficinasIsspol',
