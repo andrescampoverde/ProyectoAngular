@@ -1,51 +1,49 @@
+
 <div class="bg-light lter b-b wrapper-md">
 	<h1 class="m-n font-thin h3">CIUDADES</h1>
 </div>
+
 <div class="wrapper-md" ng-controller="CiudadesIsspol as vm">
 
 	<div ng-if="!vm.ciudad" class="panel panel-defaul panel-body">
 
-		 <div>
-	    
-	     <button ng-click="vm.nuevaCiudad()" class="btn m-b-xs btn-sm btn-primary btn-addon">
-	     <i class="fa fa-plus"></i>NUEVA CIUDAD</button>
-        
-		
-		<table  class="table table-condensed table-bordered table-striped" show-filter="true">
-		  	
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>NOMBRE</th>
-					<th>ELIMINAR</th>
+		<div>
+			<button ng-click="vm.nuevaCiudad()"
+				class="btn m-b-xs btn-sm btn-primary btn-addon">
+				<i class="fa fa-plus"></i>Nueva Ciudad
+			</button>
+
+			<table class="table table-condensed table-bordered table-striped"
+				show-filter="true">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>CIUDAD</th>
+						<th>TIPO</th>
+						<th>ACCION</th>
+					</tr>
+				</thead>
+
+				<tr ng-repeat="iterador in vm.lstCiu">
+					<td>{{iterador.id}}</td>
+					<td>{{iterador.nombre}}</td>
+					<td>{{iterador.tipo.nombre}}</td>
+					<td>
+						<div class="text-center" style="width: 200px">
+							<button class="btn btn-info btn-xs"
+								ng-click="vm.editarCiudad(iterador)">
+								<i class="glyphicon glyphicon-edit"></i>
+							</button>
+							<button class="btn btn-danger btn-xs"
+								ng-click="vm.eliminarCiudad($index)">
+								<i class="glyphicon glyphicon-trash"></i>
+							</button>
+						</div>
+					</td>
 				</tr>
-			</thead>
-			
-			<tr ng-repeat="iterador in vm.lstCiu">
-			<td class="text-center"data-title"DIRECCION">{{iterador.id}}</td>
-			<td class="text-center" data-title="DIRECCION">{{iterador.nombre}}</td>
-			<td>
-				<div class="text-center">
-					<button class="btn btn-info btn-xs"
-						ng-click="vm.editarCiudad(iterador)">
-						<i class="glyphicon glyphicon-edit"></i>
-					</button>
-					<button class="btn btn-danger btn-xs"
-						ng-click="vm.elimiarCiudad($index)">
-						<i class="glyphicon glyphicon-trash"></i>
-					</button>
-				</div>
-			</td>
-		</tr>
-		</table>
+			</table>
 		</div>
-	
 	</div>
-
-
-
-
-
 
 	<form ng-if="vm.ciudad" name="form" class="form-validation">
 		<div class="panel panel-default">
@@ -54,48 +52,50 @@
 				<div class="panel-heading font-bold">DATOS DE CIUDAD</div>
 				<div class="panel-body has-success">
 
-
 					<div class="form-group">
-						<label class="col-sm-2 control-label">ID: </label>
+						<label class="col-sm-2 control-label">Id: </label>
 						<div class="col-sm-3">
 							<input type="number" ng-model="vm.ciudad.id"
-								class="form-control"
-								placeholder="ingrese el ID de la ciudad" required />
+								class="form-control" placeholder="Ingrese el Id" required />
 						</div>
 					</div>
 
+					
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">Nombre: </label>
 						<div class="col-sm-10">
 							<input type="text" ng-model="vm.ciudad.nombre"
 								class="form-control"
-								placeholder="ingrese el nombre de la ciudad" required />
+								placeholder="Ingrese el nombre de la ciudad" required />
 						</div>
 					</div>
-
 					
-
-
-
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+						<label class="col-sm-2 control-label">Tipo: </label>
+						<div class="col-lg-3 has-success">
+							<select class="form-control" name="mySelect" id="mySelect"
+								ng-options="option.nombre for option in vm.lstTipos track by option.id"
+								ng-model="vm.ciudad.tipo" required>
+							</select>
+						</div>
+					
 
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 				</div>
-
 			</div>
 
 		</div>
 
 		<div class="line line-dashed b-b line-lg pull-in"></div>
 		<div class="form-group">
-			<div class="col-sm-4 col-sm-offset-2">
-				<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
-
-				<button type="submit"
-						ng-click="form.$valid ? vm.guardar(vm.ciudad): ''" 
-						class="btn btn-sm btn-primary">Guardar</button>
-			</div>
+			<label class="col-sm-2 control-label">Opciones</label>
+			<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
+			<button type="submit"
+				ng-click="form.$valid ? vm.guardar(vm.ciudad): ''"
+				class="btn btn-sm btn-primary">Guardar</button>
 		</div>
-	</form>
+</div>
+</form>
 
 </div>

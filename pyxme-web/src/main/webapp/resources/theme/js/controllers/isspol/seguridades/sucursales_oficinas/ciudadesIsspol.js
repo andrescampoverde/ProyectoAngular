@@ -15,7 +15,8 @@ app.controller("CiudadesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	 
 	  controller = this;
 	  controller.lstCiu= [];
-	  
+	  controller.lstTipos = [];
+	       
 	  
 	  controller.nuevaCiudad = function (){
 		  controller.ciudad = {
@@ -28,7 +29,7 @@ app.controller("CiudadesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  
-	  controller.elimiarCiudad = function ($index){
+	  controller.eliminarCiudad = function ($index){
 		  controller.lstCiu.splice($index, 1);
 		  ngNotify.set('Exito registro eliminado correctamente', 'success');
 	  };
@@ -39,20 +40,54 @@ app.controller("CiudadesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function (ciudad){
-		  var ciu = {
+		  var cid = {
+				  
+				  id:ciudad.id,
 				  nombre:ciudad.nombre,
-				  id:ciudad.id
-		  };
-		  controller.lstCiu.push(ciu	);
+				  tipo:ciudad.tipo
+				  
+				  };
+		  controller.lstCiu.push(cid);
 		  ngNotify.set('Exito registro creado correctamente', 'success');
 		  iniciarFormulario ();
 	  };
 	  
- 
+	  cargarTipo ();
+	  iniciarFormulario ();
+	  
+	  function cargarTipo () {
+		  var tipo = {  id:1,
+				  nombre: "CANTON"
+		  };
+		  
+		  controller.lstTipos.push(tipo);
+		  
+		  tipo = {
+				  id:2,
+				  nombre: "PARROQUIA"
+		  };
+		  
+		  controller.lstTipos.push(tipo);
+		  
+		  
+		  tipo = {    
+				  id:3,
+				  nombre: "CIUDAD"
+		  };
+		  
+		  controller.lstTipos.push(tipo);
+		  
+		  
+		  
+	  };
 	  function iniciarFormulario (){
 		  controller.ciudad = undefined;
 	  };
 	  
-	  iniciarFormulario ();
+	  
+	  
+	  
 	  
 }]);
+
+
