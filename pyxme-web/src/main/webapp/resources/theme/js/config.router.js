@@ -225,28 +225,28 @@ angular.module('app')
                           }]
                   }
               })
-.state('app.form.nivelOrg', {
-                  url: '/nivelOrg',
-                  templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/nivelOrg.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                          function (uiLoad) {
-                              return uiLoad.load([
-                                  'js/controllers/isspol/seguridades/sucursales_oficinas/nivelOrg.js']);
-                          }]
-                  }
-              })
-        .state('app.form.usuarioPerfiles', {
-                  url: '/usuarioPerfiles',
-                  templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/usuarioPerfil.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                          function (uiLoad) {
-                              return uiLoad.load([
-                                  'js/controllers/isspol/seguridades/usuarios_perfiles/usuarioPerfil.js']);
-                          }]
-                  }
-              })
+                .state('app.form.nivelOrg', {
+                          url: '/nivelOrg',
+                          templateUrl: 'tpl/isspol/seguridades/sucursales_oficinas/nivelOrg.html',
+                          resolve: {
+                              deps: ['$ocLazyLoad',
+                                  function (uiLoad) {
+                                      return uiLoad.load([
+                                          'js/controllers/isspol/seguridades/sucursales_oficinas/nivelOrg.js']);
+                                  }]
+                          }
+                      })
+                .state('app.form.usuarioPerfiles', {
+                          url: '/usuarioPerfiles',
+                          templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/usuarioPerfil.html',
+                          resolve: {
+                              deps: ['$ocLazyLoad',
+                                  function (uiLoad) {
+                                      return uiLoad.load([
+                                          'js/controllers/isspol/seguridades/usuarios_perfiles/usuarioPerfil.js']);
+                                  }]
+                          }
+                      })
               
               .state('app.form.cargosIsspol', {
                   url: '/perfilesIsspol',

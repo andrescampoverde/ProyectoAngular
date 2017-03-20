@@ -158,5 +158,87 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         cargarEstados();
         cargarCargos();
 
+
+        controller.mensaje= function (){
+            alert('d');
+        };
+        
+        controller.logActividades=[];
+        controller.listaOficinas=[];
+        controller.indice=0;
+        controller.temporal={};
+
+        $scope.data=[
+                {nombreOficina: 'San Miguel de los Bancos',
+                    creacionUsuario: 'Admin',
+                    creacionFecha: '02/02/2017'},
+                {
+                    nombreOficina: 'Pedro Vicente Maldonado',
+                    creacionUsuario: 'Admin',
+                    creacionFecha: '02/03/2017'
+                },
+                {
+                    nombreOficina: 'Puerto Quito',
+                    creacionUsuario: 'Admin',
+                    creacionFecha: '02/04/2017'
+                }
+            ];
+
+         function cargarActividades() {
+             // var oficina={
+             //     nombreOficina: 'San Miguel de los Bancos',
+             //     creacionUsuario: 'Admin',
+             //     creacionFecha: '02/02/2017'
+             // };
+             // controller.listaOficinas.push(oficina);
+             // oficina={
+             //     nombreOficina: 'Pedro Vicente Maldonado',
+             //     creacionUsuario: 'Admin',
+             //     creacionFecha: '02/03/2017'
+             // };
+             // controller.listaOficinas.push(oficina);
+             // oficina={
+             //     nombreOficina: 'Puerto Quito',
+             //     creacionUsuario: 'Admin',
+             //     creacionFecha: '02/04/2017'
+             // };
+             // controller.listaOficinas.push(oficina);
+
+            var objActividad={
+                tipoActividad: 'DESBLOQUEAR',
+                anteriorActividad: '1',
+                nuevoActividad: '0',
+                creacionUsuarioActividad: 'Admin',
+                creacionFechaActividad: '09/03/2017'
+            };
+
+            controller.logActividades.push(objActividad);
+        }
+        
+        controller.nuevo=function () {
+            controller.oficina={}
+        }
+
+        controller.insertarOficina=function (objOficina) {
+            controller.listaOficinas.push(objOficina);
+            iniciarOficina();
+        }
+
+        controller.cancelar = function (){
+            controller.oficina = undefined;
+        };
+
+        controller.asignarOficina=function (model) {
+            // console.log(model);
+            controller.temporal=model;
+            // console.log(controller.temporal);
+        }
+
+        function iniciarOficina() {
+            controller.oficina=undefined;
+        }
+
+        cargarActividades();
+         iniciarOficina();
     }
 ]);
