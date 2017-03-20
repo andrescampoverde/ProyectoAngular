@@ -6,19 +6,80 @@
 
     <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
         <div class="hbox text-left b-b b-light text-sm">
-            <button class="btn m-b-xs btn-sm btn-primary "
-                    ng-disabled="vm.noteHeaderDto.id"
+            <button ng-if="!vm.user" class="btn m-b-xs btn-sm btn-primary "
+                    type="submit" ng-click="vm.nuevo()">
+                <i class="fa fa-file block m-b-xs fa-2x "></i>
+                <span>Nuevo</span>
+            </button>
+
+            <button ng-if="vm.user" class="btn m-b-xs btn-sm btn-primary "
+                    type="submit" ng-click="vm.nuevo()">
+                <i class="fa fa-file-o block m-b-xs fa-2x "></i>
+                <span>Nuevo</span>
+            </button>
+            <button ng-if="vm.user" class="btn m-b-xs btn-sm btn-primary "
                     type="submit" ng-click="vm.guardar()">
                 <i class="fa fa-save block m-b-xs fa-2x "></i>
                 <span translate="label.global.guardar"/>
             </button>
+            <button ng-if="vm.user" class="btn m-b-xs btn-sm btn-warning"
+                    type="submit" ng-click="vm.cancelar()">
+                <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                <span>Cancelar</span>
+            </button>
+
+
+
         </div>
+    </div>
+
+
+    <div ng-if="!vm.user"  class="panel panel-defaul panel-body">
+    <table  class="table table-condensed table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>USUARIO</th>
+            <th>IDENTIFICACI&Oacute;N</th>
+            <th>OFICINA</th>
+            <th>CARGO</th>
+            <th>SUPERIOR</th>
+            <th>ESTADO</th>
+            <th>ACCI&Oacute;N</th>
+        </tr>
+        </thead>
+
+        <tr ng-repeat="iterador in vm.lstUsers">
+            <td class="text-center" >{{iterador.id}}</td>
+            <td class="text-center" >{{iterador.userName}}</td>
+            <td class="text-center" >{{iterador.identificationNumber}}</td>
+            <td class="text-center" >{{iterador.office.nombre}}</td>
+            <td class="text-center" >{{iterador.appointment.nombre}}</td>
+            <td class="text-center" >{{iterador.upper.nombre}}</td>
+            <td class="text-center" >{{iterador.status.nombre}}</td>
+
+            <td>
+                <div class="text-center">
+                    <button class="btn btn-info btn-xs"
+                            ng-click="vm.editarRegistro(iterador)">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-xs"
+                            ng-click="vm.elimiarRegistro($index)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+    </table>
     </div>
 
 
 
 
-    <div class="panel">
+    <div class="panel" ng-if="vm.user">
 
     <tabset class="tab-container" ng-init="steps={step1:true, step2:false, step3:false}" >
 
@@ -30,7 +91,7 @@
                     <div class="panel  b-a bg-light lt has-success wrapper-md">
 
                         <div class="line"/>
-                            <div class="row  " >
+                            <div class="row" >
 
                                     <div class="col-lg-1">
                                         <label>
@@ -39,7 +100,7 @@
                                     </div>
 
                                     <div class="col-lg-2-4 ">
-                                        <input class="col-sm-3 form-control" required>
+                                        <input ng-model="vm.user.userName" class="col-sm-3 form-control" required>
                                     </div>
 
 
@@ -50,7 +111,7 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input class="form-control" required>
+                                    <input type="number" ng-model="vm.user.id" class="form-control" required>
                                 </div>
 
                                 <div class="col-lg-1">
@@ -59,8 +120,13 @@
                                     </label>
                                 </div>
 
-                                <div class="col-lg-1">
-                                    <input class="form-control">
+                                <div class="col-lg-2">
+                                    <div>
+                                        <select class="form-control" name="mySelect" id="mySelect" ng-required="true"
+                                                ng-class="{'has-error': ac.step1.needsAttention(step1.username)}"
+                                                ng-options="estado.nombre for estado in vm.lstEstado track by estado.id"
+                                                ng-model="vm.user.status"></select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="line"></div>
@@ -72,7 +138,7 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input class="form-control">
+                                    <input mask="9999999999" ng-model="vm.user.identificationNumber" class="form-control" required>
                                 </div>
                             </div>
                             <div class="line"/>
@@ -84,7 +150,7 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input type="email" class="form-control">
+                                    <input  ng-model="vm.user.email" type="email" class="form-control">
                                 </div>
                             </div>
                             <div class="line"/>
@@ -96,7 +162,12 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input type="text" class="form-control">
+                                    <div>
+                                        <select class="form-control" ng-required="true"
+                                                ng-options="oficina.nombre for oficina in vm.lstOficinas track by oficina.id"
+                                                ng-model="vm.user.office"></select>
+                                    </div>
+
                                 </div>
 
 
@@ -110,7 +181,11 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input type="text" class="form-control">
+                                    <div>
+                                        <select class="form-control" ng-required="true"
+                                                ng-options="cargo.nombre for cargo in vm.lstCargos track by cargo.id"
+                                                ng-model="vm.user.appointment"></select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="line"/>
@@ -122,7 +197,11 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input type="text" class="form-control">
+                                    <div>
+                                        <select class="form-control" ng-required="true"
+                                                ng-options="superior.nombre for superior in vm.lstSuperiores track by superior.id"
+                                                ng-model="vm.user.upper"></select>
+                                    </div>
                                 </div>
                             </div>
                         <div class="line"/>
@@ -131,7 +210,7 @@
              </form>
         </tab>
 
-        <tab heading="PERFILES" select="vm.seleccionarTab(2);" >
+        <tab heading="PERFILES" disabled="!vm.user.id" select="vm.seleccionarTab(2);" >
             <form id="formPerfiles" name="formPerfiles" class="form-validation">
 
                 <div class="panel  b-a bg-light lt has-success wrapper-md">
