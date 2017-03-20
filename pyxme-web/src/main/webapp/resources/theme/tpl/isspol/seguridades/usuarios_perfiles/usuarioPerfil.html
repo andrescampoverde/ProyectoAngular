@@ -13,7 +13,7 @@
             </button>
 
             <button ng-if="vm.user" class="btn m-b-xs btn-sm btn-primary "
-                    type="submit" ng-click="vm.nuevo()">
+                    type="submit" ng-click="vm.nuevaLinea()">
                 <i class="fa fa-file-o block m-b-xs fa-2x "></i>
                 <span>Nuevo</span>
             </button>
@@ -337,82 +337,71 @@
                 </div>
         </tab>
 
-        <tab heading="OFICINAS" >
-            <form name="form" class="form-validation">
-                <div class="panel panel-default">
+        <tab heading="OFICINAS" select="vm.seleccionarTab(5);">
 
-                    <div class="panel panel-default" ng-if="vm.oficina">
-                        <div class="panel-heading font-bold">Asignar oficina</div>
-                        <div class="panel-body has-success">
+            <form id="formOficinas" name="formOficinas" class="form-validation">
 
-
+                <div class="panel  b-a bg-light lt has-success wrapper-md">
+                    <div ng-if="vm.object">
+                        <div class="has-success">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Oficina: </label>
                                 <div class="col-sm-10">
-                                    <select ng-model="data" ng-click="vm.holamundo($index)">
-                                        <option ng-repeat="option in data" ng-value="option.nombreOficina">{{option.nombreOficina}}</option>
-                                    </select>
+                                    <select class="form-control" name="mySelect"
+                                            ng-options="oficina.nombre for oficina in vm.lstOficinas track by oficina.id"
+                                            ng-model="vm.object.office"></select>
                                 </div>
                             </div>
 
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="line"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Creacion Usuario: </label>
                                 <div class="col-sm-10">
-                                    <label ng-model="vm.oficina.creacionUsuario" class="control-label"/>
+                                    <label ng-model="vm.object.creatingUser" class="control-label"/>
                                 </div>
                             </div>
 
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="line"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Creacion Fecha: </label>
                                 <div class="col-sm-10">
-                                    <label ng-model="vm.oficina.creacionFecha" class="control-label"/>
+                                    <label ng-model="vm.object.creatingDate" class="control-label"/>
                                 </div>
                             </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="line"></div>
                         </div>
                     </div>
-                </div>
-            <div class="panel panel-defaul panel-body">
 
-                <div>
-                    <button ng-if="!vm.oficina" ng-click="vm.nuevo()" class="btn m-b-xs btn-sm btn-primary btn-addon">
-                        <i class="fa fa-plus"></i>Agregar</button>
-                    <table  class="table table-condensed table-bordered table-striped" show-filter="true">
+                    <div ng-if="!vm.object">
+                       <table  class="table table-condensed table-bordered table-striped">
 
-                        <thead>
-                        <tr>
-                            <th>Oficina</th>
-                            <th>Creaci&oacute;n usuario</th>
-                            <th>Creaci&oacute;n fecha</th>
-                            <th>Modifica usuario</th>
-                            <th>Modifica fecha</th>
-                        </tr>
-                        </thead>
+                            <thead>
+                            <tr>
+                                <th>Oficina</th>
+                                <th>Creaci&oacute;n usuario</th>
+                                <th>Creaci&oacute;n fecha</th>
+                                <th>Modifica usuario</th>
+                                <th>Modifica fecha</th>
+                            </tr>
+                            </thead>
 
-                        <tr ng-if="vm.oficina" ng-repeat="iterador in vm.listaOficinas">
-                            <td class="text-center" data-title="OFICINA">{{iterador.nombreOficina}}</td>
-                            <td class="text-center" data-title="CREACIONUSUARIO">{{iterador.creacionUsuario}}</td>
-                            <td class="text-center" data-title="CREACIONFECHA">{{iterador.creacionFecha}}</td>
-                            <td class="text-center" data-title="MODIFICAUSUARIO">{{iterador.modificaUsuario}}</td>
-                            <td class="text-center" data-title="MODIFICAFECHA">{{iterador.modificaFecha}}</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="line line-dashed b-b line-lg pull-in"></div>
-                <div class="form-group" ng-if="vm.oficina">
-                    <div class="col-sm-4 col-sm-offset-2">
-                        <button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
-
-                        <button type="submit"
-                                ng-click="form.$valid ? vm.guardar(vm.sucursal): ''"
-                                class="btn btn-sm btn-primary">Guardar</button>
+                            <tr ng-if="vm.oficina" ng-repeat="iterador in vm.user.lstOficinas">
+                                <td class="text-center" data-title="OFICINA">{{iterador.office.nombre}}</td>
+                                <td class="text-center" data-title="CREACIONUSUARIO">{{iterador.creatingUser.userName}}</td>
+                                <td class="text-center" data-title="CREACIONFECHA">{{iterador.creatingDate}}</td>
+                                <td class="text-center" data-title="MODIFICAUSUARIO">{{iterador.creatingUser.userName}}</td>
+                                <td class="text-center" data-title="MODIFICAFECHA">{{iterador.creatingDate}}</td>
+                            </tr>
+                        </table>
                     </div>
+
+
                 </div>
-            </div>
+
             </form>
         </tab>
+
+
     </tabset>
     </div>
 </div>

@@ -22,8 +22,39 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         controller.cancelar= function () {
             controller.user=undefined;
         };
+
+        controller.nuevaLinea = function (){
+            switch (seleccionFuncion){
+                case 1:
+                    controller.user= {};
+                    break;
+                case 2:
+                    controller.oficina={};
+                    break;
+                case 3:
+                    document.formEstaciones.reportValidity();
+                    break;
+                case 4:
+                    document.formEstaciones.reportValidity();
+                    break;
+
+                case 5:
+                    controller.object= {};
+                    controller.oficina={};
+                    break;
+            }
+        };
+
         controller.nuevo = function () {
-          controller.user= {};
+            //controller.user.lstOficinas
+            controller.user= {
+                lstOficinas:[]
+            };
+
+
+            //controller.user= {};
+
+
         };
 
         function cargarSuperiores() {
@@ -47,7 +78,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         function cargarCargos() {
             controller.lstCargos = [];
             var cargo = {
-              id:1,
+                id:1,
                 nombre:"SUPERVISOR"
             };
 
@@ -88,14 +119,14 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
             controller.lstOficinas.push(oficina);
 
-             oficina = {
+            oficina = {
                 id: "2",
                 nombre: "Quito",
             };
 
             controller.lstOficinas.push(oficina);
 
-             oficina = {
+            oficina = {
                 id: "3",
                 nombre: "Cayambe",
             };
@@ -119,11 +150,15 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             controller.lstUsers.push(usr);
             controller.cancelar();
             ngNotify.set('Exito registro guardado correctamente', 'success');
+            controller.cancelarIngresoOficinas();
         };
+
+
+
 
         controller.guardar = function () {
 
-           switch (seleccionFuncion){
+            switch (seleccionFuncion){
                 case 1:
                     if(document.formUsuarios.reportValidity());
                     guardarUsuario(controller.user);
@@ -134,18 +169,14 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
                 case 3:
                     document.formEstaciones.reportValidity();
                     break;
+                case 4:
+                    document.formEstaciones.reportValidity();
+                    break;
+                case 5:
+                    document.formOficinas.reportValidity();
+                    controller.guardarOficinas();
+                    break;
             }
-
-
-           /* if (seleccionFuncion == 1)
-                document.formUsuarios.reportValidity();
-
-            if (seleccionFuncion == 2)
-                document.formPerfiles.reportValidity();
-
-            if (seleccionFuncion == 3)
-                document.formEstaciones.reportValidity();*/
-
 
         };
 
@@ -153,92 +184,76 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             seleccionFuncion = steep;
         };
 
-        cargarSuperiores();
-        cargarOficinas();
-        cargarEstados();
-        cargarCargos();
-
-
         controller.mensaje= function (){
             alert('d');
         };
-        
+
         controller.logActividades=[];
         controller.listaOficinas=[];
         controller.indice=0;
         controller.temporal={};
 
-        $scope.data=[
-                {nombreOficina: 'San Miguel de los Bancos',
-                    creacionUsuario: 'Admin',
-                    creacionFecha: '02/02/2017'},
-                {
-                    nombreOficina: 'Pedro Vicente Maldonado',
-                    creacionUsuario: 'Admin',
-                    creacionFecha: '02/03/2017'
-                },
-                {
-                    nombreOficina: 'Puerto Quito',
-                    creacionUsuario: 'Admin',
-                    creacionFecha: '02/04/2017'
-                }
-            ];
 
-         function cargarActividades() {
-             // var oficina={
-             //     nombreOficina: 'San Miguel de los Bancos',
-             //     creacionUsuario: 'Admin',
-             //     creacionFecha: '02/02/2017'
-             // };
-             // controller.listaOficinas.push(oficina);
-             // oficina={
-             //     nombreOficina: 'Pedro Vicente Maldonado',
-             //     creacionUsuario: 'Admin',
-             //     creacionFecha: '02/03/2017'
-             // };
-             // controller.listaOficinas.push(oficina);
-             // oficina={
-             //     nombreOficina: 'Puerto Quito',
-             //     creacionUsuario: 'Admin',
-             //     creacionFecha: '02/04/2017'
-             // };
-             // controller.listaOficinas.push(oficina);
+        //Inicio de creacion de oficinas para un usuario
 
-            var objActividad={
-                tipoActividad: 'DESBLOQUEAR',
-                anteriorActividad: '1',
-                nuevoActividad: '0',
-                creacionUsuarioActividad: 'Admin',
-                creacionFechaActividad: '09/03/2017'
-            };
-
-            controller.logActividades.push(objActividad);
-        }
-        
-        controller.nuevo=function () {
-            controller.oficina={}
-        }
-
-        controller.insertarOficina=function (objOficina) {
-            controller.listaOficinas.push(objOficina);
-            iniciarOficina();
-        }
-
-        controller.cancelar = function (){
-            controller.oficina = undefined;
+        controller.usuarioRegistro = {
+            id:1,
+            userName:"Javier Almeida"
         };
 
-        controller.asignarOficina=function (model) {
-            // console.log(model);
-            controller.temporal=model;
-            // console.log(controller.temporal);
+
+        controller.cancelarIngresoOficinas = function () {
+            controller.object  = undefined;
+        };
+
+        controller.guardarOficinas = function () {
+            controller.object.creatingUser=controller.usuarioRegistro;
+            controller.object.creatingDate = new Date();
+
+            controller.user.lstOficinas.push(controller.object);
+            ngNotify.set('Exito registro guardado correctamente', 'success');
+            controller.cancelarIngresoOficinas();
+        };
+
+        controller.lstOficinas= [];
+
+        function cargarOficinas() {
+          var oficina = {
+              id:1,
+              nombre:'San Miguel de los Bancos'
+          }
+
+          controller.lstOficinas.push(oficina);
+
+           oficina = {
+                id:2,
+                nombre:'Pedro Vicente Maldonado'
+            }
+
+          controller.lstOficinas.push(oficina);
+
+            oficina = {
+                id:3,
+                nombre:'Puerto Quito'
+            }
+
+            controller.lstOficinas.push(oficina);
+
+        };
+
+
+
+         controller.insertarOficina=function (objOficina) {
+             controller.user.
+             controller.user.lstOficinas.push(objOficina);
+            //iniciarOficina();
         }
 
-        function iniciarOficina() {
-            controller.oficina=undefined;
-        }
 
-        cargarActividades();
-         iniciarOficina();
+        cargarSuperiores();
+        cargarOficinas();
+        cargarEstados();
+        cargarCargos();
+
     }
 ]);
