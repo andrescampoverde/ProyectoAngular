@@ -4,119 +4,177 @@
 
 <div ng-controller="UsuariosPerfiles as vm">
 
+    <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+        <div class="hbox text-left b-b b-light text-sm">
+            <button class="btn m-b-xs btn-sm btn-primary "
+                    ng-disabled="vm.noteHeaderDto.id"
+                    type="submit" ng-click="vm.guardar()">
+                <i class="fa fa-save block m-b-xs fa-2x "></i>
+                <span translate="label.global.guardar"/>
+            </button>
+        </div>
+    </div>
+
+
+
+
     <div class="panel">
 
-    <tabset class="tab-container">
+    <tabset class="tab-container" ng-init="steps={step1:true, step2:false, step3:false}" >
 
 
-        <tab heading="USUARIOS"  >
-            <div class="row" >
+        <tab heading="USUARIOS" select="vm.seleccionarTab(1);">
 
-                <div class="col-lg-1">
-                    <label>
-                        Usuario:
-                    </label>
+             <form id="formUsuarios" name="formUsuarios" class="form-validation">
+
+                    <div class="panel  b-a bg-light lt has-success wrapper-md">
+
+                        <div class="line"/>
+                            <div class="row  " >
+
+                                    <div class="col-lg-1">
+                                        <label>
+                                            Usuario:
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-2-4 ">
+                                        <input class="col-sm-3 form-control" required>
+                                    </div>
+
+
+                                <div class="col-lg-1">
+                                    <label>
+                                        Id:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input class="form-control" required>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <label>
+                                        Estado:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <label>
+                                        Identificaci&oacute;n:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input class="form-control">
+                                </div>
+                            </div>
+                            <div class="line"/>
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <label>
+                                        e-mail:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="line"/>
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <label>
+                                        Oficina:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input type="text" class="form-control">
+                                </div>
+
+
+                            </div>
+                            <div class="line"/>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <label>
+                                        Cargo:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="line"/>
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <label>
+                                        Superior:
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-2-4">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        <div class="line"/>
+                    </div>
+
+             </form>
+        </tab>
+
+        <tab heading="PERFILES" select="vm.seleccionarTab(2);" >
+            <form id="formPerfiles" name="formPerfiles" class="form-validation">
+
+                <div class="panel  b-a bg-light lt has-success wrapper-md">
+
+                    <div class="line"/>
+                    <div class="row  " >
+
+                        <div class="col-lg-1">
+                            <label>
+                                PERFIL:
+                            </label>
+                        </div>
+
+                        <div class="col-lg-2-4 ">
+                            <input class="col-sm-3 form-control" required>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-lg-2-4">
-                    <input class="form-validation">
-                </div>
-
-                <div class="col-lg-1">
-                    <label>
-                        Id:
-                    </label>
-                </div>
-
-                <div class="col-lg-2-4">
-                    <input class="form-validation">
-                </div>
-
-                <div class="col-lg-1">
-                    <label>
-                        Estado:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input class="form-validation">
-                </div>
-            </div>
-            <div class="line"></div>
-            <div class="row">
-                <div class="col-sm-1">
-                    <label>
-                        Identificaci&oacute;n:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input class="form-validation">
-                </div>
-            </div>
-
-            <div class="line"/>
-
-            <div class="row">
-                <div class="col-sm-1">
-                    <label>
-                        e-mail:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input type="email" class="form-validation">
-                </div>
-            </div>
-
-            <div class="line"/>
-
-            <div class="row">
-                <div class="col-sm-1">
-                    <label>
-                        Oficina:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input type="text" class="form-validation">
-                </div>
-            </div>
-
-            <div class="line"/>
-
-            <div class="row">
-                <div class="col-sm-1">
-                    <label>
-                        Cargo:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input type="text" class="form-validation">
-                </div>
-            </div>
-
-            <div class="line"/>
-
-            <div class="row">
-                <div class="col-sm-1">
-                    <label>
-                        Superior:
-                    </label>
-                </div>
-
-                <div class="col-sm-1">
-                    <input type="text" class="form-validation">
-                </div>
-            </div>
+            </form>
 
         </tab>
 
-        <tab heading="PERFILES" >
-        </tab>
+        <tab heading="ESTACIONES" select="vm.seleccionarTab(3);" >
+            <form id="formEstaciones" name="formEstaciones" class="form-validation">
 
-        <tab heading="ESTACIONES" >
+                <div class="panel  b-a bg-light lt has-success wrapper-md">
+
+                    <div class="line"/>
+                    <div class="row  " >
+
+                        <div class="col-lg-1">
+                            <label>
+                                ESTACIONES:
+                            </label>
+                        </div>
+
+                        <div class="col-lg-2-4 ">
+                            <input class="col-sm-3 form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
         </tab>
 
         <tab heading="ACTIVIDAD" >
