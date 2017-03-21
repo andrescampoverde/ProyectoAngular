@@ -163,9 +163,17 @@
 
                                 <div class="col-lg-2-4">
                                     <div>
-                                        <select class="form-control" ng-required="true"
+                                        <!--<select class="form-control" ng-required="true"
                                                 ng-options="oficina.nombre for oficina in vm.lstOficinas track by oficina.id"
-                                                ng-model="vm.user.office"></select>
+                                                ng-model="vm.user.office"></select>-->
+                                        <ui-select ng-model="vm.user.office">
+                                            <ui-select-match placeholder="Seleccione una oficina">{{$select.selected.nombreOficina}}</ui-select-match>
+                                            <ui-select-choices repeat="dato in vm.data">
+                                                <div ng-bind-html="dato.nombreOficina">
+                                                    {{dato.nombreOficina}}
+                                                </div>
+                                            </ui-select-choices>
+                                        </ui-select>
                                     </div>
 
                                 </div>
@@ -306,12 +314,65 @@
          
         
 
-        <tab heading="ACTIVIDAD" >
+        <tab heading="ACTIVIDAD" select="vm.seleccionarTab(4);">
 
-                <div class="panel panel-defaul panel-body">
+            <form id="formActividades" name="formActividades" class="form-validation">
+                <div class="panel  b-a bg-light lt has-success wrapper-md">
+                    <div ng-if="vm.objActividad">
+                        <div class="has-success">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Tipo: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="vm.objActividad.tipoActividad"
+                                           class="form-control"
+                                           placeholder="ingrese el tipo de actividad" required />
+                                </div>
+                            </div>
+
+                            <div class="line"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Anterior: </label>
+                                <div class="col-sm-10">
+                                    <input type="number" ng-model="vm.objActividad.anteriorActividad"
+                                           class="form-control"
+                                           placeholder="ingrese el estado anterior" required />
+                                </div>
+                            </div>
+
+                            <div class="line"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Nuevo: </label>
+                                <div class="col-sm-10">
+                                    <input type="number" ng-model="vm.objActividad.nuevoActividad"
+                                           class="form-control"
+                                           placeholder="ingrese el estado nuevo" required />
+                                </div>
+                            </div>
+
+                            <div class="line"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Creaci&oacute;n Usuario: </label>
+                                <div class="col-sm-10">
+                                    <input type="text" ng-model="vm.objActividad.creacionUsuarioActividad"
+                                           class="form-control"
+                                           placeholder="usuario que realizo el cambio" required />
+                                </div>
+                            </div>
+
+                            <div class="line"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Creaci&oacute;n Fecha: </label>
+                                <div class="col-sm-10">
+                                    <input type="date" ng-model="vm.objActividad.creacionFechaActividad"
+                                           class="form-control"
+                                           placeholder="fecha en que realizo el cambio" required />
+                                </div>
+                            </div>
+                            <div class="line"></div>
+                        </div>
+                    </div>
 
                     <div>
-
                         <table  class="table table-condensed table-bordered table-striped" show-filter="true">
 
                             <thead>
@@ -324,7 +385,7 @@
                             </tr>
                             </thead>
 
-                            <tr ng-repeat="iterador in vm.logActividades">
+                            <tr ng-if="!vm.objActividad" ng-repeat="iterador in vm.logActividades">
                                 <td class="text-center" data-title="TIPO">{{iterador.tipoActividad}}</td>
                                 <td class="text-center" data-title="ANTERIOR">{{iterador.anteriorActividad}}</td>
                                 <td class="text-center" data-title="NUEVO">{{iterador.nuevoActividad}}</td>
@@ -334,7 +395,10 @@
                         </table>
                     </div>
 
+
                 </div>
+
+            </form>
         </tab>
 
         <tab heading="OFICINAS" disabled="formUsuarios.$invalid" select="vm.seleccionarTab(5);">
@@ -342,14 +406,22 @@
             <form id="formOficinas" name="formOficinas" class="form-validation">
 
                 <div class="panel  b-a bg-light lt has-success wrapper-md">
-                    <div ng-if="vm.object">
+                    <div ng-if="vm.oficina">
                         <div class="has-success">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Oficina: </label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" name="mySelect"
+                                    <!--<select class="form-control" name="mySelect"
                                             ng-options="oficina.nombre for oficina in vm.lstOficinas track by oficina.id"
-                                            ng-model="vm.object.office"></select>
+                                            ng-model="vm.object.office" required ng-click="vm.asignarOficina(vm.object.office)"></select>-->
+                                    <ui-select ng-model="vm.dato.selected" ng-click="vm.asignarOficina($select.selected)">
+                                        <ui-select-match placeholder="Seleccione una oficina">{{$select.selected.nombreOficina}}</ui-select-match>
+                                        <ui-select-choices repeat="dato in vm.data">
+                                            <div ng-bind-html="dato.nombreOficina">
+                                                {{dato.nombreOficina}}
+                                            </div>
+                                        </ui-select-choices>
+                                    </ui-select>
                                 </div>
                             </div>
 
@@ -357,7 +429,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Creacion Usuario: </label>
                                 <div class="col-sm-10">
-                                    <label ng-model="vm.object.creatingUser" class="control-label"/>
+                                    <label class="control-label">{{vm.temporal.creacionUsuario}}</label>
                                 </div>
                             </div>
 
@@ -365,15 +437,15 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Creacion Fecha: </label>
                                 <div class="col-sm-10">
-                                    <label ng-model="vm.object.creatingDate" class="control-label"/>
+                                    <label class="control-label">{{vm.temporal.creacionFecha}}</label>
                                 </div>
                             </div>
                             <div class="line"></div>
                         </div>
                     </div>
 
-                    <div ng-if="!vm.object">
-                       <table  class="table table-condensed table-bordered table-striped">
+                    <div>
+                        <table  class="table table-condensed table-bordered table-striped">
 
                             <thead>
                             <tr>
@@ -385,26 +457,34 @@
                             </tr>
                             </thead>
 
-                            <tr ng-if="vm.oficina" ng-repeat="iterador in vm.user.lstOficinas">
-                                <td class="text-center" data-title="OFICINA">{{iterador.office.nombre}}</td>
-                                <td class="text-center" data-title="CREACIONUSUARIO">{{iterador.creatingUser.userName}}</td>
-                                <td class="text-center" data-title="CREACIONFECHA">{{iterador.creatingDate}}</td>
-                                <td class="text-center" data-title="MODIFICAUSUARIO">{{iterador.creatingUser.userName}}</td>
-                                <td class="text-center" data-title="MODIFICAFECHA">{{iterador.creatingDate}}</td>
+                            <tr ng-if="!vm.oficina" ng-repeat="iterador1 in vm.listaOficinas">
+                                <td class="text-center" data-title="OFICINA">{{iterador1.nombreOficina}}</td>
+                                <td class="text-center" data-title="CREACIONUSUARIO">{{iterador1.creacionUsuario}}</td>
+                                <td class="text-center" data-title="CREACIONFECHA">{{iterador1.creacionFecha}}</td>
+                                <td class="text-center" data-title="MODIFICAUSUARIO">{{iterador1.modificaUsuario}}</td>
+                                <td class="text-center" data-title="MODIFICAFECHA">{{iterador1.modificaFecha}}</td>
                                 <td>
                                     <div class="text-center">
                                         <button class="btn btn-info btn-xs"
-                                                ng-click="vm.editarOficina(iterador)">
+                                                ng-click="vm.editarRegistro(iterador)">
                                             <i class="glyphicon glyphicon-edit"></i>
                                         </button>
                                         <button class="btn btn-danger btn-xs"
-                                                ng-click="vm.eliminarOficina($index)">
+                                                ng-click="vm.elimiarRegistro($index)">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
 
                                     </div>
                                 </td>
                             </tr>
+
+                            <!--<tr ng-if="!vm.oficina" ng-repeat="iterador2 in vm.user.lstOficinas">
+                                <td class="text-center" data-title="OFICINA">{{iterador2.office.nombre}}</td>
+                                <td class="text-center" data-title="CREACIONUSUARIO">{{iterador2.creatingUser.userName}}</td>
+                                <td class="text-center" data-title="CREACIONFECHA">{{iterador2.creatingDate}}</td>
+                                <td class="text-center" data-title="MODIFICAUSUARIO">{{iterador2.creatingUser.userName}}</td>
+                                <td class="text-center" data-title="MODIFICAFECHA">{{iterador2.creatingDate}}</td>
+                            </tr>-->
                         </table>
                     </div>
 
