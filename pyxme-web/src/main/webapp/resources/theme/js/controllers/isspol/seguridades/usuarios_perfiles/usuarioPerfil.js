@@ -6,10 +6,11 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
         controller = this;
         controller.lstUsers = [];
-        //controller.lstOficinas = [];
+        var index = undefined;
         var seleccionFuncion = undefined;
 
         controller.editarRegistro = function (registro) {
+            index = controller.lstUsers.indexOf(registro);
             controller.user =registro;
         };
 
@@ -19,14 +20,13 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             ngNotify.set('Exito registro eliminado correctamente', 'success');
         };
 
-        controller.cancelar= function () {
-            controller.user=undefined;
-        };
+
 
         controller.nuevaLinea = function (){
             switch (seleccionFuncion){
                 case 1:
                     controller.user= {};
+                    index = undefined;
                     break;
                 case 2:
                     controller.oficina={};
@@ -46,15 +46,9 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         };
 
         controller.nuevo = function () {
-            //controller.user.lstOficinas
             controller.user= {
                 lstOficinas:[]
             };
-
-
-            //controller.user= {};
-
-
         };
 
         function cargarSuperiores() {
@@ -148,7 +142,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             };
 
             controller.lstUsers.push(usr);
-            controller.cancelar();
+            //controller.cancelar();
             ngNotify.set('Exito registro guardado correctamente', 'success');
             controller.cancelarIngresoOficinas();
         };
@@ -160,9 +154,13 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
             switch (seleccionFuncion){
                 case 1:
-                    if(document.formUsuarios.reportValidity());
-                    guardarUsuario(controller.user);
-                    break;
+                    var valida = document.formUsuarios.reportValidity();
+                    if(valida){
+                        guardarUsuario(controller.user);
+                        break;
+                    }else {
+                        break;
+                    }
                 case 2:
                     document.formPerfiles.reportValidity();
                     break;
@@ -184,14 +182,6 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             seleccionFuncion = steep;
         };
 
-        controller.mensaje= function (){
-            alert('d');
-        };
-
-        controller.logActividades=[];
-        controller.listaOficinas=[];
-        controller.indice=0;
-        controller.temporal={};
 
 
         //Inicio de creacion de oficinas para un usuario
@@ -201,36 +191,62 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             userName:"Javier Almeida"
         };
 
+        function buscarUsuario (user){
+            for (var i=0; i<controller.lstUsers.length;i++){
+                if(controller.lstUsers[i].id=user.id)
+                    controller.lstUsers[i] = user;
 
-        controller.cancelarIngresoOficinas = function () {
-            controller.object  = undefined;
+            }
+        };
+
+
+        function actuliazarLista() {
+            if(index!=undefined)
+                controller.lstUsers[index]=controller.user;
+
+            if (index== undefined){
+                var ind = controller.lstUsers.indexOf(controller.user);
+                // controller.lstUsers[ind]= controller.user;
+                buscarUsuario (controller.user);
+            }else {
+
+            }
+
+
         };
 
         controller.guardarOficinas = function () {
-            controller.object.creatingUser=controller.usuarioRegistro;
-            controller.object.creatingDate = new Date();
+            if (controller.object== undefined)  {
+                ngNotify.set('Debe ingresar un nuevo registro para poder continuar', 'warn');
+            }else {
+                controller.object.creatingUser=controller.usuarioRegistro;
+                controller.object.creatingDate = new Date();
+                if (controller.user.lstOficinas==undefined)
+                    controller.user.lstOficinas=[];
 
-            controller.user.lstOficinas.push(controller.object);
-            ngNotify.set('Exito registro guardado correctamente', 'success');
-            controller.cancelarIngresoOficinas();
+                controller.user.lstOficinas.push(controller.object);
+                ngNotify.set('Exito registro guardado correctamente', 'success');
+                actuliazarLista();
+                controller.cancelarIngresoOficinas();
+            }
         };
 
         controller.lstOficinas= [];
 
         function cargarOficinas() {
-          var oficina = {
-              id:1,
-              nombre:'San Miguel de los Bancos'
-          }
+            var oficina = {
+                id:1,
+                nombre:'San Miguel de los Bancos'
+            }
 
-          controller.lstOficinas.push(oficina);
+            controller.lstOficinas.push(oficina);
 
-           oficina = {
+            oficina = {
                 id:2,
                 nombre:'Pedro Vicente Maldonado'
             }
 
-          controller.lstOficinas.push(oficina);
+            controller.lstOficinas.push(oficina);
 
             oficina = {
                 id:3,
@@ -242,12 +258,28 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         };
 
 
-
-         controller.insertarOficina=function (objOficina) {
-             controller.user.
-             controller.user.lstOficinas.push(objOficina);
-            //iniciarOficina();
+        controller.insertarOficina=function (objOficina) {
+            controller.user.lstOficinas.push(objOficina);
         }
+
+
+
+        controller.cancelarIngresoOficinas = function () {
+            controller.object  = undefined;
+        };
+
+        controller.cancelar= function () {
+            controller.user=undefined;
+        };
+
+        controller.editarOficina= function (registro) {
+            controller.object = registro;
+        };
+
+        controller.eliminarOficina= function ($index) {
+            controller.user.lstOficinas.splice($index,1);
+        };
+
 
 
         cargarSuperiores();
