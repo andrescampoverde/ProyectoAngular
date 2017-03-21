@@ -12,6 +12,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         controller.editarRegistro = function (registro) {
             index = controller.lstUsers.indexOf(registro);
             controller.user =registro;
+            controller.updateList();
         };
 
 
@@ -20,6 +21,18 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
             ngNotify.set('Exito registro eliminado correctamente', 'success');
         };
 
+
+
+        controller.updateList = function(){
+            if (controller.lstUsers.length==0)
+                return -1
+
+            controller.lstAux=  controller.lstUsers;
+            controller.lstUsers = [];
+            for (var i=0; i<controller.lstAux.length;i++ ){
+                controller.lstUsers.push(controller.lstAux[i]);
+            };
+        };
 
 
         controller.nuevaLinea = function (){
@@ -46,6 +59,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         };
 
         controller.nuevo = function () {
+            controller.updateList();
             controller.user= {
                 lstOficinas:[]
             };
