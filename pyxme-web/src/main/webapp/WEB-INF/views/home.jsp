@@ -51,7 +51,6 @@
   <script src="vendor/angular/ngGeolocation/ngGeolocation.min.js"></script>
   <script src="vendor/angular/angularjs-slider/dist/rzslider.min.js"></script>
   <script src="vendor/angular/ngmap/scripts/ng-map.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQfwzThRL-PyXVusv6VizyAuWrygjU-1o&callback=initMap" type="text/javascript"></script>
 
       
   <!-- bootstrap -->
