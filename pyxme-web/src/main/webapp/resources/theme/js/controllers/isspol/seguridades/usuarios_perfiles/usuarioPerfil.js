@@ -11,6 +11,14 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
         controller.mostarBtnCancelaLin= false;
 
+        controller.notificacionBloqueo=function () {
+            var validacion=document.formUsuarios.reportValidity();
+            if(!validacion){
+                ngNotify.set('Ingrese un usuario antes de continuar', {type:'error',sticky:true});
+            }
+
+        }
+
         controller.editarRegistro = function (registro) {
             index = controller.lstUsers.indexOf(registro);
             controller.user =registro;
@@ -354,6 +362,20 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         };
 
         controller.lstOficinas= [];
+        controller.logActividades=[];
+
+        function cargarActividades() {
+
+            var objActividad={
+                tipoActividad: 'DESBLOQUEAR',
+                anteriorActividad: '1',
+                nuevoActividad: '0',
+                creacionUsuarioActividad: 'Admin',
+                creacionFechaActividad: '09/03/2017'
+            };
+
+            controller.logActividades.push(objActividad);
+        }
 
         function cargarOficinas() {
             var oficina = {
@@ -433,6 +455,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         cargarOficinas();
         cargarEstados();
         cargarCargos();
+        cargarActividades();
 
 
     }
