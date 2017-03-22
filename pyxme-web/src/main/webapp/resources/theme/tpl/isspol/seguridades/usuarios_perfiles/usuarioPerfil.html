@@ -223,6 +223,7 @@
                     <div class="line"/>
                     <div class="row  " >
 
+
                         <div class="col-lg-1">
                             <label>
                                 PERFIL:
@@ -314,6 +315,19 @@
                                 <td class="text-center" data-title="FECHAVENCIMIENTO">{{iterador.fechaVencimiento}}</td>
                                 <td class="text-center" data-title="CREACIONUSUARIO">{{iterador.creatingUser.userName}}</td>
                                 <td class="text-center" data-title="CREACIONFECHA">{{iterador.creatingDate}}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <button class="btn btn-info btn-xs"
+                                                ng-click="vm.editarPerfil(iterador)">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-xs"
+                                                ng-click="vm.eliminarPerfil($index)">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -328,7 +342,7 @@
 		
             <form id="formEstaciones" name="formEstaciones" class="form-validation">
 
-                    <div class="panel  b-a bg-light lt has-success wrapper-md">
+                <div ng-if="vm.usrEstacion" class="panel  b-a bg-light lt has-success wrapper-md">
 
                         <div class="line"/>
                             <div class="row  " >
@@ -340,7 +354,9 @@
                                     </div>
 
                                     <div class="col-lg-2-4 ">
-                                        <input class="col-sm-3 form-control" required>
+                                        <select class="form-control"
+                                                ng-options="estacion.nombre for estacion in vm.lstEstaciones track by estacion.id"
+                                                ng-model="vm.usrEstacion.estacion"></select>
                                     </div>
 
 
@@ -351,7 +367,7 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input class="form-control" required>
+                                    <label>{{vm.usrEstacion.creatingUser.userName}}</label>
                                 </div>
 
                                 <div class="col-lg-1">
@@ -361,7 +377,7 @@
                                 </div>
 
                                 <div class="col-lg-1">
-                                    <input class="form-control">
+                                    <label>{{vm.usrEstacion.creatingDate}}</label>
                                 </div>
                             </div>
                             <div class="line"></div>
@@ -373,7 +389,7 @@
                                 </div>
 
                                 <div class="col-lg-2-4">
-                                    <input class="form-control">
+                                    <label>{{vm.usrEstacion.creatingUser.userName}}</label>
                                 </div>
                             </div>
                             <div class="line"/>
@@ -386,13 +402,55 @@
 
                                 
                                 <div class="col-lg-2-4">
-                                    <input type="text" class="form-control">
+                                    <label>{{vm.usrEstacion.creatingDate}}</label>
                                 </div>
                             </div>
                         <div class="line"/>
                     </div>
 
-             </form>
+                <div ng-if="!vm.usrEstacion" class="panel panel-defaul panel-body">
+
+                    <div>
+
+                        <table  class="table table-condensed table-bordered table-striped" show-filter="true">
+
+                            <thead>
+                            <tr>
+                                <th>Estacion</th>
+                                <th>Fecha Creacion</th>
+                                <th>Creaci&oacute;n usuario</th>
+                                <th>Fecha Modificacion</th>
+                                <th>Usuario Modificacion</th>
+
+                            </tr>
+                            </thead>
+
+                            <tr ng-repeat="iterador in vm.user.lstEstaciones">
+                                <td class="text-center" data-title="ESTACION">{{iterador.estacion.nombre}}</td>
+                                <td class="text-center" data-title="FECHA CREACION">{{iterador.creatingDate}}</td>
+                                <td class="text-center" data-title="USUARIO CREACION">{{iterador.creatingUser.userName}}</td>
+                                <td class="text-center" data-title="FECHA MODIFICACION">{{iterador.creatingDate}}</td>
+                                <td class="text-center" data-title="USUARIO MODIFICACION">{{iterador.creatingUser.userName}}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <button class="btn btn-info btn-xs"
+                                                ng-click="vm.editarEstacion(iterador)">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-xs"
+                                                ng-click="vm.eliminarEstacion($index)">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </form>
         </tab>
 
         <tab heading="ACTIVIDAD" >
