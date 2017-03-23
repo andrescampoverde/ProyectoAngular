@@ -87,6 +87,51 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
                 lstOficinas:[]
             };
         };
+
+        function cargarHorarios() {
+            controller.lstHorarios = [];
+            var horario = {
+                id:1,
+                nombre:"Diurno"
+            };
+
+            controller.lstHorarios.push(horario);
+
+            horario = {
+                id:2,
+                nombre:"Nocturno"
+            };
+            controller.lstHorarios.push(horario);
+        };
+
+
+        function cargarDashboard() {
+            controller.lstDashBoard = [];
+            var dashBoard = {
+                id:1,
+                nombre:"DashBoard 1"
+            };
+
+            controller.lstDashBoard.push(dashBoard);
+
+            dashBoard = {
+                id:2,
+                nombre:"DashBoard 2"
+            };
+            controller.lstDashBoard.push(dashBoard);
+
+            dashBoard = {
+                id:3,
+                nombre:"DashBoard 3"
+            };
+            controller.lstDashBoard.push(dashBoard);
+
+        };
+
+
+
+
+
         function cargarEstaciones() {
             controller.lstEstaciones = [];
             var estacion = {
@@ -238,14 +283,16 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
 
         controller.guardar = function () {
-
+            $scope;
             switch (seleccionFuncion){
                 case 1:
                     var valida = document.formUsuarios.reportValidity();
-                    if(valida){
+                    var invalid = $scope.$$childTail.$$childHead.$$childHead.formUsuarios.$valid;
+                    if(valida && invalid){
                         guardarUsuario(controller.user);
                         break;
                     }else {
+                        ngNotify.set('Debe ingresar todos los campos marcados en *', 'error');
                         break;
                     }
                 case 2:
@@ -465,6 +512,8 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
         cargarEstados();
         cargarCargos();
         cargarActividades();
+        cargarHorarios();
+        cargarDashboard();
 
 
     }

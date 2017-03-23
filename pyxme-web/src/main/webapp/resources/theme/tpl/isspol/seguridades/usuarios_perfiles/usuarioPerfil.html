@@ -92,19 +92,23 @@
         <tab heading="USUARIOS" select="vm.seleccionarTab(1);">
 
              <form id="formUsuarios" name="formUsuarios" class="form-validation">
+                 <div class="alert alert-info">
+                     <strong>NOTA:</strong> Los campos se&ntilde;alados con (*) son obligatorios.
+                 </div>
 
-                    <div class="panel  b-a bg-light lt has-success wrapper-md">
+
+                 <div class="panel  b-a bg-light lt has-success wrapper-md">
 
                         <div class="line"/>
                             <div class="row" >
 
                                     <div class="col-lg-1">
                                         <label>
-                                            Usuario:
+                                           * Usuario:
                                         </label>
                                     </div>
 
-                                    <div class="col-lg-2-4 ">
+                                    <div class="col-lg-2-4  ">
                                         <input ng-model="vm.user.userName" class="col-sm-3 form-control" required>
                                     </div>
 
@@ -119,18 +123,21 @@
                                     <input type="number" ng-model="vm.user.id" class="form-control" required>
                                 </div>
 
-                                <div class="col-lg-1">
+                                <div class="col-lg-1 has-error">
                                     <label>
-                                        Estado:
+                                       * Estado:
                                     </label>
                                 </div>
 
                                 <div class="col-lg-2">
                                     <div>
-                                        <select class="form-control" name="mySelect" id="mySelect" ng-required="true"
-                                                ng-class="{'has-error': ac.step1.needsAttention(step1.username)}"
+                                        <select class="form-control"
                                                 ng-options="estado.nombre for estado in vm.lstEstado track by estado.id"
-                                                ng-model="vm.user.status"></select>
+                                                ng-model="vm.user.status">
+                                        </select>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +145,7 @@
                             <div class="row">
                                 <div class="col-lg-1">
                                     <label>
-                                        Identificaci&oacute;n:
+                                      * N&uacute;mero Identificaci&oacute;n:
                                     </label>
                                 </div>
 
@@ -162,7 +169,7 @@
                             <div class="row">
                                 <div class="col-lg-1">
                                     <label>
-                                        Oficina:
+                                       * Oficina:
                                     </label>
                                 </div>
 
@@ -181,7 +188,7 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <label>
-                                        Cargo:
+                                       * Cargo:
                                     </label>
                                 </div>
 
@@ -197,7 +204,7 @@
                             <div class="row">
                                 <div class="col-sm-1">
                                     <label>
-                                        Superior:
+                                      *Superior:
                                     </label>
                                 </div>
 
@@ -211,6 +218,114 @@
                             </div>
                         <div class="line"/>
                     </div>
+
+                 <div class="panel b-a bg-light lt">
+                     <div class="panel-heading font-bold">
+                         CONFIGURAR ACCESO
+                         <div ng-init="vm.accessConfig=false" class="col-sm-10">
+                             <label class="i-switch i-switch-md bg-info m-t-xs m-r">
+                                 <input ng-model="vm.accessConfig"
+                                        type="checkbox" checked> <i></i>
+                             </label>
+                         </div>
+                     </div>
+                     <div class="panel-body" ng-if="vm.accessConfig">
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-3 control-label">Desde cualquier estaci&oacute;n?</label>
+                             <div class="col-sm-5">
+                                 <label class="i-switch i-switch-md bg-warning m-t-xs m-r">
+                                     <input ng-model="vm.user.cualquierEstacion"
+                                            type="checkbox" checked> <i></i>
+                                 </label>
+                             </div>
+                         </div>
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-3 control-label">Horario:</label>
+                             <div class="col-sm-5">
+                                 <select class="form-control"
+                                         ng-options="horario.nombre for horario in vm.lstHorarios track by horario.id"
+                                         ng-model="vm.user.horario"></select>
+                             </div>
+                         </div>
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-3 control-label">DashBoard Inicial:</label>
+                             <div class="col-sm-5">
+                                 <select class="form-control"
+                                         ng-options="dashBoard.nombre for dashBoard in vm.lstDashBoard track by dashBoard.id"
+                                         ng-model="vm.user.dashBoard"></select>
+                             </div>
+                         </div>
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-3 control-label">Tiempo de inactividad:</label>
+                             <div class="col-sm-5">
+                                 <input type="number" class="form-control" ng-model="vm.user.tiempoInactividad"/>
+                             </div>
+                         </div>
+
+
+
+
+
+                     </div>
+                 </div>
+
+                 <div class="panel b-a bg-light lt">
+                     <div class="panel-heading font-bold">
+                         CONTRASE&Ntilde;A
+                         <div ng-init="vm.password=false" class="col-sm-10">
+                             <label class="i-switch i-switch-md bg-info m-t-xs m-r">
+                                 <input ng-model="vm.password"
+                                        type="checkbox" checked> <i></i>
+                             </label>
+                         </div>
+                     </div>
+                     <div class="panel-body" ng-if="vm.password">
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-5 control-label">Usuario debe cambiar el password desde el pr&oacute;ximo logon</label>
+                             <div class="col-sm-5">
+                                 <label class="i-switch i-switch-md bg-primary m-t-xs m-r">
+                                     <input ng-model="vm.user.modificarPassword"
+                                            type="checkbox" checked> <i></i>
+                                 </label>
+                             </div>
+                         </div>
+
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-5 control-label">Usuario no puede cambiar el password</label>
+                             <div class="col-sm-5">
+                                 <label class="i-switch i-switch-md bg-primary m-t-xs m-r">
+                                     <input ng-model="vm.user.nomodificarPassword"
+                                            type="checkbox" checked> <i></i>
+                                 </label>
+                             </div>
+                         </div>
+
+                         <div class="line"></div>
+                         <div class="form-group">
+                             <label class="col-sm-5 control-label">Password nunca expira</label>
+                             <div class="col-sm-5">
+                                 <label class="i-switch i-switch-md bg-primary m-t-xs m-r">
+                                     <input ng-model="vm.user.expiracionPassword"
+                                            type="checkbox" checked> <i></i>
+                                 </label>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+
 
              </form>
         </tab>
