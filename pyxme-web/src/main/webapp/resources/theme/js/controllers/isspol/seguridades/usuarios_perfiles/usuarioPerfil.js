@@ -339,9 +339,13 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
                 controller.user.lstEstaciones.push(controller.usrEstacion);
                 ngNotify.set('Exito registro guardado correctamente', 'success');
-                actuliazarLista();
-                controller.cancelarIngresoLineas();
+                //actuliazarLista();
+                //controller.cancelarIngresoLineas();
+                controller.usrEstacion= undefined
+                controller.mostarBtnCancelaLin= false;
+
             }
+            actuliazarLista();
 
         };
 
@@ -425,7 +429,9 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
 
         controller.editarPerfil= function (registro) {
-            controller.usrEstacion = registro;
+            controller.usrPerfil = registro;
+            controller.mostarBtnCancelaLin= false;
+
         };
 
         controller.eliminarPerfil= function ($index) {
@@ -434,6 +440,7 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
         controller.editarEstacion= function (registro) {
             controller.usrEstacion = registro;
+            controller.mostarBtnCancelaLin= false;
         };
 
         controller.eliminarEstacion= function ($index) {
@@ -442,6 +449,8 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
 
         controller.editarOficina= function (registro) {
             controller.object = registro;
+            controller.mostarBtnCancelaLin= false;
+
         };
 
         controller.eliminarOficina= function ($index) {

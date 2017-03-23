@@ -22,6 +22,7 @@ app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
 				  
 		  }
 	  };
+
 	  
 	  controller.editarSucursal = function (sucursal, opcion){
 		  controller.sucursal= sucursal;
@@ -40,14 +41,20 @@ app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function (sucursal){
-		  var suc = {
-				  nombre:sucursal.nombre,
-				  id:sucursal.id,
-				  direccion:sucursal.direccion
-		  };
-		  controller.lstSuc.push(suc	);
-		  ngNotify.set('Exito registro creado correctamente', 'success');
-		  iniciarFormulario ();
+
+          var valida = document.form.reportValidity();
+          if(valida){
+              var suc = {
+                  nombre:sucursal.nombre,
+                  id:sucursal.id,
+                  direccion:sucursal.direccion
+
+              }
+              controller.lstSuc.push(suc);
+              ngNotify.set('Exito registro creado correctamente', 'success');
+              iniciarFormulario ();
+          }
+
 	  };
 	  
  
