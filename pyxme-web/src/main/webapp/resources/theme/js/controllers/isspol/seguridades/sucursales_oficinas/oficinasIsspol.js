@@ -36,17 +36,21 @@ app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function(oficina){
-		  var of = {
-				  id:oficina.id,
-				  tipo:oficina.tipo,
-				  nombre:oficina.nombre,
-				  ciudad:oficina.ciudad,
-				  direccion:oficina.direccion,
-				  telefono: oficina.telefono
-		  };
-		  controller.lstOficinas.push(of);
-		  ngNotify.set('Exito, registro creado correctamente', 'success');
-		  iniciarFormulario();
+          var valida=document.form.reportValidity();
+          if(valida){
+              var of = {
+                  id:oficina.id,
+                  tipo:oficina.tipo,
+                  nombre:oficina.nombre,
+                  ciudad:oficina.ciudad,
+                  direccion:oficina.direccion,
+                  telefono: oficina.telefono
+              };
+              controller.lstOficinas.push(of);
+              ngNotify.set('Exito, registro creado correctamente', 'success');
+              iniciarFormulario();
+		  }
+
 	  };
 	  
 	  function iniciarFormulario(){

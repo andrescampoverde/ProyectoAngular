@@ -2,15 +2,34 @@
 	<h1 class="m-n font-thin h3">OFICINAS</h1>
 </div>
 
-<div class="wrapper-md" ng-controller="OficinasIsspol as vm">
+<div ng-controller="OficinasIsspol as vm">
+
+	<div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+		<div class="hbox text-left b-b b-light text-sm">
+			<button ng-if="!vm.oficina" class="btn m-b-xs btn-sm btn-primary "
+					type="reset" ng-click="vm.nuevaOficina()">
+				<i class="fa fa-file block m-b-xs fa-2x "></i>
+				<span>Nuevo</span>
+			</button>
+
+			<button ng-if="vm.oficina" class="btn m-b-xs btn-sm btn-primary "
+					type="submit" ng-click="vm.guardar(vm.oficina)">
+				<i class="fa fa-save block m-b-xs fa-2x "></i>
+				<span translate="label.global.guardar"/>
+			</button>
+			<button ng-if="vm.oficina" class="btn m-b-xs btn-sm btn-warning"
+					type="submit" ng-click="vm.cancelar()">
+				<i class="fa fa-ban block m-b-xs fa-2x "></i>
+				<span>Cancelar</span>
+			</button>
+
+
+		</div>
+	</div>
 
 	<div ng-if="!vm.oficina" class="panel panel-defaul panel-body">
 
 		<div>
-			<button ng-click="vm.nuevaOficina()"
-				class="btn m-b-xs btn-sm btn-primary btn-addon">
-				<i class="fa fa-plus"></i>Nueva Oficina
-			</button>
 
 			<table class="table table-condensed table-bordered table-striped"
 				show-filter="true">
@@ -68,7 +87,7 @@
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 						<label class="col-sm-2 control-label">Tipo: </label>
 						<div class="col-lg-3 has-success">
-							<select class="form-control" name="mySelect" id="mySelect"
+							<select class="form-control" name="mySelect" id="mySelect1"
 								ng-options="option.nombre for option in vm.lstTipos track by option.id"
 								ng-model="vm.oficina.tipo" required>
 							</select>
@@ -119,14 +138,6 @@
 
 		</div>
 
-		<div class="line line-dashed b-b line-lg pull-in"></div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">Opciones</label>
-			<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
-			<button type="submit"
-				ng-click="form.$valid ? vm.guardar(vm.oficina): ''"
-				class="btn btn-sm btn-primary">Guardar</button>
-		</div>
 </div>
 </form>
 

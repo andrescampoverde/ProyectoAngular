@@ -259,6 +259,18 @@ angular.module('app')
                           }]
                   }
               })
+
+              .state('app.form.motivoCierreSesion', {
+                  url: '/cierreSesionIsspol',
+                  templateUrl: 'tpl/isspol/seguridades/inicios_sesion/motivoCierreSesion.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/seguridades/inicios_sesion/motivoCierreSesion.js']);
+                          }]
+                  }
+              })
               
               .state('app.form.profile', {
                   url: '/profile',
