@@ -5,19 +5,19 @@
 <div ng-controller="MotivosCierre as vm">
     <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
         <div class="hbox text-left b-b b-light text-sm">
-            <button ng-if="!vm.motivo" class="btn m-b-xs btn-sm btn-primary "
+            <button ng-if="!vm.motivo" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon"
                     type="reset" ng-click="vm.nuevo()">
-                <i class="fa fa-file block m-b-xs fa-2x "></i>
+                <i class="fa fa-plus"></i>
                 <span>Nuevo</span>
             </button>
-            <button ng-if="vm.motivo" class="btn m-b-xs btn-sm btn-primary "
+            <button ng-if="vm.motivo" class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
                     type="submit" ng-click="vm.guardar()">
-                <i class="fa fa-save block m-b-xs fa-2x "></i>
+                <i class="fa fa-save"></i>
                 <span translate="label.global.guardar"/>
             </button>
-            <button ng-if="vm.motivo" class="btn m-b-xs btn-sm btn-warning"
+            <button ng-if="vm.motivo" class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
                     type="submit" ng-click="vm.cancelar()">
-                <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                <i class="fa fa-ban"></i>
                 <span>Cancelar</span>
             </button>
         </div>
@@ -60,7 +60,6 @@
         </div>
 
     <div ng-if="!vm.motivo" class="panel panel-defaul panel-body">
-        {{vm.lstMotivosCierre}}
         <div>
 
             <table class="table table-condensed table-bordered table-striped"
