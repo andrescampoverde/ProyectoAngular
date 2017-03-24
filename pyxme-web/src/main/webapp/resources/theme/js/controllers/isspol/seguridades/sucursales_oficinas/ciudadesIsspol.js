@@ -40,6 +40,8 @@ app.controller("CiudadesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function (ciudad){
+          var valida = document.form.reportValidity();
+          if (valida){
 		  var cid = {
 				  
 				  id:ciudad.id,
@@ -50,6 +52,7 @@ app.controller("CiudadesIsspol",['ngNotify',"$scope", 'ngTableParams',
 		  controller.lstCiu.push(cid);
 		  ngNotify.set('Exito registro creado correctamente', 'success');
 		  iniciarFormulario ();
+          }
 	  };
 	  
 	  cargarTipo ();

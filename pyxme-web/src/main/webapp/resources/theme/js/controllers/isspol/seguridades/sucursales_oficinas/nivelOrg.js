@@ -16,16 +16,19 @@ app.controller("NivelOrganizacional",['ngNotify',"$scope", 'ngTableParams',
 	controller.insertarnivel=function(nivel){
 		var f=new Date();
 		controller.nivel.creacionFecha=f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear();
-		var niv={
-				idNivelEstructura:nivel.idNivelEstructura,
-				descripcion:nivel.descripcion,
-				largo:nivel.largo,
-				icono:nivel.icono,
-				creacionUsuario:nivel.creacionUsuario,
-				creacionFecha:nivel.creacionFecha
-		};
-		controller.niveles.push(niv);
-		inicioFormulario();
+        var valida = document.form.reportValidity();
+        if(valida) {
+            var niv = {
+                idNivelEstructura: nivel.idNivelEstructura,
+                descripcion: nivel.descripcion,
+                largo: nivel.largo,
+                icono: nivel.icono,
+                creacionUsuario: nivel.creacionUsuario,
+                creacionFecha: nivel.creacionFecha
+            };
+            controller.niveles.push(niv);
+            inicioFormulario();
+        }
 	}
 	
 	controller.actualizarnivel=function(nivel_editar){

@@ -4,7 +4,42 @@
 <div class="wrapper-md" ng-controller="NivelOrganizacional as vm">
 	<div ng-if="!vm.nivel" class="panel panel-defaul panel-body">
 		 <div>
-	     	<button ng-click="vm.nuevonivel()" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>Agregar</button>
+
+			 <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+				 <div class="hbox text-left b-b b-light text-sm">
+					 <button ng-if="!vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="reset" ng-click="vm.nuevonivel()">
+						 <i class="fa fa-plus"></i>
+						 <span>Nuevo</span>
+					 </button>
+
+					 <button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="submit" ng-click="vm.nuevaLinea()">
+						 <i class="fa fa-bars block m-b-xs fa-2x "></i>
+						 <span>Nuevo</span>
+					 </button>
+					 <button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="submit" ng-click="vm.guardar()">
+						 <i class="fa fa-save block m-b-xs fa-2x "></i>
+						 <span translate="label.global.guardar"/>
+					 </button>
+					 <button ng-if="vm.nivel && !vm.mostarBtnCancelaLin ? true:false"
+							 class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+							 type="submit" ng-click="vm.cancelar()">
+						 <i class="fa fa-ban block m-b-xs fa-2x "></i>
+						 <span>Cancelar</span>
+					 </button>
+
+					 <button ng-if="vm.nivel && vm.mostarBtnCancelaLin ? true:false"
+							 class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+							 type="submit" ng-click="vm.cancelarIngresoLineas()">
+						 <i class="fa fa-ban block m-b-xs fa-2x "></i>
+						 <span>Cancelar</span>
+					 </button>
+
+
+				 </div>
+			 </div>
 			<table  class="table table-condensed table-bordered table-striped" show-filter="true">
 				<thead>
 					<tr>
@@ -47,6 +82,28 @@
 	<form ng-if="vm.nivel" name="form" class="form-validation">
 		<div class="panel panel-default">
 			<div class="panel panel-default">
+				<div class="hbox text-left b-b b-light text-sm">
+					<button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							type="submit" ng-click="vm.insertarnivel(vm.nivel)">
+						<i class="fa fa-save block m-b-xs fa-2x "></i>
+						<span translate="label.global.guardar"/>
+					</button>
+					<button ng-if="vm.nivel && !vm.mostarBtnCancelaLin ? true:false"
+							class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+							type="submit" ng-click="vm.cancelar();">
+						<i class="fa fa-ban block m-b-xs fa-2x "></i>
+						<span>Cancelar</span>
+					</button>
+
+					<button ng-if="vm.nivel && vm.mostarBtnCancelaLin ? true:false"
+							class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+							type="submit" ng-click="vm.cancelarIngresoLineas()">
+						<i class="fa fa-ban block m-b-xs fa-2x "></i>
+						<span>Cancelar</span>
+					</button>
+
+
+				</div>
 				<div class="panel-heading font-bold">Nuevo nivel</div>
 				<div class="panel-body has-success">
 					<div class="form-group">
@@ -94,14 +151,7 @@
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
-					<div class="form-group">
-						<div class="col-sm-4 col-sm-offset-2">
-							<button class="btn btn-sm" ng-click="vm.cancelar();">Cancelar</button>
-			
-							<button type="submit"
-									ng-click="form.$valid ? vm.insertarnivel(vm.nivel): ''" class="btn btn-sm btn-primary">Guardar</button>
-						</div>
-					</div>
+
 				</div>
 			</div>
 		</div>

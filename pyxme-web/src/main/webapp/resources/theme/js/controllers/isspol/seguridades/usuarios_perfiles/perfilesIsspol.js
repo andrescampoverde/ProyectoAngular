@@ -34,17 +34,20 @@ app.controller("PerfilesIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function(perfil){
-		  var of = {
-				  id:perfil.id,
-				  tipo:perfil.tipo,
-				  nombre:perfil.nombre,
-				  ciudad:perfil.ciudad,
-				  direccion:perfil.direccion,
-				  telefono: perfil.telefono
-		  };
-		  controller.lstPerfiles.push(of);
-		  ngNotify.set('Exito, registro creado correctamente', 'success');
-		  iniciarFormulario();
+          var valida = document.form.reportValidity();
+          if(valida) {
+              var of = {
+                  id: perfil.id,
+                  tipo: perfil.tipo,
+                  nombre: perfil.nombre,
+                  ciudad: perfil.ciudad,
+                  direccion: perfil.direccion,
+                  telefono: perfil.telefono
+              };
+              controller.lstPerfiles.push(of);
+              ngNotify.set('Exito, registro creado correctamente', 'success');
+              iniciarFormulario();
+          }
 	  };
 	  
 	  function iniciarFormulario(){

@@ -34,6 +34,8 @@ app.controller("CargosIsspol",['ngNotify',"$scope", 'ngTableParams',
 	  };
 	  
 	  controller.guardar = function(cargo){
+          var valida = document.form.reportValidity();
+          if(valida){
 		  var of = {
 				  id:cargo.id,
 				  nombre:cargo.nombre,
@@ -42,6 +44,7 @@ app.controller("CargosIsspol",['ngNotify',"$scope", 'ngTableParams',
 		  ngNotify.set('Exito, registro creado correctamente', 'success');
 		  iniciarFormulario();
 	  };
+	  }
 	  
 	  function iniciarFormulario(){
 		  controller.cargo = undefined;
