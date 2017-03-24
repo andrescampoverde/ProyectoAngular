@@ -260,6 +260,19 @@ angular.module('app')
                   }
               })
 
+              .state('app.form.catalogos', {
+                  url: '/catalogos',
+                  templateUrl: 'tpl/isspol/sistema/catalogos-generales.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                          function (uiLoad) {
+                              return uiLoad.load([
+                                  'js/controllers/isspol/sistema/catalogos-generales.js']);
+                          }]
+                  }
+              })
+
+
               .state('app.form.motivoCierreSesion', {
                   url: '/cierreSesionIsspol',
                   templateUrl: 'tpl/isspol/seguridades/inicios_sesion/motivoCierreSesion.html',

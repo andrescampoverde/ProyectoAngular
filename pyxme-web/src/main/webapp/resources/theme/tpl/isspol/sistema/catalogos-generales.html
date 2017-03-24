@@ -1,0 +1,37 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">CATALGOS</h1>
+</div>
+
+<div class="bg-black wrapper-md" ng-controller="CatalogosController as vm">
+    <div class="bg-black lter  wrapper">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" ng-model="selected"
+                       typeahead="tablas.nombre for tablas in vm.lstTablas | filter:$viewValue | limitTo:8"
+                       class="form-control input-sm bg-light no-border rounded padder" placeholder="Seleccione el cat&aacute;go al que desea dar mantenimiento ">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
+                  </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="line"></div>
+    <button ng-click="vm.cambiar('A')" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>CATALOGO A </button>
+    <button ng-click="vm.cambiar('B')" class="btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>CATALOGO B </button>
+
+    <fieldset  data-ng-repeat="choice in choices">
+        <div class="line"></div>
+        <label class="col-sm-2 control-label">Nombre: </label>
+        <input class="form-control" type="text" ng-model="choice.name" name="" placeholder="Enter ">
+        <button class="remove" ng-show="$last" ng-click="removeChoice()">-</button>
+    </fieldset>
+    <button class="addfields" ng-click="addNewChoice()">Add fields</button>
+
+    <div id="choicesDisplay">
+        {{ choices }}
+    </div>
+
+    <p ng-bind-html="vm.urlCatalogo"></p>
+
+</div>
