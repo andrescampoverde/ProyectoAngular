@@ -6,18 +6,18 @@
 
 	<div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
 		<div class="hbox text-left b-b b-light text-sm">
-			<button ng-if="!vm.oficina" class="btn m-b-xs btn-sm btn-primary "
+			<button ng-if="!vm.oficina" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
 					type="reset" ng-click="vm.nuevaOficina()">
 				<i class="fa fa-file block m-b-xs fa-2x "></i>
 				<span>Nuevo</span>
 			</button>
 
-			<button ng-if="vm.oficina" class="btn m-b-xs btn-sm btn-primary "
+			<button ng-if="vm.oficina" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
 					type="submit" ng-click="vm.guardar(vm.oficina)">
 				<i class="fa fa-save block m-b-xs fa-2x "></i>
 				<span translate="label.global.guardar"/>
 			</button>
-			<button ng-if="vm.oficina" class="btn m-b-xs btn-sm btn-warning"
+			<button ng-if="vm.oficina" class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
 					type="submit" ng-click="vm.cancelar()">
 				<i class="fa fa-ban block m-b-xs fa-2x "></i>
 				<span>Cancelar</span>

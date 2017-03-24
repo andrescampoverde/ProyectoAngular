@@ -249,7 +249,7 @@ angular.module('app')
                       })
               
               .state('app.form.cargosIsspol', {
-                  url: '/perfilesIsspol',
+                  url: '/cargosIsspol',
                   templateUrl: 'tpl/isspol/seguridades/usuarios_perfiles/cargosIsspol.html',
                   resolve: {
                       deps: ['$ocLazyLoad',

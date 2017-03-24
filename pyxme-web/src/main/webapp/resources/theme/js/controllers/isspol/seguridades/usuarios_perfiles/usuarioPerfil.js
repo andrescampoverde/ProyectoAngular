@@ -305,11 +305,13 @@ app.controller('UsuariosPerfiles', ['ngNotify', "$scope", 'ngTableParams',
                     }
                 // break;
                 case 3:
-                    var valida=document.formPerfiles.reportValidity();
-                    if(valida){
+                    var valida1 = document.formEstaciones.reportValidity();
+                    var invalid1 = $scope.$$childTail.$$childHead.$$childHead.formEstaciones.$valid;
+                    if(valida1 && invalid1){
                         controller.guardarEstaciones();
                         break;
-                    }else{
+                    }else {
+                        ngNotify.set('Debe ingresar todos los campos marcados en *', 'error');
                         break;
                     }
                 case 4:
