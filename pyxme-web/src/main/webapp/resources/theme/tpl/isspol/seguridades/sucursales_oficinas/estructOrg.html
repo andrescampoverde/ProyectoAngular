@@ -5,86 +5,94 @@
 <div class="wrapper-md" ng-controller="EstructOrg as vm">
 
 	<div class="panel b-a bg-light lt">
-	
-		<button type="reset" ng-click="vm.nevaEstructura()" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon"><i class="fa fa-plus"></i>NUEVO</button>
 
-		<div class="row" >
-	    	<div class="col-sm-6">
-	    	<div class="line b-b line-lg"></div>
-	        	<ul class="list-group list-group-lg m-b-none">
+		<button type="reset" ng-click="vm.nevaEstructura()" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon">
+			<i class="fa fa-plus"></i>NUEVO
+		</button>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="line b-b line-lg"></div>
+				<ul class="list-group list-group-lg m-b-none">
 					<li ng-repeat="iterador in vm.lstPerfiles" class="list-group-item">
-				    	<div class="row">
+						<div class="row">
 							<div class="form-group">
 								<div class="col-sm-1">
 								</div>
-								<a 
-									class="pull-left thumb-sm avatar m-r"> <img
+								<a
+										class="pull-left thumb-sm avatar m-r"> <img
 										src="img/person.jpg" alt="..." class="img-circle"> <i
 										class="on b-white bottom"></i>
 								</a>
 								<label class="col-lg-7 control-label">
-				                	{{iterador.descripcion}}
-						       </label>
-								<button ng-click="vm.editarPerfil(iterador)" class="pull-left	btn-info btn-addon"><i class="fa fa-pencil"></i>Editar</button>
+									{{iterador.descripcion}}
+								</label>
+								<button ng-click="vm.editarPerfil(iterador,$index)" class="pull-left	btn-info btn-addon"><i
+										class="fa fa-pencil"></i>Editar
+								</button>
 							</div>
 						</div>
-				  	</li>
-				 </ul>
+					</li>
+				</ul>
 				<div class="line b-b line-lg"></div>
-	        </div>
-	        
-	        <div class="col-sm-6">
+			</div>
 
-				<form ng-if="vm.perfil" name="form" class="form-validation">
+			<div class="col-sm-6">
 
-				<div class="line b-b line-lg"></div>
-
-				<label class="col-sm-3 control-label">C&Oacute;DIGO:</label>
-				<div class="col-sm-3 has-success">
-					<div >
-						<input  type="text" ng-model="vm.perfil.id" class="form-control" required>
+				<form ng-if="vm.objEstOrg" name="formEstructura" id="formEstructura" class="form-validation">
+					<div class="alert alert-info">
+						<strong>NOTA:</strong> Los campos se&ntilde;alados con (*) son obligatorios.
 					</div>
-				</div>
-				
-				<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="line b-b line-lg"></div>
 
-				<label class="col-sm-3 control-label">DESCRIPCI&Oacute;N:</label>
-				<div class="col-sm-5 has-success">
-					<div>
-						<input type="text" ng-model="vm.perfil.descripcion" class="form-control" required>
+					<label class="col-sm-3 control-label">C&Oacute;DIGO:</label>
+					<div class="col-sm-3 has-success">
+						<div>
+							<input type="text" ng-model="vm.objEstOrg.idEstructuraOrganizacional" class="form-control" required>
+						</div>
 					</div>
-				</div>
 
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<label class="col-sm-3 control-label">NIVEL PADRE:</label>
-				<div class="col-sm-3 has-success">
-					<div >
-						<input type="text" ng-model="vm.perfil.nivelPadre" class="form-control" required>
-					</div>
-				</div>
-				
-				
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<label class="col-sm-3 control-label">ORDEN:</label>
-				<div class="col-sm-3 has-success">
-					<div>
-						<input type="text" ng-model="vm.perfil.orden" class="form-control" required>
-					</div>
-				</div>
-				
+					<div class="line line-dashed b-b line-lg pull-in"></div>
 
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<label class="col-sm-3 control-label">NIVEL:</label>
-				<div class="col-lg-4 has-success">
-					<div>
-						<select class="form-control" name="mySelect" id="mySelect"
-      							ng-options="option.nombre for option in vm.lstNiveles track by option.id"
-      							ng-model="vm.perfil.nivel"></select>
+					<label class="col-sm-3 control-label">*DESCRIPCI&Oacute;N:</label>
+					<div class="col-sm-5 has-success">
+						<div>
+							<input type="text" ng-model="vm.objEstOrg.descripcion" class="form-control" required>
+						</div>
 					</div>
-				</div>
 
-				<div class="line b-b line-lg"></div>
-				<button ng-click="form.$valid ? vm.guardarPerfil(vm.perfil):''" class="pull-left btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-floppy-o"></i>GUARDAR</button>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<label class="col-sm-3 control-label">*NIVEL PADRE:</label>
+					<div class="col-sm-3 has-success">
+						<div>
+							<input type="text" ng-model="vm.objEstOrg.estructuraOrganizacionalByIdEstructuraPadre" class="form-control" required>
+						</div>
+					</div>
+
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<label class="col-sm-3 control-label">*ORDEN:</label>
+					<div class="col-sm-3 has-success">
+						<div>
+							<input type="text" ng-model="vm.objEstOrg.orden" class="form-control" required>
+						</div>
+					</div>
+
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<label class="col-sm-3 control-label">*NIVEL:</label>
+					<div class="col-lg-4 has-success">
+						<div>
+							<select class="form-control" name="mySelect" id="mySelect"
+									ng-options="option.nombre for option in vm.lstNiveles track by option.id"
+									ng-model="vm.objEstOrg.nivelEstructuraOrgByIdNivelEstrcuturaOrg"></select>
+						</div>
+					</div>
+
+					<div class="line b-b line-lg"></div>
+					<button ng-click="vm.guardarPerfil(vm.objEstOrg)"
+							class="pull-left btn m-b-xs btn-sm btn-success btn-addon"><i class="fa fa-floppy-o"></i>GUARDAR
+					</button>
 
 				</form>
 			</div>

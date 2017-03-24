@@ -10,79 +10,82 @@
  * Created by nmavelin
  */
 
-app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams', 
-						function( ngNotify,  $scope , ngTableParams) {
-	 
-	  controller = this;
-	  controller.lstOficinas= [];
-	  controller.lstTipos= [];
-	  controller.lstCiudades= [];
-	  
-	  controller.nuevaOficina = function(){
-		  controller.oficina = {}
-	  };
-	  
-	  controller.editarOficina = function(oficina){
-		  controller.oficina= oficina;
-	  };
-	  
-	  controller.eliminarOficina = function($index){
-		  controller.lstOficinas.splice($index, 1);
-		  ngNotify.set('Exito, registro eliminado correctamente', 'success');
-	  };
-	  
-	  controller.cancelar = function(){
-		  controller.oficina = undefined;
-	  };
-	  
-	  controller.guardar = function(oficina){
-          var valida=document.form.reportValidity();
-          if(valida){
-              var of = {
-                  id:oficina.id,
-                  tipo:oficina.tipo,
-                  nombre:oficina.nombre,
-                  ciudad:oficina.ciudad,
-                  direccion:oficina.direccion,
-                  telefono: oficina.telefono
-              };
-              controller.lstOficinas.push(of);
-              ngNotify.set('Exito, registro creado correctamente', 'success');
-              iniciarFormulario();
-		  }
+app.controller("OficinasIsspol",['ngNotify',"$scope", 'ngTableParams',
+    function( ngNotify,  $scope , ngTableParams) {
 
-	  };
-	  
-	  function iniciarFormulario(){
-		  controller.oficina = undefined;
-	  };
-	  
-	  cargarTipos();
-	  cargarCiudades();
-	  iniciarFormulario();
-	  
-	  function cargarTipos(){
-		  var 
-		  tipo = {id:1, nombre: "Matriz"};
-		  controller.lstTipos.push(tipo);
-		  
-		  tipo = {id:2, nombre: "Agencia"};
-		  controller.lstTipos.push(tipo);
-		  
-		  tipo = {id:3, nombre: "Ventanilla de Extension"};
-		  controller.lstTipos.push(tipo);
-	  };
-	  
-	  function cargarCiudades(){
-		  var 
-		  ciudad = {id:1, nombre: "Quito"};
-		  controller.lstCiudades.push(ciudad);
-		  
-		  ciudad = {id:2, nombre: "Guayaquil"};
-		  controller.lstCiudades.push(ciudad);
-		  
-		  ciudad = {id:3, nombre: "Cuenca"};
-		  controller.lstCiudades.push(ciudad);
-	  };
+        controller = this;
+        controller.lstOficinas= [];
+        controller.lstTipos= [];
+        controller.lstCiudades= [];
 
-}]);
+        controller.nuevaOficina = function(){
+            controller.objOficina = {}
+        };
+
+        controller.editarOficina = function(objOficina,$index){
+            controller.lstOficinas.splice($index,1);
+            controller.objOficina= objOficina;
+        };
+
+        controller.eliminarOficina = function($index){
+            controller.lstOficinas.splice($index, 1);
+            ngNotify.set('Exito, registro eliminado correctamente', 'success');
+        };
+
+        controller.cancelar = function(){
+            controller.objOficina = undefined;
+        };
+
+        controller.guardar = function(objOficina){
+            var valida=document.formOficina.reportValidity();
+            if(valida&&controller.objOficina.tipoOficina!==undefined&&controller.objOficina.ciudad!==undefined){
+                var of = {
+                    idOficina:objOficina.idOficina,
+                    tipoOficina:objOficina.tipoOficina,
+                    nombre:objOficina.nombre,
+                    ciudad:objOficina.ciudad,
+                    direccion:objOficina.direccion,
+                    telefono: objOficina.telefono
+                };
+                controller.lstOficinas.push(of);
+                ngNotify.set('Exito, registro creado correctamente', 'success');
+                iniciarFormulario();
+            }else{
+                ngNotify.set('Debe ingresar todos los campos marcados en *', 'error');
+            }
+
+        };
+
+        function iniciarFormulario(){
+            controller.objOficina = undefined;
+        };
+
+        cargarTipos();
+        cargarCiudades();
+        iniciarFormulario();
+
+        function cargarTipos(){
+            var
+                tipoOficina = {id:1, nombre: "Matriz"};
+            controller.lstTipos.push(tipoOficina);
+
+            tipoOficina = {id:2, nombre: "Agencia"};
+            controller.lstTipos.push(tipoOficina);
+
+            tipoOficina = {id:3, nombre: "Ventanilla de Extension"};
+            controller.lstTipos.push(tipoOficina);
+        };
+
+        function cargarCiudades(){
+            var
+                ciudad = {id:1, nombre: "Quito"};
+            controller.lstCiudades.push(ciudad);
+
+            ciudad = {id:2, nombre: "Guayaquil"};
+            controller.lstCiudades.push(ciudad);
+
+            ciudad = {id:3, nombre: "Cuenca"};
+            controller.lstCiudades.push(ciudad);
+        };
+
+    }]);

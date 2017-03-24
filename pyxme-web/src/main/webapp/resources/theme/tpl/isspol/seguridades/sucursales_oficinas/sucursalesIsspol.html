@@ -3,36 +3,36 @@
 </div>
 <div class="wrapper-md" ng-controller="SucursalesIsspol as vm">
 
-    <div ng-if="!vm.sucursal" class="panel panel-defaul panel-body">
+    <div ng-if="!vm.objSucursal" class="panel panel-defaul panel-body">
 
         <div>
 
-             <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+            <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
                 <div class="hbox text-left b-b b-light text-sm">
-                    <button ng-if="!vm.sucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                    <button ng-if="!vm.objSucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
                             type="reset" ng-click="vm.nuevaSucursal()">
                         <i class="fa fa-plus"></i>
                         <span>Nuevo</span>
                     </button>
 
-                    <button ng-if="vm.sucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                    <button ng-if="vm.objSucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
                             type="submit" ng-click="vm.nuevaLinea()">
                         <i class="fa fa-bars block m-b-xs fa-2x "></i>
                         <span>Nuevo</span>
                     </button>
-                    <button ng-if="vm.sucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                    <button ng-if="vm.objSucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
                             type="submit" ng-click="vm.guardar()">
                         <i class="fa fa-save block m-b-xs fa-2x "></i>
                         <span translate="label.global.guardar"/>
                     </button>
-                    <button ng-if="vm.sucursal && !vm.mostarBtnCancelaLin ? true:false"
+                    <button ng-if="vm.objSucursal && !vm.mostarBtnCancelaLin ? true:false"
                             class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
                             type="submit" ng-click="vm.cancelar()">
                         <i class="fa fa-ban block m-b-xs fa-2x "></i>
                         <span>Cancelar</span>
                     </button>
 
-                    <button ng-if="vm.sucursal && vm.mostarBtnCancelaLin ? true:false"
+                    <button ng-if="vm.objSucursal && vm.mostarBtnCancelaLin ? true:false"
                             class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
                             type="submit" ng-click="vm.cancelarIngresoLineas()">
                         <i class="fa fa-ban block m-b-xs fa-2x "></i>
@@ -50,25 +50,23 @@
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
-                    <th>DIRECCI&Oacute;N</th>
                     <th>ACCI&Oacute;N</th>
                 </tr>
                 </thead>
 
                 <tr ng-repeat="iterador in vm.lstSuc">
-                    <td class="text-center" data-title=DIRECCION">{{iterador.id}}</td>
-                    <td class="text-center" data-title="DIRECCION">{{iterador.nombre}}</td>
-                    <td class="text-center" data-title="DIRECCION">{{iterador.direccion}}</td>
+                    <td class="text-center" data-title=ID">{{iterador.idSucursal}}</td>
+                    <td class="text-center" data-title="NOMBRE">{{iterador.nombre}}</td>
                     <td>
 
 
                         <div class="text-center">
                             <button class="btn btn-info btn-xs"
-                                    ng-click="vm.editarSucursal(iterador,false)">
+                                    ng-click="vm.editarSucursal(iterador,false,$index)">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </button>
                             <button class="btn btn-primary btn-xs"
-                                    ng-click="vm.editarSucursal(iterador,true)">
+                                    ng-click="vm.editarSucursal(iterador,true,$index)">
                                 <i class="fa fa-eye"></i>
                             </button>
 
@@ -86,23 +84,23 @@
     </div>
 
 
-    <form ng-if="vm.sucursal" name="form" class="form-validation">
+    <form ng-if="vm.objSucursal" name="formSucursal" class="form-validation">
         <div class="panel panel-default">
             <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
                 <div class="hbox text-left b-b b-light text-sm">
-                    <button ng-if="vm.sucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
-                            type="submit" ng-click="vm.guardar(vm.sucursal)">
+                    <button ng-if="vm.objSucursal" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                            type="submit" ng-click="vm.guardar(vm.objSucursal)">
                         <i class="fa fa-save block m-b-xs fa-2x "></i>
                         <span translate="label.global.guardar"/>
                     </button>
-                    <button ng-if="vm.sucursal && !vm.mostarBtnCancelaLin ? true:false"
+                    <button ng-if="vm.objSucursal && !vm.mostarBtnCancelaLin ? true:false"
                             class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
                             type="submit" ng-click="vm.cancelar();">
                         <i class="fa fa-ban block m-b-xs fa-2x "></i>
                         <span>Cancelar</span>
                     </button>
 
-                    <button ng-if="vm.sucursal && vm.mostarBtnCancelaLin ? true:false"
+                    <button ng-if="vm.objSucursal && vm.mostarBtnCancelaLin ? true:false"
                             class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
                             type="submit" ng-click="vm.cancelarIngresoLineas()">
                         <i class="fa fa-ban block m-b-xs fa-2x "></i>
@@ -116,12 +114,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading font-bold">DATOS DE SUCUSAL</div>
                 <div class="panel-body has-success">
-
+                    <div class="alert alert-info">
+                        <strong>NOTA:</strong> Los campos se&ntilde;alados con (*) son obligatorios.
+                    </div>
 
                     <div class="form-group" ng-if="!vm.habilitarCampos">
                         <label class="col-sm-2 control-label">ID: </label>
                         <div class="col-sm-3">
-                            <input type="number" ng-model="vm.sucursal.id"
+                            <input type="number" ng-model="vm.objSucursal.idSucursal"
                                    class="form-control"
                                    placeholder="ingrese el nombre de la sucursal" required/>
                         </div>
@@ -129,20 +129,11 @@
 
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Nombre: </label>
+                        <label class="col-sm-2 control-label">*Nombre: </label>
                         <div class="col-sm-10">
-                            <input type="text" ng-disabled="vm.habilitarCampos" ng-model="vm.sucursal.nombre"
+                            <input type="text" ng-disabled="vm.habilitarCampos" ng-model="vm.objSucursal.nombre"
                                    class="form-control"
                                    placeholder="ingrese el nombre de la sucursal" required/>
-                        </div>
-                    </div>
-
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Direcci&oacute;n: </label>
-                        <div class="col-sm-10">
-                            <input type="text" ng-disabled="vm.habilitarCampos" ng-model="vm.sucursal.direccion"
-                                   class="form-control" placeholder="ingrese la direccion" required/>
                         </div>
                     </div>
 
@@ -152,7 +143,7 @@
                             Creaci&oacute;n: </label>
                         <div class="col-sm-10">
                             <input ng-disabled="true" type="text"
-                                   ng-model="vm.sucursal.usuarioCrea" class="form-control"
+                                   ng-model="vm.objSucursal.creacionUsuario" class="form-control"
                                    placeholder="ingrese el nombre de la bodega"/>
                         </div>
                     </div>

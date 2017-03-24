@@ -21,12 +21,15 @@ app.controller("MotivosCierre",['ngNotify',"$scope", 'ngTableParams',
 
         controller.guardar=function () {
             var validacion=document.formMotivoCierreSesion.reportValidity();
+            // var invalid = $scope.$$childTail.$$childHead.$$childHead.formMotivoCierreSesion.$valid;
             if(validacion){
                 controller.motivo.usuario=controller.usuario;
                 controller.motivo.fecha=new Date();
                 controller.lstMotivosCierre.push(controller.motivo);
                 ngNotify.set('Exito registro guardado correctamente', 'success');
                 controller.cancelar();
+            }else{
+                ngNotify.set('Debe ingresar todos los campos marcados en *', 'error');
             }
         }
 

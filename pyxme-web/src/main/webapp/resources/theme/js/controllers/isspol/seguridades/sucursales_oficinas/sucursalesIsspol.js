@@ -10,58 +10,60 @@
  * Created by esyacelga
  */
 
-app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams', 
-						  function( ngNotify,  $scope , ngTableParams) {
-	 
-	  controller = this;
-	  controller.lstSuc= [];
-	  
+app.controller("SucursalesIsspol",['ngNotify',"$scope", 'ngTableParams',
+    function( ngNotify,  $scope , ngTableParams) {
 
-	  controller.nuevaSucursal = function (){
-		  controller.sucursal = {
-				  
-		  }
-	  };
+        controller = this;
+        controller.lstSuc= [];
 
-	  
-	  controller.editarSucursal = function (sucursal, opcion){
-		  controller.sucursal= sucursal;
-		  controller.habilitarCampos = opcion;
-	  };
-	  
-	  
-	  controller.elimiarSucursal = function ($index){
-		  controller.lstSuc.splice($index, 1);
-		  ngNotify.set('Exito registro eliminado correctamente', 'success');
-	  };
-	  
-	  
-	  controller.cancelar = function (){
-		  controller.sucursal = undefined;
-	  };
-	  
-	  controller.guardar = function (sucursal){
 
-          var valida = document.form.reportValidity();
-          if(valida){
-              var suc = {
-                  nombre:sucursal.nombre,
-                  id:sucursal.id,
-                  direccion:sucursal.direccion
+        controller.nuevaSucursal = function (){
+            controller.objSucursal = {
 
-              }
-              controller.lstSuc.push(suc);
-              ngNotify.set('Exito registro creado correctamente', 'success');
-              iniciarFormulario ();
-          }
+            }
+        };
 
-	  };
-	  
- 
-	  function iniciarFormulario (){
-		  controller.sucursal = undefined;
-	  };
-	  
-	  iniciarFormulario ();
-	  
-}]);
+
+        controller.editarSucursal = function (objSucursal, opcion,$index){
+        	controller.lstSuc.splice($index,1);
+            controller.objSucursal= objSucursal;
+            controller.habilitarCampos = opcion;
+        };
+
+
+        controller.elimiarSucursal = function ($index){
+            controller.lstSuc.splice($index, 1);
+            ngNotify.set('Exito registro eliminado correctamente', 'success');
+        };
+
+
+        controller.cancelar = function (){
+            controller.objSucursal = undefined;
+        };
+
+        controller.guardar = function (objSucursal){
+
+            var valida = document.formSucursal.reportValidity();
+            if(valida){
+                var suc = {
+                    nombre:objSucursal.nombre,
+                    idSucursal:objSucursal.idSucursal
+
+                }
+                controller.lstSuc.push(suc);
+                ngNotify.set('Exito registro creado correctamente', 'success');
+                iniciarFormulario ();
+            }else{
+                ngNotify.set('Debe ingresar todos los campos marcados en *', 'error');
+            }
+
+        };
+
+
+        function iniciarFormulario (){
+            controller.objSucursal = undefined;
+        };
+
+        iniciarFormulario ();
+
+    }]);
