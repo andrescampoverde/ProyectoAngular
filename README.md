@@ -1,2 +1,0 @@
-# pyxme
-Erp Project

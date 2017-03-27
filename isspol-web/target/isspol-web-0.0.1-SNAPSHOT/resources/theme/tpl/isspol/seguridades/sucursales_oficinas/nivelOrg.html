@@ -1,0 +1,159 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">NIVEL-ESTRUCTURA ORGANIZACIONAL</h1>
+</div>
+<div class="wrapper-md" ng-controller="NivelOrganizacional as vm">
+	<div ng-if="!vm.nivel" class="panel panel-defaul panel-body">
+		 <div>
+
+			 <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+				 <div class="hbox text-left b-b b-light text-sm">
+					 <button ng-if="!vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="reset" ng-click="vm.nuevonivel()">
+						 <i class="fa fa-plus"></i>
+						 <span>Nuevo</span>
+					 </button>
+
+					 <button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="submit" ng-click="vm.nuevaLinea()">
+						 <i class="fa fa-bars block m-b-xs fa-2x "></i>
+						 <span>Nuevo</span>
+					 </button>
+					 <button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							 type="submit" ng-click="vm.guardar()">
+						 <i class="fa fa-save block m-b-xs fa-2x "></i>
+						 <span translate="label.global.guardar"/>
+					 </button>
+					 <button ng-if="vm.nivel && !vm.mostarBtnCancelaLin ? true:false"
+							 class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+							 type="submit" ng-click="vm.cancelar()">
+						 <i class="fa fa-ban block m-b-xs fa-2x "></i>
+						 <span>Cancelar</span>
+					 </button>
+
+					 <button ng-if="vm.nivel && vm.mostarBtnCancelaLin ? true:false"
+							 class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+							 type="submit" ng-click="vm.cancelarIngresoLineas()">
+						 <i class="fa fa-ban block m-b-xs fa-2x "></i>
+						 <span>Cancelar</span>
+					 </button>
+
+
+				 </div>
+			 </div>
+			<table  class="table table-condensed table-bordered table-striped" show-filter="true">
+				<thead>
+					<tr>
+						<th>Nivel</th>
+						<th>Descripci&oacute;n</th>
+						<th>Largo de c&oacute;digo</th>
+						<th>&Iacute;cono</th>
+						<th>Creaci&oacute;n Usuario</th>
+						<th>Creaci&oacute; Fecha</th>
+						<th>Modifica Usuario</th>
+						<th>Modifica Fecha</th>
+					</tr>
+				</thead>
+				
+				<tr ng-repeat="iterador in vm.niveles">
+					<td class="text-center" data-title="NIVEL">{{iterador.idNivelEstructura}}</td>
+					<td class="text-center" data-title="DESCRIPCION">{{iterador.descripcion}}</td>
+					<td class="text-center" data-title="LARGOCODIGO">{{iterador.largo}}</td>
+					<td class="text-center" data-title="ICONO">{{iterador.icono}}</td>
+					<td class="text-center" data-title="CREACIONUSUARIO">{{iterador.creacionUsuario}}</td>
+					<td class="text-center" data-title="CREACIONFECHA">{{iterador.creacionFecha}}</td>
+					<td class="text-center" data-title="MODIFICAUSUARIO">{{iterador.modificaUsuario}}</td>
+					<td class="text-center" data-title="MODIFICAFECHA">{{iterador.modificaFecha}}</td>
+					<td>
+						<div class="text-center">
+							<button class="btn btn-info btn-xs"
+								ng-click="vm.actualizarnivel(iterador)">
+								<i class="glyphicon glyphicon-edit"></i>
+							</button>
+							<button class="btn btn-danger btn-xs"
+								ng-click="vm.borrarnivel($index)">
+								<i class="glyphicon glyphicon-trash"></i>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<form ng-if="vm.nivel" name="form" class="form-validation">
+		<div class="panel panel-default">
+			<div class="panel panel-default">
+				<div class="hbox text-left b-b b-light text-sm">
+					<button ng-if="vm.nivel" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+							type="submit" ng-click="vm.insertarnivel(vm.nivel)">
+						<i class="fa fa-save block m-b-xs fa-2x "></i>
+						<span translate="label.global.guardar"/>
+					</button>
+					<button ng-if="vm.nivel && !vm.mostarBtnCancelaLin ? true:false"
+							class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+							type="submit" ng-click="vm.cancelar();">
+						<i class="fa fa-ban block m-b-xs fa-2x "></i>
+						<span>Cancelar</span>
+					</button>
+
+					<button ng-if="vm.nivel && vm.mostarBtnCancelaLin ? true:false"
+							class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+							type="submit" ng-click="vm.cancelarIngresoLineas()">
+						<i class="fa fa-ban block m-b-xs fa-2x "></i>
+						<span>Cancelar</span>
+					</button>
+
+
+				</div>
+				<div class="panel-heading font-bold">Nuevo nivel</div>
+				<div class="panel-body has-success">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Nivel#: </label>
+						<div class="col-sm-3">
+							<input type="number" ng-model="vm.nivel.idNivelEstructura"
+								class="form-control"
+								placeholder="Escriba el numero de nivel" required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Descripcion: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.nivel.descripcion"
+								class="form-control"
+								placeholder="Escriba la descripcion" required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Largo de codigo: </label>
+						<div class="col-sm-3">
+							<input type="number" ng-model="vm.nivel.largo"
+								class="form-control"
+								placeholder="Ingrese la longitud" required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Longitud de icono: </label>
+						<div class="col-sm-3">
+							<input type="number" ng-model="vm.nivel.icono"
+								class="form-control"
+								placeholder="Escriba la longitud del icono" required />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Creacion Usuario: </label>
+						<div class="col-sm-10">
+							<input type="text" ng-model="vm.nivel.creacionUsuario"
+								class="form-control"
+								placeholder="Ingrese el usuario que creo el nivel" />
+						</div>
+					</div>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

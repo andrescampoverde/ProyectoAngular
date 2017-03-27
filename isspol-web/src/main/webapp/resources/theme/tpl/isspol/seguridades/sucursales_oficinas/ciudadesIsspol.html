@@ -1,0 +1,146 @@
+
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">CIUDADES</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="CiudadesIsspol as vm">
+
+    <div ng-if="!vm.ciudad" class="panel panel-defaul panel-body">
+
+        <div>
+            <div class="bg-light lter b-b wrapper-md" style="heRight: 70px; padding: 10px;">
+                <div class="hbox text-left b-b b-light text-sm">
+                    <button ng-if="!vm.ciudad" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                            type="reset" ng-click="vm.nuevaCiudad()">
+                        <i class="fa fa-plus"></i>
+                        <span>Nuevo</span>
+                    </button>
+
+                    <button ng-if="vm.ciudad" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                            type="submit" ng-click="vm.nuevaLinea()">
+                        <i class="fa fa-bars block m-b-xs fa-2x "></i>
+                        <span>Nuevo</span>
+                    </button>
+                    <button ng-if="vm.ciudad" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                            type="submit" ng-click="vm.guardar(vm.ciudad)">
+                        <i class="fa fa-save block m-b-xs fa-2x "></i>
+                        <span translate="label.global.guardar"/>
+                    </button>
+                    <button ng-if="vm.ciudad && !vm.mostarBtnCancelaLin ? true:false"
+                            class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+                            type="submit" ng-click="vm.cancelar()">
+                        <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                        <span>Cancelar</span>
+                    </button>
+
+                    <button ng-if="vm.ciudad && vm.mostarBtnCancelaLin ? true:false"
+                            class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+                            type="submit" ng-click="vm.cancelarIngresoLineas()">
+                        <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                        <span>Cancelar</span>
+                    </button>
+
+
+                </div>
+            </div>
+
+            <table class="table table-condensed table-bordered table-striped"
+                   show-filter="true">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CIUDAD</th>
+                    <th>TIPO</th>
+                    <th>ACCION</th>
+                </tr>
+                </thead>
+
+                <tr ng-repeat="iterador in vm.lstCiu">
+                    <td>{{iterador.id}}</td>
+                    <td>{{iterador.nombre}}</td>
+                    <td>{{iterador.tipo.nombre}}</td>
+                    <td>
+                        <div class="text-center" style="width: 200px">
+                            <button class="btn btn-info btn-xs"
+                                    ng-click="vm.editarCiudad(iterador,$index)">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-xs"
+                                    ng-click="vm.eliminarCiudad($index)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <form ng-if="vm.ciudad" name="formCiudad" id="formCiudad" class="form-validation">
+        <div class="panel panel-default">
+            <div class="hbox text-left b-b b-light text-sm">
+                <button ng-if="vm.ciudad" class="pull-rigth btn m-b-xs btn-sm btn-primary btn-addon "
+                        type="submit" ng-click="vm.guardar(vm.ciudad)">
+                    <i class="fa fa-save block m-b-xs fa-2x "></i>
+                    <span translate="label.global.guardar"/>
+                </button>
+                <button ng-if="vm.ciudad && !vm.mostarBtnCancelaLin ? true:false"
+                        class="pull-rigth btn m-b-xs btn-sm btn-warning btn-addon"
+                        type="submit" ng-click="vm.cancelar();">
+                    <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                    <span>Cancelar</span>
+                </button>
+
+                <button ng-if="vm.ciudad && vm.mostarBtnCancelaLin ? true:false"
+                        class="pull-rigth btn m-b-xs btn-sm btn-info btn-addon"
+                        type="submit" ng-click="vm.cancelarIngresoLineas()">
+                    <i class="fa fa-ban block m-b-xs fa-2x "></i>
+                    <span>Cancelar</span>
+                </button>
+
+
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">DATOS DE CIUDAD</div>
+                <div class="panel-body has-success">
+                    <div class="alert alert-info">
+                        <strong>NOTA:</strong> Los campos se&ntilde;alados con (*) son obligatorios.
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Id: </label>
+                        <div class="col-sm-3">
+                            <input type="number" ng-model="vm.ciudad.id"
+                                   class="form-control" placeholder="Ingrese el Id" required />
+                        </div>
+                    </div>
+
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">*Nombre: </label>
+                        <div class="col-sm-10">
+                            <input type="text" ng-model="vm.ciudad.nombre"
+                                   class="form-control"
+                                   placeholder="Ingrese el nombre de la ciudad" required />
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    <label class="col-sm-2 control-label">*Tipo: </label>
+                    <div class="col-lg-3 has-success">
+                        <select class="form-control" name="mySelect" id="mySelect"
+                                ng-options="option.nombre for option in vm.lstTipos track by option.id"
+                                ng-model="vm.ciudad.tipo" required>
+                        </select>
+                    </div>
+
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                </div>
+            </div>
+
+        </div>
+</form>
+
+</div>
