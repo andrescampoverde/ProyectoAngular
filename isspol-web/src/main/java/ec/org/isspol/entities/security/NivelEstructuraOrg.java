@@ -1,6 +1,5 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,8 +7,6 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
-@Table(name = "Seguridad.NivelEstructuraOrg")
 public class NivelEstructuraOrg implements Serializable {
     private int idNivelEstructuraOrg;
     private int nivel;
@@ -22,8 +19,6 @@ public class NivelEstructuraOrg implements Serializable {
     private Timestamp modificaFecha;
     private Collection<EstructuraOrganizacional> estructuraOrganizacionalsByIdNivelEstructuraOrg;
 
-    @Id
-    @Column(name = "IdNivelEstructuraOrg", nullable = false)
     public int getIdNivelEstructuraOrg() {
         return idNivelEstructuraOrg;
     }
@@ -32,8 +27,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.idNivelEstructuraOrg = idNivelEstructuraOrg;
     }
 
-    @Basic
-    @Column(name = "Nivel", nullable = false)
     public int getNivel() {
         return nivel;
     }
@@ -42,8 +35,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.nivel = nivel;
     }
 
-    @Basic
-    @Column(name = "LargoCodigo", nullable = false)
     public short getLargoCodigo() {
         return largoCodigo;
     }
@@ -52,8 +43,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.largoCodigo = largoCodigo;
     }
 
-    @Basic
-    @Column(name = "Descripcion", nullable = false, length = 50)
     public String getDescripcion() {
         return descripcion;
     }
@@ -62,8 +51,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "Icono", nullable = false)
     public int getIcono() {
         return icono;
     }
@@ -72,8 +59,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.icono = icono;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -82,8 +67,7 @@ public class NivelEstructuraOrg implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -92,8 +76,6 @@ public class NivelEstructuraOrg implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -102,8 +84,7 @@ public class NivelEstructuraOrg implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -136,7 +117,7 @@ public class NivelEstructuraOrg implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idNivelEstructuraOrg;
         result = 31 * result + nivel;
@@ -150,7 +131,7 @@ public class NivelEstructuraOrg implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "nivelEstructuraOrgByIdNivelEstrcuturaOrg")
+
     public Collection<EstructuraOrganizacional> getEstructuraOrganizacionalsByIdNivelEstructuraOrg() {
         return estructuraOrganizacionalsByIdNivelEstructuraOrg;
     }

@@ -1,6 +1,5 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,8 +7,7 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
-@Table(name = "Seguridad.Oficina")
+
 public class Oficina implements Serializable {
     private int idOficina;
     private String oficina;
@@ -46,8 +44,7 @@ public class Oficina implements Serializable {
     private Collection<Usuario> usuariosByIdOficina;
     private Collection<UsuarioOficina> usuarioOficinasByIdOficina;
 
-    @Id
-    @Column(name = "IdOficina", nullable = false)
+
     public int getIdOficina() {
         return idOficina;
     }
@@ -56,8 +53,7 @@ public class Oficina implements Serializable {
         this.idOficina = idOficina;
     }
 
-    @Basic
-    @Column(name = "Oficina", nullable = false, length = 4)
+
     public String getOficina() {
         return oficina;
     }
@@ -76,8 +72,7 @@ public class Oficina implements Serializable {
         this.idSucursal = idSucursal;
     }*/
 
-    @Basic
-    @Column(name = "Sucursal", nullable = false, length = 2)
+
     public String getSucursal() {
         return sucursal;
     }
@@ -96,8 +91,7 @@ public class Oficina implements Serializable {
         this.idTipoOficina = idTipoOficina;
     }*/
 
-    @Basic
-    @Column(name = "TipoOficina", nullable = false, length = 2)
+
     public String getTipoOficina() {
         return tipoOficina;
     }
@@ -106,8 +100,7 @@ public class Oficina implements Serializable {
         this.tipoOficina = tipoOficina;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 25)
+
     public String getNombre() {
         return nombre;
     }
@@ -116,8 +109,7 @@ public class Oficina implements Serializable {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "Codigo", nullable = true, length = 50)
+
     public String getCodigo() {
         return codigo;
     }
@@ -126,8 +118,7 @@ public class Oficina implements Serializable {
         this.codigo = codigo;
     }
 
-    @Basic
-    @Column(name = "Direccion", nullable = true, length = 50)
+
     public String getDireccion() {
         return direccion;
     }
@@ -136,8 +127,7 @@ public class Oficina implements Serializable {
         this.direccion = direccion;
     }
 
-    @Basic
-    @Column(name = "Telefono", nullable = true, length = 20)
+
     public String getTelefono() {
         return telefono;
     }
@@ -146,8 +136,7 @@ public class Oficina implements Serializable {
         this.telefono = telefono;
     }
 
-    @Basic
-    @Column(name = "Ciudad", nullable = true, length = 30)
+
     public String getCiudad() {
         return ciudad;
     }
@@ -156,8 +145,7 @@ public class Oficina implements Serializable {
         this.ciudad = ciudad;
     }
 
-    @Basic
-    @Column(name = "Estado", nullable = false, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -166,8 +154,7 @@ public class Oficina implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "CodigoCamara", nullable = true, length = 10)
+
     public String getCodigoCamara() {
         return codigoCamara;
     }
@@ -176,8 +163,7 @@ public class Oficina implements Serializable {
         this.codigoCamara = codigoCamara;
     }
 
-    @Basic
-    @Column(name = "Codigo2", nullable = true, length = 5)
+
     public String getCodigo2() {
         return codigo2;
     }
@@ -186,8 +172,7 @@ public class Oficina implements Serializable {
         this.codigo2 = codigo2;
     }
 
-    @Basic
-    @Column(name = "Supervisor", nullable = true, length = 15)
+
     public String getSupervisor() {
         return supervisor;
     }
@@ -196,8 +181,7 @@ public class Oficina implements Serializable {
         this.supervisor = supervisor;
     }
 
-    @Basic
-    @Column(name = "TelCodigoArea", nullable = true, length = 3)
+
     public String getTelCodigoArea() {
         return telCodigoArea;
     }
@@ -206,8 +190,7 @@ public class Oficina implements Serializable {
         this.telCodigoArea = telCodigoArea;
     }
 
-    @Basic
-    @Column(name = "TelCodigoRegion", nullable = true, length = 3)
+
     public String getTelCodigoRegion() {
         return telCodigoRegion;
     }
@@ -216,8 +199,7 @@ public class Oficina implements Serializable {
         this.telCodigoRegion = telCodigoRegion;
     }
 
-    @Basic
-    @Column(name = "OtroTelefono", nullable = true, length = 100)
+
     public String getOtroTelefono() {
         return otroTelefono;
     }
@@ -226,8 +208,7 @@ public class Oficina implements Serializable {
         this.otroTelefono = otroTelefono;
     }
 
-    @Basic
-    @Column(name = "Provincia", nullable = true)
+
     public Integer getProvincia() {
         return provincia;
     }
@@ -236,8 +217,7 @@ public class Oficina implements Serializable {
         this.provincia = provincia;
     }
 
-    @Basic
-    @Column(name = "EsAdministracionCartera", nullable = false)
+
     public boolean isEsAdministracionCartera() {
         return esAdministracionCartera;
     }
@@ -246,8 +226,7 @@ public class Oficina implements Serializable {
         this.esAdministracionCartera = esAdministracionCartera;
     }
 
-    @Basic
-    @Column(name = "Codigo3", nullable = true, length = 20)
+
     public String getCodigo3() {
         return codigo3;
     }
@@ -256,8 +235,7 @@ public class Oficina implements Serializable {
         this.codigo3 = codigo3;
     }
 
-    @Basic
-    @Column(name = "Empresa", nullable = false)
+
     public int getEmpresa() {
         return empresa;
     }
@@ -266,8 +244,7 @@ public class Oficina implements Serializable {
         this.empresa = empresa;
     }
 
-    @Basic
-    @Column(name = "Lat", nullable = true, precision = 0)
+
     public Double getLat() {
         return lat;
     }
@@ -276,8 +253,7 @@ public class Oficina implements Serializable {
         this.lat = lat;
     }
 
-    @Basic
-    @Column(name = "Lon", nullable = true, precision = 0)
+
     public Double getLon() {
         return lon;
     }
@@ -286,8 +262,7 @@ public class Oficina implements Serializable {
         this.lon = lon;
     }
 
-    @Basic
-    @Column(name = "CodigoRepOrg", nullable = true, length = 4)
+
     public String getCodigoRepOrg() {
         return codigoRepOrg;
     }
@@ -296,8 +271,7 @@ public class Oficina implements Serializable {
         this.codigoRepOrg = codigoRepOrg;
     }
 
-    @Basic
-    @Column(name = "CodigoSep", nullable = true, length = 6)
+
     public String getCodigoSep() {
         return codigoSep;
     }
@@ -306,8 +280,7 @@ public class Oficina implements Serializable {
         this.codigoSep = codigoSep;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -316,8 +289,7 @@ public class Oficina implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -326,8 +298,7 @@ public class Oficina implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -336,8 +307,7 @@ public class Oficina implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -346,7 +316,7 @@ public class Oficina implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -398,7 +368,7 @@ public class Oficina implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idOficina;
         result = 31 * result + (oficina != null ? oficina.hashCode() : 0);
@@ -433,8 +403,7 @@ public class Oficina implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdSucursal", referencedColumnName = "IdSucursal")
+
     public Sucursal getSucursalByIdSucursal() {
         return sucursalByIdSucursal;
     }
@@ -443,8 +412,7 @@ public class Oficina implements Serializable {
         this.sucursalByIdSucursal = sucursalByIdSucursal;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdTipoOficina", referencedColumnName = "IdTipoOficina")
+
     public TipoOficina getTipoOficinaByIdTipoOficina() {
         return tipoOficinaByIdTipoOficina;
     }
@@ -453,7 +421,7 @@ public class Oficina implements Serializable {
         this.tipoOficinaByIdTipoOficina = tipoOficinaByIdTipoOficina;
     }
 
-    @OneToMany(mappedBy = "oficinaByIdOficina")
+
     public Collection<Usuario> getUsuariosByIdOficina() {
         return usuariosByIdOficina;
     }
@@ -462,7 +430,7 @@ public class Oficina implements Serializable {
         this.usuariosByIdOficina = usuariosByIdOficina;
     }
 
-    @OneToMany(mappedBy = "oficinaByIdOficina")
+
     public Collection<UsuarioOficina> getUsuarioOficinasByIdOficina() {
         return usuarioOficinasByIdOficina;
     }

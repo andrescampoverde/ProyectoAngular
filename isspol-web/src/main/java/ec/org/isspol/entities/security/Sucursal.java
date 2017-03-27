@@ -1,6 +1,6 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,8 +8,7 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
-@Table(name = "Seguridad.Sucursal")
+
 public class Sucursal implements Serializable {
     private int idSucursal;
     private String sucursal;
@@ -21,8 +20,7 @@ public class Sucursal implements Serializable {
     private Timestamp modificaFecha;
     private Collection<Oficina> oficinasByIdSucursal;
 
-    @Id
-    @Column(name = "IdSucursal", nullable = false)
+
     public int getIdSucursal() {
         return idSucursal;
     }
@@ -31,8 +29,7 @@ public class Sucursal implements Serializable {
         this.idSucursal = idSucursal;
     }
 
-    @Basic
-    @Column(name = "Sucursal", nullable = false, length = 2)
+
     public String getSucursal() {
         return sucursal;
     }
@@ -41,8 +38,7 @@ public class Sucursal implements Serializable {
         this.sucursal = sucursal;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 30)
+
     public String getNombre() {
         return nombre;
     }
@@ -51,8 +47,7 @@ public class Sucursal implements Serializable {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "Oficina", nullable = true, length = 4)
+
     public String getOficina() {
         return oficina;
     }
@@ -61,8 +56,7 @@ public class Sucursal implements Serializable {
         this.oficina = oficina;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -71,8 +65,7 @@ public class Sucursal implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -81,8 +74,7 @@ public class Sucursal implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -91,8 +83,7 @@ public class Sucursal implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -101,7 +92,7 @@ public class Sucursal implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -124,7 +115,7 @@ public class Sucursal implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idSucursal;
         result = 31 * result + (sucursal != null ? sucursal.hashCode() : 0);
@@ -137,7 +128,7 @@ public class Sucursal implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "sucursalByIdSucursal")
+
     public Collection<Oficina> getOficinasByIdSucursal() {
         return oficinasByIdSucursal;
     }

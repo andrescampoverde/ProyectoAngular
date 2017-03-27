@@ -1,13 +1,12 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class UsuarioUbicacionGeografica implements Serializable {
     private int idUsuarioUbicacionGeografica;
     //private Integer idUsuario;
@@ -21,8 +20,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
     private Timestamp modificaFecha;
     private Usuario usuarioByIdUsuario;
 
-    @Id
-    @Column(name = "IdUsuarioUbicacionGeografica", nullable = false)
+
     public int getIdUsuarioUbicacionGeografica() {
         return idUsuarioUbicacionGeografica;
     }
@@ -41,8 +39,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.idUsuario = idUsuario;
     }*/
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -51,8 +48,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.usuario = usuario;
     }
 
-    @Basic
-    @Column(name = "IdUbicacion", nullable = false)
+
     public int getIdUbicacion() {
         return idUbicacion;
     }
@@ -61,8 +57,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.idUbicacion = idUbicacion;
     }
 
-    @Basic
-    @Column(name = "Estado", nullable = false, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -71,8 +66,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "IdDiaMes", nullable = true)
+
     public Integer getIdDiaMes() {
         return idDiaMes;
     }
@@ -81,8 +75,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.idDiaMes = idDiaMes;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -91,8 +84,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -101,8 +93,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -111,8 +102,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -121,7 +111,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -161,8 +151,7 @@ public class UsuarioUbicacionGeografica implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario", referencedColumnName = "IdUsuario")
+
     public Usuario getUsuarioByIdUsuario() {
         return usuarioByIdUsuario;
     }

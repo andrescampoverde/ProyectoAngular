@@ -1,6 +1,6 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class Opcion implements Serializable {
     private int idOpcion;
     private int opcion;
@@ -33,8 +33,7 @@ public class Opcion implements Serializable {
     private Collection<OpcionUso> opcionUsosByIdOpcion;
     private Collection<Permiso> permisosByIdOpcion;
 
-    @Id
-    @Column(name = "IdOpcion", nullable = false)
+
     public int getIdOpcion() {
         return idOpcion;
     }
@@ -43,8 +42,7 @@ public class Opcion implements Serializable {
         this.idOpcion = idOpcion;
     }
 
-    @Basic
-    @Column(name = "Opcion", nullable = false)
+
     public int getOpcion() {
         return opcion;
     }
@@ -53,8 +51,7 @@ public class Opcion implements Serializable {
         this.opcion = opcion;
     }
 
-    @Basic
-    @Column(name = "Modulo", nullable = true, length = 2)
+
     public String getModulo() {
         return modulo;
     }
@@ -63,8 +60,7 @@ public class Opcion implements Serializable {
         this.modulo = modulo;
     }
 
-    @Basic
-    @Column(name = "GrupoMod", nullable = true, length = 2)
+
     public String getGrupoMod() {
         return grupoMod;
     }
@@ -73,8 +69,7 @@ public class Opcion implements Serializable {
         this.grupoMod = grupoMod;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 50)
+
     public String getNombre() {
         return nombre;
     }
@@ -83,8 +78,7 @@ public class Opcion implements Serializable {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "Objeto", nullable = false, length = 100)
+
     public String getObjeto() {
         return objeto;
     }
@@ -93,8 +87,7 @@ public class Opcion implements Serializable {
         this.objeto = objeto;
     }
 
-    @Basic
-    @Column(name = "Orden", nullable = false)
+
     public int getOrden() {
         return orden;
     }
@@ -103,8 +96,7 @@ public class Opcion implements Serializable {
         this.orden = orden;
     }
 
-    @Basic
-    @Column(name = "Descripcion", nullable = true, length = 200)
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -113,8 +105,7 @@ public class Opcion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "Parametro", nullable = true, length = 100)
+
     public String getParametro() {
         return parametro;
     }
@@ -123,8 +114,7 @@ public class Opcion implements Serializable {
         this.parametro = parametro;
     }
 
-    @Basic
-    @Column(name = "TipoAbrir", nullable = false, length = 2)
+
     public String getTipoAbrir() {
         return tipoAbrir;
     }
@@ -153,8 +143,7 @@ public class Opcion implements Serializable {
         this.idIcono = idIcono;
     }*/
 
-    @Basic
-    @Column(name = "Visible", nullable = false)
+
     public boolean isVisible() {
         return visible;
     }
@@ -163,8 +152,7 @@ public class Opcion implements Serializable {
         this.visible = visible;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -173,8 +161,7 @@ public class Opcion implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -183,8 +170,7 @@ public class Opcion implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -193,8 +179,7 @@ public class Opcion implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -203,7 +188,7 @@ public class Opcion implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -235,7 +220,7 @@ public class Opcion implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idOpcion;
         result = 31 * result + opcion;
@@ -257,7 +242,7 @@ public class Opcion implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "opcionByIdOpcion")
+
     public Collection<Favorito> getFavoritosByIdOpcion() {
         return favoritosByIdOpcion;
     }
@@ -266,8 +251,7 @@ public class Opcion implements Serializable {
         this.favoritosByIdOpcion = favoritosByIdOpcion;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdCarpetaOpcion", referencedColumnName = "IdCarpetaOpcion", nullable = false)
+
     public CarpetaOpcion getCarpetaOpcionByIdCarpetaOpcion() {
         return carpetaOpcionByIdCarpetaOpcion;
     }
@@ -276,8 +260,7 @@ public class Opcion implements Serializable {
         this.carpetaOpcionByIdCarpetaOpcion = carpetaOpcionByIdCarpetaOpcion;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdIcono", referencedColumnName = "IdIcono", nullable = false)
+
     public Icono getIconoByIdIcono() {
         return iconoByIdIcono;
     }
@@ -286,7 +269,7 @@ public class Opcion implements Serializable {
         this.iconoByIdIcono = iconoByIdIcono;
     }
 
-    @OneToMany(mappedBy = "opcionByIdOpcion")
+
     public Collection<OpcionUso> getOpcionUsosByIdOpcion() {
         return opcionUsosByIdOpcion;
     }
@@ -295,7 +278,7 @@ public class Opcion implements Serializable {
         this.opcionUsosByIdOpcion = opcionUsosByIdOpcion;
     }
 
-    @OneToMany(mappedBy = "opcionByIdOpcion")
+
     public Collection<Permiso> getPermisosByIdOpcion() {
         return permisosByIdOpcion;
     }

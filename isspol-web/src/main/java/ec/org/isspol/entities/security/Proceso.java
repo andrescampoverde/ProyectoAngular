@@ -1,6 +1,6 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class Proceso implements Serializable {
     private int idProceso;
     private String nombre;
@@ -22,8 +22,7 @@ public class Proceso implements Serializable {
     private Timestamp modificaFecha;
     private Collection<Permiso> permisosByIdProceso;
 
-    @Id
-    @Column(name = "IdProceso", nullable = false)
+
     public int getIdProceso() {
         return idProceso;
     }
@@ -32,8 +31,7 @@ public class Proceso implements Serializable {
         this.idProceso = idProceso;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 50)
+
     public String getNombre() {
         return nombre;
     }
@@ -42,8 +40,7 @@ public class Proceso implements Serializable {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "Modulo", nullable = true, length = 2)
+
     public String getModulo() {
         return modulo;
     }
@@ -52,8 +49,7 @@ public class Proceso implements Serializable {
         this.modulo = modulo;
     }
 
-    @Basic
-    @Column(name = "Tipo", nullable = true, length = -1)
+
     public String getTipo() {
         return tipo;
     }
@@ -62,8 +58,7 @@ public class Proceso implements Serializable {
         this.tipo = tipo;
     }
 
-    @Basic
-    @Column(name = "Opcion", nullable = true)
+
     public Integer getOpcion() {
         return opcion;
     }
@@ -72,8 +67,7 @@ public class Proceso implements Serializable {
         this.opcion = opcion;
     }
 
-    @Basic
-    @Column(name = "Proceso", nullable = true, length = 50)
+
     public String getProceso() {
         return proceso;
     }
@@ -82,8 +76,7 @@ public class Proceso implements Serializable {
         this.proceso = proceso;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -92,8 +85,7 @@ public class Proceso implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -102,8 +94,7 @@ public class Proceso implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -112,8 +103,7 @@ public class Proceso implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -147,7 +137,7 @@ public class Proceso implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idProceso;
         result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
@@ -162,7 +152,7 @@ public class Proceso implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "procesoByIdProceso")
+
     public Collection<Permiso> getPermisosByIdProceso() {
         return permisosByIdProceso;
     }

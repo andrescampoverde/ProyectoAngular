@@ -1,16 +1,13 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class Token implements Serializable {
     private int idToken;
     private String estado;
@@ -20,8 +17,7 @@ public class Token implements Serializable {
     private String modificaUsuario;
     private Timestamp modificaFecha;
 
-    @Id
-    @Column(name = "IdToken", nullable = false)
+
     public int getIdToken() {
         return idToken;
     }
@@ -30,8 +26,7 @@ public class Token implements Serializable {
         this.idToken = idToken;
     }
 
-    @Basic
-    @Column(name = "Estado", nullable = false, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -40,8 +35,7 @@ public class Token implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "Dato", nullable = true, length = 4000)
+
     public String getDato() {
         return dato;
     }
@@ -50,8 +44,7 @@ public class Token implements Serializable {
         this.dato = dato;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -60,8 +53,7 @@ public class Token implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -70,8 +62,7 @@ public class Token implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -80,8 +71,7 @@ public class Token implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -112,7 +102,7 @@ public class Token implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idToken;
         result = 31 * result + (estado != null ? estado.hashCode() : 0);

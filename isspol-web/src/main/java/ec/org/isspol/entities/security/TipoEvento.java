@@ -1,16 +1,13 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class TipoEvento implements Serializable {
     private int idTipoEvento;
     private String descripcion;
@@ -20,8 +17,7 @@ public class TipoEvento implements Serializable {
     private String modificaUsuario;
     private Timestamp modificaFecha;
 
-    @Id
-    @Column(name = "IdTipoEvento", nullable = false)
+
     public int getIdTipoEvento() {
         return idTipoEvento;
     }
@@ -30,8 +26,7 @@ public class TipoEvento implements Serializable {
         this.idTipoEvento = idTipoEvento;
     }
 
-    @Basic
-    @Column(name = "Descripcion", nullable = false, length = 50)
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -40,8 +35,7 @@ public class TipoEvento implements Serializable {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "Codigo", nullable = false, length = 50)
+
     public String getCodigo() {
         return codigo;
     }
@@ -50,8 +44,7 @@ public class TipoEvento implements Serializable {
         this.codigo = codigo;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -60,8 +53,7 @@ public class TipoEvento implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -70,8 +62,7 @@ public class TipoEvento implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -80,8 +71,7 @@ public class TipoEvento implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -90,7 +80,7 @@ public class TipoEvento implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -112,7 +102,7 @@ public class TipoEvento implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idTipoEvento;
         result = 31 * result + (descripcion != null ? descripcion.hashCode() : 0);

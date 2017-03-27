@@ -1,9 +1,6 @@
 package ec.org.isspol.entities.security;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -12,12 +9,7 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
-@Table(name = "Seguridad.Usuario")
-@NamedQueries({
-        @NamedQuery(name = "Usuario.findAllUsuario", query = "Select u from Usuario u"),
-        @NamedQuery(name = "Usuario.findUsuarioByIdEstadoUsuario", query = "Select u from Usuario u where u.estadoUsuarioByIdEstadoUsuario.idEstadoUsuario = ?1")
-})
+
 public class Usuario implements Serializable {
     private int idUsuario;
     private String usuario;
@@ -58,9 +50,7 @@ public class Usuario implements Serializable {
     private Collection<UsuarioCambio> usuarioCambiosByIdUsuario;
     private Collection<UsuarioUbicacionGeografica> usuarioUbicacionGeograficasByIdUsuario;
 
-    @Id
-    @Column(name = "IdUsuario", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -69,8 +59,7 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -89,8 +78,7 @@ public class Usuario implements Serializable {
         this.idOficina = idOficina;
     }*/
 
-    @Basic
-    @Column(name = "Oficina", nullable = true, length = 4)
+
     public String getOficina() {
         return oficina;
     }
@@ -99,8 +87,7 @@ public class Usuario implements Serializable {
         this.oficina = oficina;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 30)
+
     public String getNombre() {
         return nombre;
     }
@@ -119,8 +106,7 @@ public class Usuario implements Serializable {
         this.idEstadoUsuario = idEstadoUsuario;
     }*/
 
-    @Basic
-    @Column(name = "Estado", nullable = true, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -129,8 +115,7 @@ public class Usuario implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "Email", nullable = true, length = 100)
+
     public String getEmail() {
         return email;
     }
@@ -139,8 +124,7 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "Clave", nullable = true)
+
     public byte[] getClave() {
         return clave;
     }
@@ -149,8 +133,7 @@ public class Usuario implements Serializable {
         this.clave = clave;
     }
 
-    @Basic
-    @Column(name = "FechaUltCambPwd", nullable = true)
+
     public Timestamp getFechaUltCambPwd() {
         return fechaUltCambPwd;
     }
@@ -159,8 +142,7 @@ public class Usuario implements Serializable {
         this.fechaUltCambPwd = fechaUltCambPwd;
     }
 
-    @Basic
-    @Column(name = "CambiarPwdPrxLogon", nullable = false)
+
     public boolean isCambiarPwdPrxLogon() {
         return cambiarPwdPrxLogon;
     }
@@ -169,8 +151,7 @@ public class Usuario implements Serializable {
         this.cambiarPwdPrxLogon = cambiarPwdPrxLogon;
     }
 
-    @Basic
-    @Column(name = "NoPuedeCambiarPwd", nullable = false)
+
     public boolean isNoPuedeCambiarPwd() {
         return noPuedeCambiarPwd;
     }
@@ -179,8 +160,7 @@ public class Usuario implements Serializable {
         this.noPuedeCambiarPwd = noPuedeCambiarPwd;
     }
 
-    @Basic
-    @Column(name = "PwdNuncaExpira", nullable = false)
+
     public boolean isPwdNuncaExpira() {
         return pwdNuncaExpira;
     }
@@ -189,8 +169,7 @@ public class Usuario implements Serializable {
         this.pwdNuncaExpira = pwdNuncaExpira;
     }
 
-    @Basic
-    @Column(name = "Bloqueada", nullable = false)
+
     public boolean isBloqueada() {
         return bloqueada;
     }
@@ -199,8 +178,7 @@ public class Usuario implements Serializable {
         this.bloqueada = bloqueada;
     }
 
-    @Basic
-    @Column(name = "Identificacion", nullable = true, length = 15)
+
     public String getIdentificacion() {
         return identificacion;
     }
@@ -209,8 +187,7 @@ public class Usuario implements Serializable {
         this.identificacion = identificacion;
     }
 
-    @Basic
-    @Column(name = "CualquierEstacion", nullable = false)
+
     public boolean isCualquierEstacion() {
         return cualquierEstacion;
     }
@@ -219,8 +196,7 @@ public class Usuario implements Serializable {
         this.cualquierEstacion = cualquierEstacion;
     }
 
-    @Basic
-    @Column(name = "TiempoInactividad", nullable = false)
+
     public int getTiempoInactividad() {
         return tiempoInactividad;
     }
@@ -249,8 +225,7 @@ public class Usuario implements Serializable {
         this.idEstructura = idEstructura;
     }*/
 
-    @Basic
-    @Column(name = "UsuarioSuperior", nullable = true, length = 15)
+
     public String getUsuarioSuperior() {
         return usuarioSuperior;
     }
@@ -259,8 +234,7 @@ public class Usuario implements Serializable {
         this.usuarioSuperior = usuarioSuperior;
     }
 
-    @Basic
-    @Column(name = "IdDashboardInicio", nullable = false)
+
     public int getIdDashboardInicio() {
         return idDashboardInicio;
     }
@@ -269,8 +243,7 @@ public class Usuario implements Serializable {
         this.idDashboardInicio = idDashboardInicio;
     }
 
-    @Basic
-    @Column(name = "Foto", nullable = true)
+
     public byte[] getFoto() {
         return foto;
     }
@@ -279,9 +252,7 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    @Basic
-    @Column(name = "Cargo", nullable = true, length = 2, insertable = false, updatable = false)
-    @Generated(GenerationTime.INSERT)
+
     public String getCargo() {
         return cargo;
     }
@@ -290,8 +261,7 @@ public class Usuario implements Serializable {
         this.cargo = cargo;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -300,8 +270,7 @@ public class Usuario implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -310,8 +279,7 @@ public class Usuario implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -320,8 +288,7 @@ public class Usuario implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -408,7 +375,7 @@ public class Usuario implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<EstacionUsuario> getEstacionUsuariosByIdUsuario() {
         return estacionUsuariosByIdUsuario;
     }
@@ -417,7 +384,7 @@ public class Usuario implements Serializable {
         this.estacionUsuariosByIdUsuario = estacionUsuariosByIdUsuario;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<GrupoUsuario> getGrupoUsuariosByIdUsuario() {
         return grupoUsuariosByIdUsuario;
     }
@@ -426,7 +393,7 @@ public class Usuario implements Serializable {
         this.grupoUsuariosByIdUsuario = grupoUsuariosByIdUsuario;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<HistClave> getHistClavesByIdUsuario() {
         return histClavesByIdUsuario;
     }
@@ -435,7 +402,7 @@ public class Usuario implements Serializable {
         this.histClavesByIdUsuario = histClavesByIdUsuario;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<OpcionUso> getOpcionUsosByIdUsuario() {
         return opcionUsosByIdUsuario;
     }
@@ -444,7 +411,7 @@ public class Usuario implements Serializable {
         this.opcionUsosByIdUsuario = opcionUsosByIdUsuario;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<Permiso> getPermisosByIdUsuario() {
         return permisosByIdUsuario;
     }
@@ -453,8 +420,7 @@ public class Usuario implements Serializable {
         this.permisosByIdUsuario = permisosByIdUsuario;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdOficina", referencedColumnName = "IdOficina")
+
     public Oficina getOficinaByIdOficina() {
         return oficinaByIdOficina;
     }
@@ -463,8 +429,7 @@ public class Usuario implements Serializable {
         this.oficinaByIdOficina = oficinaByIdOficina;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdEstadoUsuario", referencedColumnName = "IdEstadoUsuario", nullable = false)
+
     public EstadoUsuario getEstadoUsuarioByIdEstadoUsuario() {
         return estadoUsuarioByIdEstadoUsuario;
     }
@@ -473,8 +438,7 @@ public class Usuario implements Serializable {
         this.estadoUsuarioByIdEstadoUsuario = estadoUsuarioByIdEstadoUsuario;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdHorario", referencedColumnName = "IdHorario", nullable = false)
+
     public Horario getHorarioByIdHorario() {
         return horarioByIdHorario;
     }
@@ -483,8 +447,7 @@ public class Usuario implements Serializable {
         this.horarioByIdHorario = horarioByIdHorario;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdEstructura", referencedColumnName = "IdEstructuraOrganizacional")
+
     public EstructuraOrganizacional getEstructuraOrganizacionalByIdEstructura() {
         return estructuraOrganizacionalByIdEstructura;
     }
@@ -493,7 +456,7 @@ public class Usuario implements Serializable {
         this.estructuraOrganizacionalByIdEstructura = estructuraOrganizacionalByIdEstructura;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<UsuarioCambio> getUsuarioCambiosByIdUsuario() {
         return usuarioCambiosByIdUsuario;
     }
@@ -502,7 +465,7 @@ public class Usuario implements Serializable {
         this.usuarioCambiosByIdUsuario = usuarioCambiosByIdUsuario;
     }
 
-    @OneToMany(mappedBy = "usuarioByIdUsuario")
+
     public Collection<UsuarioUbicacionGeografica> getUsuarioUbicacionGeograficasByIdUsuario() {
         return usuarioUbicacionGeograficasByIdUsuario;
     }

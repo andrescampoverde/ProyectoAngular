@@ -1,13 +1,12 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class UsuarioCambio implements Serializable {
     private int idUsuarioCambio;
     //private Integer idUsuario;
@@ -19,8 +18,7 @@ public class UsuarioCambio implements Serializable {
     private Timestamp creacionFecha;
     private Usuario usuarioByIdUsuario;
 
-    @Id
-    @Column(name = "IdUsuarioCambio", nullable = false)
+
     public int getIdUsuarioCambio() {
         return idUsuarioCambio;
     }
@@ -39,8 +37,7 @@ public class UsuarioCambio implements Serializable {
         this.idUsuario = idUsuario;
     }*/
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -49,8 +46,7 @@ public class UsuarioCambio implements Serializable {
         this.usuario = usuario;
     }
 
-    @Basic
-    @Column(name = "Tipo", nullable = false, length = 50)
+
     public String getTipo() {
         return tipo;
     }
@@ -59,8 +55,7 @@ public class UsuarioCambio implements Serializable {
         this.tipo = tipo;
     }
 
-    @Basic
-    @Column(name = "Anterior", nullable = true, length = 100)
+
     public String getAnterior() {
         return anterior;
     }
@@ -69,8 +64,7 @@ public class UsuarioCambio implements Serializable {
         this.anterior = anterior;
     }
 
-    @Basic
-    @Column(name = "Nuevo", nullable = true, length = 100)
+
     public String getNuevo() {
         return nuevo;
     }
@@ -79,8 +73,7 @@ public class UsuarioCambio implements Serializable {
         this.nuevo = nuevo;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -89,8 +82,7 @@ public class UsuarioCambio implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -133,8 +125,7 @@ public class UsuarioCambio implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario", referencedColumnName = "IdUsuario")
+
     public Usuario getUsuarioByIdUsuario() {
         return usuarioByIdUsuario;
     }

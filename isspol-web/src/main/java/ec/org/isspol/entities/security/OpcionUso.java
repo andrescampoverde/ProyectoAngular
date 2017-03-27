@@ -1,13 +1,13 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class OpcionUso implements Serializable {
     private int idOpcionUso;
     //private Integer idUsuario;
@@ -19,8 +19,7 @@ public class OpcionUso implements Serializable {
     private Usuario usuarioByIdUsuario;
     private Opcion opcionByIdOpcion;
 
-    @Id
-    @Column(name = "IdOpcionUso", nullable = false)
+
     public int getIdOpcionUso() {
         return idOpcionUso;
     }
@@ -39,8 +38,7 @@ public class OpcionUso implements Serializable {
         this.idUsuario = idUsuario;
     }*/
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -59,8 +57,7 @@ public class OpcionUso implements Serializable {
         this.idOpcion = idOpcion;
     }*/
 
-    @Basic
-    @Column(name = "Opcion", nullable = false)
+
     public int getOpcion() {
         return opcion;
     }
@@ -69,8 +66,7 @@ public class OpcionUso implements Serializable {
         this.opcion = opcion;
     }
 
-    @Basic
-    @Column(name = "NumeroUso", nullable = false)
+
     public int getNumeroUso() {
         return numeroUso;
     }
@@ -79,8 +75,7 @@ public class OpcionUso implements Serializable {
         this.numeroUso = numeroUso;
     }
 
-    @Basic
-    @Column(name = "FechaUltimoUso", nullable = false)
+
     public Timestamp getFechaUltimoUso() {
         return fechaUltimoUso;
     }
@@ -108,7 +103,7 @@ public class OpcionUso implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idOpcionUso;
         //result = 31 * result + (idUsuario != null ? idUsuario.hashCode() : 0);
@@ -120,8 +115,7 @@ public class OpcionUso implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario", referencedColumnName = "IdUsuario")
+
     public Usuario getUsuarioByIdUsuario() {
         return usuarioByIdUsuario;
     }
@@ -130,8 +124,7 @@ public class OpcionUso implements Serializable {
         this.usuarioByIdUsuario = usuarioByIdUsuario;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdOpcion", referencedColumnName = "IdOpcion")
+
     public Opcion getOpcionByIdOpcion() {
         return opcionByIdOpcion;
     }

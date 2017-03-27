@@ -1,16 +1,13 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class SesionUsuario implements Serializable {
     private int idSesion;
     private String usuario;
@@ -21,8 +18,7 @@ public class SesionUsuario implements Serializable {
     private String host;
     private String comentario;
 
-    @Id
-    @Column(name = "IdSesion", nullable = false)
+
     public int getIdSesion() {
         return idSesion;
     }
@@ -31,8 +27,7 @@ public class SesionUsuario implements Serializable {
         this.idSesion = idSesion;
     }
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -41,8 +36,7 @@ public class SesionUsuario implements Serializable {
         this.usuario = usuario;
     }
 
-    @Basic
-    @Column(name = "FechaInicio", nullable = false)
+
     public Timestamp getFechaInicio() {
         return fechaInicio;
     }
@@ -51,8 +45,8 @@ public class SesionUsuario implements Serializable {
         this.fechaInicio = fechaInicio;
     }
 
-    @Basic
-    @Column(name = "FechaFin", nullable = true)
+
+
     public Timestamp getFechaFin() {
         return fechaFin;
     }
@@ -61,8 +55,7 @@ public class SesionUsuario implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    @Basic
-    @Column(name = "MotivoCierre", nullable = true)
+
     public Integer getMotivoCierre() {
         return motivoCierre;
     }
@@ -71,8 +64,7 @@ public class SesionUsuario implements Serializable {
         this.motivoCierre = motivoCierre;
     }
 
-    @Basic
-    @Column(name = "Estado", nullable = false, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -81,8 +73,7 @@ public class SesionUsuario implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "Host", nullable = false, length = 30)
+
     public String getHost() {
         return host;
     }
@@ -91,8 +82,7 @@ public class SesionUsuario implements Serializable {
         this.host = host;
     }
 
-    @Basic
-    @Column(name = "Comentario", nullable = true, length = 255)
+
     public String getComentario() {
         return comentario;
     }
@@ -120,7 +110,7 @@ public class SesionUsuario implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idSesion;
         result = 31 * result + (usuario != null ? usuario.hashCode() : 0);

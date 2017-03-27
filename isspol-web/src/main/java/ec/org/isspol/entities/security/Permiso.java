@@ -1,13 +1,13 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class Permiso implements Serializable {
     private int idPermiso;
     private String tipo;
@@ -29,8 +29,7 @@ public class Permiso implements Serializable {
     private Proceso procesoByIdProceso;
     private Opcion opcionByIdOpcion;
 
-    @Id
-    @Column(name = "IdPermiso", nullable = false)
+
     public int getIdPermiso() {
         return idPermiso;
     }
@@ -39,8 +38,7 @@ public class Permiso implements Serializable {
         this.idPermiso = idPermiso;
     }
 
-    @Basic
-    @Column(name = "Tipo", nullable = false, length = -1)
+
     public String getTipo() {
         return tipo;
     }
@@ -69,8 +67,7 @@ public class Permiso implements Serializable {
         this.idUsuario = idUsuario;
     }*/
 
-    @Basic
-    @Column(name = "Usuario", nullable = true, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -89,8 +86,7 @@ public class Permiso implements Serializable {
         this.idProceso = idProceso;
     }*/
 
-    @Basic
-    @Column(name = "Proceso", nullable = true)
+
     public Integer getProceso() {
         return proceso;
     }
@@ -109,8 +105,7 @@ public class Permiso implements Serializable {
         this.idOpcion = idOpcion;
     }*/
 
-    @Basic
-    @Column(name = "Opcion", nullable = true)
+
     public Integer getOpcion() {
         return opcion;
     }
@@ -119,8 +114,7 @@ public class Permiso implements Serializable {
         this.opcion = opcion;
     }
 
-    @Basic
-    @Column(name = "Permiso", nullable = false)
+
     public boolean isPermiso() {
         return permiso;
     }
@@ -129,8 +123,7 @@ public class Permiso implements Serializable {
         this.permiso = permiso;
     }
 
-    @Basic
-    @Column(name = "Estado", nullable = false, length = -1)
+
     public String getEstado() {
         return estado;
     }
@@ -139,8 +132,7 @@ public class Permiso implements Serializable {
         this.estado = estado;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -149,8 +141,7 @@ public class Permiso implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -159,8 +150,7 @@ public class Permiso implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -169,8 +159,7 @@ public class Permiso implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -179,7 +168,7 @@ public class Permiso implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -209,7 +198,7 @@ public class Permiso implements Serializable {
         return true;
     }
 
-    @Override
+
     public int hashCode() {
         int result = idPermiso;
         result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
@@ -229,8 +218,7 @@ public class Permiso implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "Grupo", referencedColumnName = "Grupo")
+
     public Grupo getGrupoByGrupo() {
         return grupoByGrupo;
     }
@@ -239,8 +227,7 @@ public class Permiso implements Serializable {
         this.grupoByGrupo = grupoByGrupo;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdUsuario", referencedColumnName = "IdUsuario")
+
     public Usuario getUsuarioByIdUsuario() {
         return usuarioByIdUsuario;
     }
@@ -249,8 +236,7 @@ public class Permiso implements Serializable {
         this.usuarioByIdUsuario = usuarioByIdUsuario;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdProceso", referencedColumnName = "IdProceso")
+
     public Proceso getProcesoByIdProceso() {
         return procesoByIdProceso;
     }
@@ -259,8 +245,7 @@ public class Permiso implements Serializable {
         this.procesoByIdProceso = procesoByIdProceso;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdOpcion", referencedColumnName = "IdOpcion")
+
     public Opcion getOpcionByIdOpcion() {
         return opcionByIdOpcion;
     }

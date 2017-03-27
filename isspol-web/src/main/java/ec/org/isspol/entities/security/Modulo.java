@@ -1,6 +1,5 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -8,7 +7,6 @@ import java.util.Collection;
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
 public class Modulo implements Serializable {
     private int idModulo;
     private String modulo;
@@ -20,8 +18,6 @@ public class Modulo implements Serializable {
     private Timestamp modificaFecha;
     private Collection<GrupoModulo> grupoModulosByIdModulo;
 
-    @Id
-    @Column(name = "IdModulo", nullable = false)
     public int getIdModulo() {
         return idModulo;
     }
@@ -30,8 +26,6 @@ public class Modulo implements Serializable {
         this.idModulo = idModulo;
     }
 
-    @Basic
-    @Column(name = "Modulo", nullable = false, length = 2)
     public String getModulo() {
         return modulo;
     }
@@ -40,8 +34,6 @@ public class Modulo implements Serializable {
         this.modulo = modulo;
     }
 
-    @Basic
-    @Column(name = "Nombre", nullable = false, length = 15)
     public String getNombre() {
         return nombre;
     }
@@ -50,8 +42,6 @@ public class Modulo implements Serializable {
         this.nombre = nombre;
     }
 
-    @Basic
-    @Column(name = "Orden", nullable = false)
     public int getOrden() {
         return orden;
     }
@@ -60,8 +50,6 @@ public class Modulo implements Serializable {
         this.orden = orden;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -70,8 +58,6 @@ public class Modulo implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -80,8 +66,6 @@ public class Modulo implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -90,8 +74,6 @@ public class Modulo implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -100,7 +82,6 @@ public class Modulo implements Serializable {
         this.modificaFecha = modificaFecha;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -123,7 +104,6 @@ public class Modulo implements Serializable {
         return true;
     }
 
-    @Override
     public int hashCode() {
         int result = idModulo;
         result = 31 * result + (modulo != null ? modulo.hashCode() : 0);
@@ -136,7 +116,6 @@ public class Modulo implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "moduloByIdModulo")
     public Collection<GrupoModulo> getGrupoModulosByIdModulo() {
         return grupoModulosByIdModulo;
     }

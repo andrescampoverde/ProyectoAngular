@@ -1,13 +1,12 @@
 package ec.org.isspol.entities.security;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Created by mauchilan on 20/3/17.
  */
-@Entity
+
 public class UsuarioOficina implements Serializable {
     private int idUsuarioOficina;
     private String usuario;
@@ -19,8 +18,7 @@ public class UsuarioOficina implements Serializable {
     private Timestamp modificaFecha;
     private Oficina oficinaByIdOficina;
 
-    @Id
-    @Column(name = "IdUsuarioOficina", nullable = false)
+
     public int getIdUsuarioOficina() {
         return idUsuarioOficina;
     }
@@ -29,8 +27,7 @@ public class UsuarioOficina implements Serializable {
         this.idUsuarioOficina = idUsuarioOficina;
     }
 
-    @Basic
-    @Column(name = "Usuario", nullable = false, length = 15)
+
     public String getUsuario() {
         return usuario;
     }
@@ -49,8 +46,7 @@ public class UsuarioOficina implements Serializable {
         this.idOficina = idOficina;
     }*/
 
-    @Basic
-    @Column(name = "Oficina", nullable = false, length = 4)
+
     public String getOficina() {
         return oficina;
     }
@@ -59,8 +55,7 @@ public class UsuarioOficina implements Serializable {
         this.oficina = oficina;
     }
 
-    @Basic
-    @Column(name = "CreacionUsuario", nullable = true, length = 15)
+
     public String getCreacionUsuario() {
         return creacionUsuario;
     }
@@ -69,8 +64,7 @@ public class UsuarioOficina implements Serializable {
         this.creacionUsuario = creacionUsuario;
     }
 
-    @Basic
-    @Column(name = "CreacionFecha", nullable = true)
+
     public Timestamp getCreacionFecha() {
         return creacionFecha;
     }
@@ -79,8 +73,7 @@ public class UsuarioOficina implements Serializable {
         this.creacionFecha = creacionFecha;
     }
 
-    @Basic
-    @Column(name = "ModificaUsuario", nullable = true, length = 15)
+
     public String getModificaUsuario() {
         return modificaUsuario;
     }
@@ -89,8 +82,7 @@ public class UsuarioOficina implements Serializable {
         this.modificaUsuario = modificaUsuario;
     }
 
-    @Basic
-    @Column(name = "ModificaFecha", nullable = true)
+
     public Timestamp getModificaFecha() {
         return modificaFecha;
     }
@@ -135,8 +127,7 @@ public class UsuarioOficina implements Serializable {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "IdOficina", referencedColumnName = "IdOficina")
+
     public Oficina getOficinaByIdOficina() {
         return oficinaByIdOficina;
     }
